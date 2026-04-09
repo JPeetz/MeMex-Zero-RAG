@@ -38,7 +38,7 @@ Traditional RAG (Retrieval Augmented Generation) retrieves document chunks every
 ### 1. Clone and customize
 
 ```bash
-git clone https://github.com/JPeetz/memex.git my-wiki
+git clone https://github.com/JPeetz/MeMex-Zero-RAG.git my-wiki
 cd my-wiki
 
 # Edit SCHEMA.md to describe your domain
