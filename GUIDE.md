@@ -58,7 +58,7 @@ You do the thinking. The LLM does everything else.
 ### Step 1: Clone
 
 ```bash
-git clone https://github.com/JPeetz/memex.git my-wiki
+git clone https://github.com/JPeetz/MeMex-Zero-RAG.git my-wiki
 cd my-wiki
 ```
 
