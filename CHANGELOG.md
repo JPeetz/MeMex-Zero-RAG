@@ -133,11 +133,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Planned
 
 - [ ] SSE transport for web clients
-- [ ] Hybrid search (BM25 + embeddings)
-- [ ] PDF/DOCX ingestion
-- [ ] Voice capture via Whisper
+- [ ] DOCX ingestion
 - [ ] Obsidian plugin for enhanced navigation
 - [ ] Multi-wiki coordination patterns
+- [ ] Browser extension for one-click clipping
+- [ ] CRDT-based multi-user support
+
+### Completed (in this release)
+
+- [x] Hybrid search (BM25 + embeddings) — v1.3.0
+- [x] PDF ingestion — v1.2.0
+- [x] Voice capture via Whisper — v1.2.0
 
 ---
 
