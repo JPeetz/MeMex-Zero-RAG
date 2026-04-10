@@ -339,3 +339,7 @@ Then I'll tell you how to redact.
 ---
 
 *Prompts version: 1.0 | See SCHEMA.md for full operation details*
+
+---
+
+Copyright (c) 2026 Joerg Peetz. All rights reserved.

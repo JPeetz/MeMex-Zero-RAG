@@ -1,9 +1,24 @@
-# Memex
+<div align="center">
+
+# 🧠 Memex
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Zero-RAG](https://img.shields.io/badge/Zero--RAG-No%20Embeddings-blue)](https://github.com/JPeetz/MeMex-Zero-RAG)
+[![LLM Agnostic](https://img.shields.io/badge/LLM-Agnostic-green)](https://github.com/JPeetz/MeMex-Zero-RAG)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+
+**The Memex is finally buildable.**
+
+*A zero-RAG, zero-infrastructure personal knowledge base maintained by your LLM.*
+
+[Getting Started](#quick-start) • [Documentation](GUIDE.md) • [Prompts](PROMPTS.md) • [MCP Server](mcp/) • [Examples](examples/)
+
+</div>
+
+---
 
 > *"The human's job is to curate sources, direct the analysis, ask good questions, and think about what it all means. The LLM's job is everything else."*
 > — Andrej Karpathy
-
-**The Memex is finally buildable.** A zero-RAG, zero-infrastructure personal knowledge base maintained by your LLM.
 
 Based on [Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f), extended with strict anti-hallucination protocols and human-in-the-loop conflict resolution.
 
@@ -13,12 +28,28 @@ Traditional RAG (Retrieval Augmented Generation) retrieves document chunks every
 
 **Memex is different.** Your LLM **compiles** your sources into a structured, interlinked wiki. The knowledge is built once and kept current—not re-derived on every query.
 
-```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│   raw/          │     │   wiki/         │     │   outputs/      │
-│   Your sources  │ ──► │   LLM-maintained│ ──► │   Reports,      │
-│   (immutable)   │     │   knowledge base│     │   briefs, etc.  │
-└─────────────────┘     └─────────────────┘     └─────────────────┘
+```mermaid
+flowchart LR
+    subgraph Input
+        R["📥 raw/\nYour sources"]
+    end
+    
+    subgraph Processing
+        L["🤖 LLM\nReads & extracts"]
+    end
+    
+    subgraph Knowledge
+        W["📚 wiki/\nCompiled knowledge"]
+    end
+    
+    subgraph Output
+        O["📤 outputs/\nReports & briefs"]
+    end
+    
+    R --> L
+    L --> W
+    W --> O
+    W -->|"Compounds\nover time"| W
 ```
 
 **Every source you add makes the wiki richer. Every question you ask can be filed back. Knowledge compounds instead of resetting.**
@@ -117,6 +148,31 @@ your-wiki/
 
 Inspired by CPU cache hierarchy:
 
+```mermaid
+flowchart TB
+    subgraph L1 ["L1: Auto-loaded Every Session"]
+        direction LR
+        ID["👤 identity.md"]
+        RU["📋 rules.md"]
+        CR["🔐 credentials.md"]
+    end
+    
+    subgraph L2 ["L2: On-Demand via Queries"]
+        direction LR
+        IX["🗂️ index.md"]
+        EN["🏢 entities/"]
+        CO["💡 concepts/"]
+        SY["🔗 synthesis/"]
+    end
+    
+    U["User Query"] --> LLM["🤖 LLM Agent"]
+    LLM --> L1
+    LLM -->|"Deep questions"| L2
+    
+    style L1 fill:#ffe6e6,stroke:#ff9999
+    style L2 fill:#e6f3ff,stroke:#99c2ff
+```
+
 | Layer | What | Loaded When | Contains |
 |-------|------|-------------|----------|
 | **L1** | `L1/` directory | Every session (auto-loaded by your agent) | Identity, rules, credentials |
@@ -184,6 +240,124 @@ As your wiki grows:
 | [Marp](https://marp.app) | Generate slide decks from wiki content | When presenting |
 | [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | Query frontmatter across pages | Advanced use |
 
+## Tooling
+
+### Unified CLI
+
+```bash
+# Add to PATH
+export PATH="$PATH:/path/to/memex/scripts"
+
+# Ingest anything
+memex ingest paper.pdf           # PDF with academic metadata
+memex ingest interview.mp3       # Audio transcription
+memex ingest https://example.com # Web page
+
+# Capture tools
+memex clip https://blog.example.com/article
+memex voice                      # Record from mic
+memex voice lecture.wav          # Transcribe file
+
+# Wiki operations
+memex search "machine learning"
+memex lint --fix
+memex graph
+memex serve                      # Start MCP server
+```
+
+### Dependencies
+
+```bash
+# Core (MCP server)
+pip install mcp
+
+# Hybrid search (BM25 + semantic)
+pip install sentence-transformers
+# Or lighter: pip install fastembed
+
+# Batch API (50% cost reduction)
+pip install anthropic  # or: pip install openai
+
+# PDF ingestion
+pip install pymupdf
+
+# Voice capture (local Whisper)
+pip install openai-whisper sounddevice soundfile numpy
+# Or faster: pip install faster-whisper
+
+# Web clipping
+pip install httpx readability-lxml beautifulsoup4 lxml
+# Or better: pip install trafilatura
+```
+
+### Hybrid Search
+
+Combines keyword (BM25) and semantic search:
+
+```bash
+# Build index
+python mcp/search.py --index
+
+# Search
+python mcp/search.py "machine learning agents"
+```
+
+### Confidence Tracking
+
+Track claim certainty and detect contradictions:
+
+```bash
+# Analyze wiki
+python mcp/confidence.py
+
+# Generate report
+python mcp/confidence.py --report -o wiki/confidence-report.md
+```
+
+### Batch API
+
+Bulk operations at 50% cost:
+
+```bash
+# Ingest all raw/ sources in batch
+python mcp/batch.py --ingest
+
+# Check batch status
+python mcp/batch.py --status <batch-id>
+```
+
+### MCP Server
+
+Expose your wiki to Claude Code, Codex, or any MCP-compatible agent:
+
+```bash
+memex serve
+# Or: python mcp/server.py
+```
+
+Tools: `wiki_search`, `wiki_read`, `wiki_list`, `wiki_query`, `wiki_ingest`, `wiki_lint`, `wiki_graph`, `wiki_stats`
+
+See [mcp/README.md](mcp/README.md) for Claude Code configuration.
+
+### Knowledge Graph
+
+Visualize your wiki as an interactive graph:
+
+```bash
+memex graph
+open graph/graph.html
+```
+
+### GitHub Actions
+
+Automated wiki health checks on every PR:
+- Broken wikilinks
+- Missing citations
+- Orphan pages
+- Markdown formatting
+
+See `.github/workflows/wiki-lint.yml`.
+
 ## Credits
 
 - [Vannevar Bush](https://en.wikipedia.org/wiki/Memex) — Original Memex concept (1945)
@@ -202,3 +376,7 @@ MIT — Use it, fork it, adapt it, share it.
 ---
 
 *Start small. Ingest one source. Ask one question. Watch the wiki grow.*
+
+---
+
+Copyright (c) 2026 Joerg Peetz. All rights reserved.

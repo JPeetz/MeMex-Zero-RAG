@@ -1,0 +1,238 @@
+#!/usr/bin/env python3
+# Copyright (c) 2026 Joerg Peetz. All rights reserved.
+"""
+Memex CLI - Unified command-line interface
+
+Usage:
+    memex ingest <file>           Ingest PDF, audio, or URL
+    memex clip <url>              Clip a web page
+    memex voice [file]            Record or transcribe voice
+    memex search <query>          Search the wiki
+    memex lint                    Check wiki health
+    memex graph                   Generate knowledge graph
+    memex serve                   Start MCP server
+
+Examples:
+    memex ingest paper.pdf
+    memex clip https://example.com/article
+    memex voice                   # Records from mic
+    memex voice interview.mp3    # Transcribes file
+    memex search "machine learning"
+    memex lint --fix
+    memex graph --format mermaid
+    memex serve --transport stdio
+"""
+
+import argparse
+import subprocess
+import sys
+from pathlib import Path
+
+SCRIPTS_DIR = Path(__file__).parent
+
+
+def run_script(script: str, args: list):
+    """Run a helper script."""
+    script_path = SCRIPTS_DIR / script
+    if not script_path.exists():
+        print(f"❌ Script not found: {script_path}")
+        sys.exit(1)
+    
+    result = subprocess.run([sys.executable, str(script_path)] + args)
+    sys.exit(result.returncode)
+
+
+def detect_type(path: str) -> str:
+    """Detect file type from extension or URL."""
+    if path.startswith(("http://", "https://")):
+        return "url"
+    
+    p = Path(path)
+    ext = p.suffix.lower()
+    
+    if ext == ".pdf":
+        return "pdf"
+    elif ext in [".mp3", ".wav", ".m4a", ".ogg", ".flac", ".webm"]:
+        return "audio"
+    elif ext in [".md", ".txt", ".html"]:
+        return "text"
+    else:
+        return "unknown"
+
+
+def cmd_ingest(args):
+    """Ingest a file based on type."""
+    file_type = detect_type(args.file)
+    
+    if file_type == "pdf":
+        run_script("ingest-pdf.py", [args.file] + (["--output", args.output] if args.output else []))
+    elif file_type == "audio":
+        run_script("ingest-voice.py", [args.file] + (["--output", args.output] if args.output else []))
+    elif file_type == "url":
+        run_script("clip-web.py", [args.file] + (["--output", args.output] if args.output else []))
+    elif file_type == "text":
+        print(f"📄 Text file detected. Just move to raw/:")
+        print(f"   cp {args.file} raw/")
+        print(f"   Then ask your LLM to ingest it.")
+    else:
+        print(f"❌ Unknown file type: {args.file}")
+        print(f"   Supported: .pdf, .mp3, .wav, .m4a, URLs")
+        sys.exit(1)
+
+
+def cmd_clip(args):
+    """Clip a web page."""
+    extra = []
+    if args.output:
+        extra.extend(["--output", args.output])
+    if args.full:
+        extra.append("--full")
+    
+    run_script("clip-web.py", [args.url] + extra)
+
+
+def cmd_voice(args):
+    """Record or transcribe voice."""
+    extra = []
+    if args.output:
+        extra.extend(["--output", args.output])
+    if args.model:
+        extra.extend(["--model", args.model])
+    if args.title:
+        extra.extend(["--title", args.title])
+    if args.duration:
+        extra.extend(["--duration", str(args.duration)])
+    
+    if args.file:
+        extra.insert(0, args.file)
+    
+    run_script("ingest-voice.py", extra)
+
+
+def cmd_search(args):
+    """Search the wiki."""
+    # Simple grep-based search
+    import re
+    
+    wiki_path = Path("wiki")
+    if not wiki_path.exists():
+        print("❌ No wiki/ directory found")
+        sys.exit(1)
+    
+    query = args.query.lower()
+    results = []
+    
+    for md_file in wiki_path.rglob("*.md"):
+        content = md_file.read_text(encoding="utf-8")
+        if query in content.lower():
+            # Find matching lines
+            for i, line in enumerate(content.split("\n"), 1):
+                if query in line.lower():
+                    results.append({
+                        "file": str(md_file.relative_to(wiki_path)),
+                        "line": i,
+                        "text": line.strip()[:100]
+                    })
+    
+    if not results:
+        print(f"No results for: {args.query}")
+        sys.exit(0)
+    
+    print(f"Found {len(results)} result(s) for '{args.query}':\n")
+    for r in results[:args.limit]:
+        print(f"  {r['file']}:{r['line']}")
+        print(f"    {r['text']}")
+        print()
+
+
+def cmd_lint(args):
+    """Check wiki health."""
+    # Import and run lint from MCP server
+    mcp_path = SCRIPTS_DIR.parent / "mcp" / "server.py"
+    if not mcp_path.exists():
+        print("❌ MCP server not found")
+        sys.exit(1)
+    
+    # Quick inline implementation
+    import asyncio
+    sys.path.insert(0, str(SCRIPTS_DIR.parent / "mcp"))
+    from server import MemexServer
+    
+    server = MemexServer()
+    result = asyncio.run(server._lint(fix=args.fix))
+    print(result)
+
+
+def cmd_graph(args):
+    """Generate knowledge graph."""
+    run_script("build-graph.sh", [])
+
+
+def cmd_serve(args):
+    """Start MCP server."""
+    extra = []
+    if args.transport:
+        extra.extend(["--transport", args.transport])
+    if args.port:
+        extra.extend(["--port", str(args.port)])
+    
+    subprocess.run([sys.executable, str(SCRIPTS_DIR.parent / "mcp" / "server.py")] + extra)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Memex - Zero-RAG personal knowledge base",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=__doc__
+    )
+    subparsers = parser.add_subparsers(dest="command", required=True)
+    
+    # ingest
+    p_ingest = subparsers.add_parser("ingest", help="Ingest PDF, audio, or URL")
+    p_ingest.add_argument("file", help="File path or URL")
+    p_ingest.add_argument("--output", "-o", help="Output path")
+    p_ingest.set_defaults(func=cmd_ingest)
+    
+    # clip
+    p_clip = subparsers.add_parser("clip", help="Clip a web page")
+    p_clip.add_argument("url", help="URL to clip")
+    p_clip.add_argument("--output", "-o", help="Output path")
+    p_clip.add_argument("--full", "-f", action="store_true", help="Include all metadata")
+    p_clip.set_defaults(func=cmd_clip)
+    
+    # voice
+    p_voice = subparsers.add_parser("voice", help="Record or transcribe voice")
+    p_voice.add_argument("file", nargs="?", help="Audio file (records if omitted)")
+    p_voice.add_argument("--output", "-o", help="Output path")
+    p_voice.add_argument("--model", "-m", choices=["tiny", "base", "small", "medium", "large"], default="base")
+    p_voice.add_argument("--title", "-t", help="Note title")
+    p_voice.add_argument("--duration", "-d", type=int, help="Recording duration")
+    p_voice.set_defaults(func=cmd_voice)
+    
+    # search
+    p_search = subparsers.add_parser("search", help="Search the wiki")
+    p_search.add_argument("query", help="Search query")
+    p_search.add_argument("--limit", "-l", type=int, default=10, help="Max results")
+    p_search.set_defaults(func=cmd_search)
+    
+    # lint
+    p_lint = subparsers.add_parser("lint", help="Check wiki health")
+    p_lint.add_argument("--fix", "-f", action="store_true", help="Auto-fix issues")
+    p_lint.set_defaults(func=cmd_lint)
+    
+    # graph
+    p_graph = subparsers.add_parser("graph", help="Generate knowledge graph")
+    p_graph.set_defaults(func=cmd_graph)
+    
+    # serve
+    p_serve = subparsers.add_parser("serve", help="Start MCP server")
+    p_serve.add_argument("--transport", choices=["stdio", "sse"], default="stdio")
+    p_serve.add_argument("--port", type=int, default=3001)
+    p_serve.set_defaults(func=cmd_serve)
+    
+    args = parser.parse_args()
+    args.func(args)
+
+
+if __name__ == "__main__":
+    main()
