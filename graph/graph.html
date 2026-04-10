@@ -1,0 +1,357 @@
+<!--
+  Copyright (c) 2026 Joerg Peetz. All rights reserved.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memex Knowledge Graph</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            overflow: hidden;
+        }
+        
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 24px;
+            background: rgba(13, 17, 23, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #30363d;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        #header h1 span {
+            color: #58a6ff;
+        }
+        
+        #controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        #search {
+            padding: 8px 12px;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            background: #161b22;
+            color: #c9d1d9;
+            font-size: 14px;
+            width: 200px;
+        }
+        
+        #search:focus {
+            outline: none;
+            border-color: #58a6ff;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        #graph {
+            width: 100vw;
+            height: 100vh;
+            padding-top: 70px;
+        }
+        
+        #info-panel {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 320px;
+            background: rgba(22, 27, 34, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 20px;
+            display: none;
+            z-index: 100;
+        }
+        
+        #info-panel.visible {
+            display: block;
+        }
+        
+        #info-panel h2 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #58a6ff;
+        }
+        
+        #info-panel .type {
+            font-size: 12px;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        
+        #info-panel .connections {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        #info-panel .connections strong {
+            color: #c9d1d9;
+        }
+        
+        #stats {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            font-size: 12px;
+            color: #8b949e;
+        }
+        
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+            color: #8b949e;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>🧠 <span>Memex</span> Knowledge Graph</h1>
+        <div id="controls">
+            <input type="text" id="search" placeholder="Search nodes...">
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #f78166;"></div>
+                    <span>Sources</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #a371f7;"></div>
+                    <span>Entities</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #3fb950;"></div>
+                    <span>Concepts</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #58a6ff;"></div>
+                    <span>Synthesis</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="graph"></div>
+    <div id="loading">Loading graph data...</div>
+    
+    <div id="info-panel">
+        <h2 id="node-title">Node Title</h2>
+        <div class="type" id="node-type">Type</div>
+        <div class="connections" id="node-connections"></div>
+    </div>
+    
+    <div id="stats">
+        <span id="node-count">0</span> nodes · <span id="edge-count">0</span> connections
+    </div>
+
+    <script>
+        // Graph data - replace with your wiki data
+        // Run: python mcp/server.py && wiki_graph --format json > graph/data.json
+        // Or manually edit this:
+        
+        const graphData = {
+            nodes: [
+                // Example data - will be replaced by build script
+                { id: "karpathy-llm-wiki-gist", label: "Karpathy's LLM Wiki", type: "sources" },
+                { id: "ai-agents-overview", label: "AI Agents Overview", type: "sources" },
+                { id: "memex-history", label: "Memex History", type: "sources" },
+                { id: "andrej-karpathy", label: "Andrej Karpathy", type: "entities" },
+                { id: "vannevar-bush", label: "Vannevar Bush", type: "entities" },
+                { id: "claude-code", label: "Claude Code", type: "entities" },
+                { id: "zero-rag", label: "Zero-RAG", type: "concepts" },
+                { id: "associative-trails", label: "Associative Trails", type: "concepts" },
+                { id: "human-in-the-loop", label: "Human-in-the-Loop", type: "concepts" },
+                { id: "memex-to-llm-wiki", label: "Memex to LLM Wiki", type: "synthesis" }
+            ],
+            edges: [
+                { from: "karpathy-llm-wiki-gist", to: "andrej-karpathy" },
+                { from: "karpathy-llm-wiki-gist", to: "zero-rag" },
+                { from: "karpathy-llm-wiki-gist", to: "vannevar-bush" },
+                { from: "memex-history", to: "vannevar-bush" },
+                { from: "memex-history", to: "associative-trails" },
+                { from: "ai-agents-overview", to: "claude-code" },
+                { from: "ai-agents-overview", to: "human-in-the-loop" },
+                { from: "andrej-karpathy", to: "zero-rag" },
+                { from: "andrej-karpathy", to: "vannevar-bush" },
+                { from: "vannevar-bush", to: "associative-trails" },
+                { from: "claude-code", to: "human-in-the-loop" },
+                { from: "zero-rag", to: "associative-trails" },
+                { from: "memex-to-llm-wiki", to: "vannevar-bush" },
+                { from: "memex-to-llm-wiki", to: "andrej-karpathy" },
+                { from: "memex-to-llm-wiki", to: "zero-rag" },
+                { from: "memex-to-llm-wiki", to: "associative-trails" },
+                { from: "memex-to-llm-wiki", to: "human-in-the-loop" }
+            ]
+        };
+        
+        // Color scheme
+        const colors = {
+            sources: { background: '#f78166', border: '#da6a52', highlight: { background: '#ff9a82', border: '#f78166' }},
+            entities: { background: '#a371f7', border: '#8957e5', highlight: { background: '#bb91ff', border: '#a371f7' }},
+            concepts: { background: '#3fb950', border: '#2ea043', highlight: { background: '#56d364', border: '#3fb950' }},
+            synthesis: { background: '#58a6ff', border: '#388bfd', highlight: { background: '#79c0ff', border: '#58a6ff' }},
+            other: { background: '#8b949e', border: '#6e7681', highlight: { background: '#a8b1ba', border: '#8b949e' }}
+        };
+        
+        // Create nodes with styling
+        const nodes = new vis.DataSet(graphData.nodes.map(node => ({
+            id: node.id,
+            label: node.label,
+            group: node.type,
+            color: colors[node.type] || colors.other,
+            font: { color: '#ffffff', size: 14 },
+            shape: 'dot',
+            size: 20,
+            borderWidth: 2,
+            shadow: { enabled: true, color: 'rgba(0,0,0,0.3)', size: 10 }
+        })));
+        
+        // Create edges
+        const edges = new vis.DataSet(graphData.edges.map((edge, i) => ({
+            id: i,
+            from: edge.from,
+            to: edge.to,
+            color: { color: '#30363d', highlight: '#58a6ff', opacity: 0.6 },
+            width: 1,
+            smooth: { type: 'continuous' }
+        })));
+        
+        // Initialize network
+        const container = document.getElementById('graph');
+        const data = { nodes, edges };
+        const options = {
+            physics: {
+                stabilization: { iterations: 100 },
+                barnesHut: {
+                    gravitationalConstant: -3000,
+                    centralGravity: 0.1,
+                    springLength: 150,
+                    springConstant: 0.02
+                }
+            },
+            interaction: {
+                hover: true,
+                tooltipDelay: 200,
+                zoomView: true,
+                dragView: true
+            }
+        };
+        
+        document.getElementById('loading').style.display = 'none';
+        const network = new vis.Network(container, data, options);
+        
+        // Update stats
+        document.getElementById('node-count').textContent = graphData.nodes.length;
+        document.getElementById('edge-count').textContent = graphData.edges.length;
+        
+        // Node click handler
+        network.on('click', function(params) {
+            const panel = document.getElementById('info-panel');
+            
+            if (params.nodes.length > 0) {
+                const nodeId = params.nodes[0];
+                const node = graphData.nodes.find(n => n.id === nodeId);
+                
+                // Find connections
+                const connections = graphData.edges
+                    .filter(e => e.from === nodeId || e.to === nodeId)
+                    .map(e => e.from === nodeId ? e.to : e.from);
+                
+                document.getElementById('node-title').textContent = node.label;
+                document.getElementById('node-type').textContent = node.type;
+                document.getElementById('node-connections').innerHTML = 
+                    '<strong>Connected to:</strong><br>' + 
+                    (connections.length > 0 
+                        ? connections.map(c => {
+                            const n = graphData.nodes.find(x => x.id === c);
+                            return n ? n.label : c;
+                          }).join(', ')
+                        : 'No connections');
+                
+                panel.classList.add('visible');
+            } else {
+                panel.classList.remove('visible');
+            }
+        });
+        
+        // Search functionality
+        document.getElementById('search').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            
+            if (query.length === 0) {
+                // Reset all nodes
+                nodes.forEach(node => {
+                    nodes.update({ id: node.id, opacity: 1 });
+                });
+                return;
+            }
+            
+            // Highlight matching nodes
+            graphData.nodes.forEach(node => {
+                const matches = node.label.toLowerCase().includes(query) || 
+                               node.id.toLowerCase().includes(query);
+                nodes.update({ 
+                    id: node.id, 
+                    opacity: matches ? 1 : 0.2,
+                    font: { color: matches ? '#ffffff' : '#666666' }
+                });
+            });
+        });
+        
+        // Double-click to focus
+        network.on('doubleClick', function(params) {
+            if (params.nodes.length > 0) {
+                network.focus(params.nodes[0], {
+                    scale: 1.5,
+                    animation: { duration: 500, easingFunction: 'easeInOutQuad' }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

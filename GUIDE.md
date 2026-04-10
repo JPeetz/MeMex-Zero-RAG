@@ -426,3 +426,7 @@ Then rotate any credentials that were in L1/.
 ---
 
 *Guide version: 1.0 | See SCHEMA.md and PROMPTS.md for reference*
+
+---
+
+Copyright (c) 2026 Joerg Peetz. All rights reserved.
