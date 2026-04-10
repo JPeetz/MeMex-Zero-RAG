@@ -334,3 +334,7 @@ The first version will be rough. That's fine. Let it grow with your wiki.
 ---
 
 *Schema version: 1.0 | Based on Karpathy's LLM Wiki pattern*
+
+---
+
+Copyright (c) 2026 Joerg Peetz. All rights reserved.

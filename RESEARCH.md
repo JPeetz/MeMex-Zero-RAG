@@ -196,3 +196,7 @@ main                    # Production state
 7. Initialize git with proper .gitignore
 8. Test with actual ingest
 
+
+---
+
+Copyright (c) 2026 Joerg Peetz. All rights reserved.
