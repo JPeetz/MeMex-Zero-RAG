@@ -15,6 +15,9 @@ Usage:
 Requires:
     pip install mcp sqlite3
 
+Optional (for SSE transport):
+    pip install uvicorn starlette
+
 Optional (for advanced features):
     pip install sentence-transformers  # Hybrid search
     pip install anthropic              # Batch API
@@ -32,6 +35,7 @@ from typing import Optional
 try:
     from mcp.server import Server
     from mcp.server.stdio import stdio_server
+    from mcp.server.sse import SseServerTransport
     from mcp.types import Tool, TextContent
 except ImportError:
     print("MCP package not installed. Run: pip install mcp")
@@ -500,8 +504,32 @@ Run `wiki_lint` for detailed health check.
             async with stdio_server() as (read_stream, write_stream):
                 await self.server.run(read_stream, write_stream, self.server.create_initialization_options())
         else:
-            # SSE transport would go here
-            raise NotImplementedError("SSE transport not yet implemented")
+            try:
+                import uvicorn
+                from starlette.applications import Starlette
+                from starlette.routing import Mount, Route
+            except ImportError:
+                print("SSE transport requires: pip install uvicorn starlette")
+                exit(1)
+
+            sse = SseServerTransport("/messages/")
+            mcp_server = self.server
+
+            async def handle_sse(scope, receive, send):
+                async with sse.connect_sse(scope, receive, send) as streams:
+                    await mcp_server.run(
+                        streams[0], streams[1],
+                        mcp_server.create_initialization_options()
+                    )
+
+            app = Starlette(routes=[
+                Mount("/sse", app=handle_sse),
+                Mount("/messages/", app=sse.handle_post_message),
+            ])
+
+            print(f"MeMex MCP server (SSE) listening on port {port}")
+            print(f"Connect via: http://localhost:{port}/sse")
+            uvicorn.run(app, host="0.0.0.0", port=port, log_level="warning")
 
 
 def main():
