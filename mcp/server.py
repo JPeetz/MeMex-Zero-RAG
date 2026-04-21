@@ -16,7 +16,7 @@ Requires:
     pip install mcp sqlite3
 
 Optional (for SSE transport):
-    pip install uvicorn starlette
+    pip install uvicorn starlette sse-starlette
 
 Optional (for advanced features):
     pip install sentence-transformers  # Hybrid search
@@ -509,7 +509,7 @@ Run `wiki_lint` for detailed health check.
                 from starlette.applications import Starlette
                 from starlette.routing import Mount, Route
             except ImportError:
-                print("SSE transport requires: pip install uvicorn starlette")
+                print("SSE transport requires: pip install uvicorn starlette sse-starlette")
                 exit(1)
 
             sse = SseServerTransport("/messages/")
