@@ -1,0 +1,147 @@
+# Copyright (c) 2026 Joerg Peetz. All rights reserved.
+name: Wiki Lint
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'wiki/**'
+      - 'raw/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'wiki/**'
+      - 'raw/**'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Check Wiki Health
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for broken wikilinks
+        id: broken-links
+        run: |
+          echo "## Checking for broken wikilinks..."
+          
+          broken=()
+          
+          # Find all wikilinks and verify targets exist
+          for file in $(find wiki -name "*.md" 2>/dev/null); do
+            # Extract [[wikilinks]]
+            links=$(grep -oP '\[\[\K[^\]]+' "$file" 2>/dev/null || true)
+            
+            for link in $links; do
+              # Check if target exists in any standard location
+              found=false
+              for dir in wiki wiki/sources wiki/entities wiki/concepts wiki/synthesis; do
+                if [[ -f "$dir/$link.md" ]]; then
+                  found=true
+                  break
+                fi
+              done
+              
+              if [[ "$found" == "false" ]]; then
+                broken+=("$file → [[$link]]")
+              fi
+            done
+          done
+          
+          if [[ ${#broken[@]} -gt 0 ]]; then
+            echo "::warning::Found ${#broken[@]} broken wikilink(s)"
+            printf '%s\n' "${broken[@]}"
+            echo "broken_count=${#broken[@]}" >> $GITHUB_OUTPUT
+          else
+            echo "✅ No broken wikilinks found"
+            echo "broken_count=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check for missing citations
+        id: citations
+        run: |
+          echo "## Checking for missing citations..."
+          
+          missing=()
+          
+          # Check source/entity/concept pages for [Source:] citations
+          for dir in wiki/sources wiki/entities wiki/concepts; do
+            if [[ -d "$dir" ]]; then
+              for file in "$dir"/*.md; do
+                [[ -f "$file" ]] || continue
+                
+                # Skip if file has source_count: 0 in frontmatter
+                if grep -q "source_count: 0" "$file"; then
+                  continue
+                fi
+                
+                # Check for [Source: citations
+                if ! grep -q "\[Source:" "$file"; then
+                  # Only flag if file has substantial content (>10 lines excluding frontmatter)
+                  content_lines=$(sed '/^---$/,/^---$/d' "$file" | grep -v '^$' | grep -v '^#' | wc -l)
+                  if [[ $content_lines -gt 5 ]]; then
+                    missing+=("$file")
+                  fi
+                fi
+              done
+            fi
+          done
+          
+          if [[ ${#missing[@]} -gt 0 ]]; then
+            echo "::warning::Found ${#missing[@]} page(s) with missing citations"
+            printf '%s\n' "${missing[@]}"
+            echo "missing_count=${#missing[@]}" >> $GITHUB_OUTPUT
+          else
+            echo "✅ All content pages have citations"
+            echo "missing_count=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check for orphan pages
+        id: orphans
+        run: |
+          echo "## Checking for orphan pages..."
+          
+          orphans=()
+          
+          # Get all page names
+          for file in $(find wiki -name "*.md" 2>/dev/null); do
+            basename=$(basename "$file" .md)
+            
+            # Skip index files
+            if [[ "$basename" == "index" || "$basename" == "log" || "$basename" == "contradictions" ]]; then
+              continue
+            fi
+            
+            # Check if this page is linked from anywhere
+            if ! grep -r "\[\[$basename\]\]" wiki --include="*.md" -q 2>/dev/null; then
+              orphans+=("$file")
+            fi
+          done
+          
+          if [[ ${#orphans[@]} -gt 0 ]]; then
+            echo "::notice::Found ${#orphans[@]} orphan page(s) (not linked from anywhere)"
+            printf '%s\n' "${orphans[@]}"
+            echo "orphan_count=${#orphans[@]}" >> $GITHUB_OUTPUT
+          else
+            echo "✅ No orphan pages found"
+            echo "orphan_count=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check markdown formatting
+        uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: 'wiki/**/*.md'
+          config: '.markdownlint.json'
+        continue-on-error: true
+
+      - name: Summary
+        run: |
+          echo "## Wiki Health Summary"
+          echo ""
+          echo "| Check | Status |"
+          echo "|-------|--------|"
+          echo "| Broken wikilinks | ${{ steps.broken-links.outputs.broken_count || 0 }} |"
+          echo "| Missing citations | ${{ steps.citations.outputs.missing_count || 0 }} |"
+          echo "| Orphan pages | ${{ steps.orphans.outputs.orphan_count || 0 }} |"

@@ -1,0 +1,58 @@
+# LLM Wiki .gitignore
+
+# ===================
+# L1: NEVER COMMIT
+# ===================
+# L1 contains private context, credentials, personal rules
+# It stays local to your machine
+L1/
+
+# ===================
+# Large assets
+# ===================
+# Use git-lfs for these, or keep them local
+raw/assets/*.pdf
+raw/assets/*.mp4
+raw/assets/*.mov
+raw/assets/*.zip
+
+# ===================
+# Editor/OS files
+# ===================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# ===================
+# Obsidian
+# ===================
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/plugins/
+.obsidian/themes/
+# Keep core config if you want to share settings:
+# !.obsidian/app.json
+# !.obsidian/appearance.json
+
+# ===================
+# Temporary files
+# ===================
+*.tmp
+*.temp
+*.bak
+*.log
+
+# ===================
+# Build artifacts
+# ===================
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.local
+__pycache__/
