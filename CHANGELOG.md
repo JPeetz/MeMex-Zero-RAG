@@ -76,7 +76,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 - **Unified CLI** (`scripts/memex`)
-  - `memex ingest <file>` - Auto-detect and ingest PDF, audio, or URL
+  - `memex ingest <file>` - Auto-detect and ingest PDF, markdown, audio, or URL
   - `memex clip <url>` - Clip web pages
   - `memex voice [file]` - Record or transcribe voice
   - `memex search <query>` - Search the wiki
@@ -100,6 +100,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Open Graph metadata
   - Clean markdown output
   - Auto-slugified filenames
+
+- **Markdown Ingestion** (`scripts/ingest-md.py`)
+  - Preserves or generates YAML frontmatter
+  - Extracts title from H1 or filename
+  - Converts Obsidian [[wikilinks]] ↔ [markdown](links)
+  - Auto-detects page type (sources/entities/concepts/synthesis)
+  - Bulk directory ingestion with `--recursive`
 
 ---
 
@@ -128,23 +135,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
-## [Unreleased]
+## [1.4.0] - 2026-04-21
 
-### Planned
+### Added
 
-- [ ] SSE transport for web clients
-- [ ] DOCX ingestion
-- [ ] Obsidian plugin for enhanced navigation
-- [ ] Multi-wiki coordination patterns
-- [ ] Browser extension for one-click clipping
-- [ ] CRDT-based multi-user support
+- **SSE Transport** (`mcp/server.py`)
+  - Implements `SseServerTransport` from the MCP Python SDK
+  - Starlette + uvicorn server, SSE endpoint at `/sse`, POST handler at `/messages/`
+  - Lazy imports: uvicorn/starlette only loaded when `--transport sse` is used; stdio users unaffected
+  - Deploy: `python mcp/server.py --transport sse --port 3001`
+  - Expose via Tailscale Funnel or ngrok for cross-machine access
+  - Enables **multi-agent shared wiki**: multiple AI agents (Hermes, OpenClaw, Claude Code) can connect to one hosted wiki instance
+  - New deps: `uvicorn>=0.27.0`, `starlette>=0.36.0`, `sse-starlette>=1.8.0`
 
-### Completed (in this release)
+### Changed
 
-- [x] Hybrid search (BM25 + embeddings) — v1.3.0
-- [x] PDF ingestion — v1.2.0
-- [x] Voice capture via Whisper — v1.2.0
+- `mcp/README.md`: Full rewrite — documents both stdio and SSE transports, multi-agent hosting pattern, OpenClaw/Hermes MCP config snippets, Tailscale Funnel setup
+- `requirements.txt`: Added SSE transport dependencies
+- `README.md`: Updated MCP Server section and Dependencies section to reflect SSE support
 
 ---
+
 
 Copyright (c) 2026 Joerg Peetz. All rights reserved.

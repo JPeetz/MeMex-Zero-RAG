@@ -4,7 +4,7 @@
 Memex CLI - Unified command-line interface
 
 Usage:
-    memex ingest <file>           Ingest PDF, audio, or URL
+    memex ingest <file>           Ingest PDF, markdown, audio, or URL
     memex clip <url>              Clip a web page
     memex voice [file]            Record or transcribe voice
     memex search <query>          Search the wiki
@@ -54,7 +54,9 @@ def detect_type(path: str) -> str:
         return "pdf"
     elif ext in [".mp3", ".wav", ".m4a", ".ogg", ".flac", ".webm"]:
         return "audio"
-    elif ext in [".md", ".txt", ".html"]:
+    elif ext == ".md":
+        return "markdown"
+    elif ext in [".txt", ".html"]:
         return "text"
     else:
         return "unknown"
@@ -70,6 +72,13 @@ def cmd_ingest(args):
         run_script("ingest-voice.py", [args.file] + (["--output", args.output] if args.output else []))
     elif file_type == "url":
         run_script("clip-web.py", [args.file] + (["--output", args.output] if args.output else []))
+    elif file_type == "markdown":
+        extra = []
+        if args.output:
+            extra.extend(["--output", args.output])
+        if hasattr(args, 'type') and args.type:
+            extra.extend(["--type", args.type])
+        run_script("ingest-md.py", [args.file] + extra)
     elif file_type == "text":
         print(f"📄 Text file detected. Just move to raw/:")
         print(f"   cp {args.file} raw/")

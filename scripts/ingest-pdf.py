@@ -39,8 +39,22 @@ except ImportError:
     HAS_OCR = False
 
 
+def validate_pdf(pdf_path: Path) -> bool:
+    """Validate file is actually a PDF by checking magic bytes."""
+    try:
+        with open(pdf_path, 'rb') as f:
+            header = f.read(8)
+            # PDF files start with %PDF-
+            return header[:5] == b'%PDF-'
+    except (IOError, OSError):
+        return False
+
+
 def extract_with_pymupdf(pdf_path: Path) -> dict:
     """Extract text and metadata using PyMuPDF."""
+    if not validate_pdf(pdf_path):
+        raise ValueError(f"Invalid PDF file: {pdf_path}")
+    
     doc = fitz.open(pdf_path)
     
     # Extract metadata
