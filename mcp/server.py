@@ -171,6 +171,49 @@ class MemexServer:
                         "type": "object",
                         "properties": {}
                     }
+                ),
+                Tool(
+                    name="wiki_write",
+                    description="Write a new wiki page (or overwrite existing). Creates file at wiki/{type}/{slug}.md and commits with agent attribution.",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": "Page type: entities, concepts, sources, or synthesis",
+                                "enum": ["entities", "concepts", "sources", "synthesis"]
+                            },
+                            "slug": {
+                                "type": "string",
+                                "description": "URL-safe filename without .md (e.g. 'marvin' or 'zero-rag-design')"
+                            },
+                            "title": {
+                                "type": "string",
+                                "description": "Human-readable page title"
+                            },
+                            "content": {
+                                "type": "string",
+                                "description": "Full markdown body (excluding frontmatter)"
+                            },
+                            "tags": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                                "description": "List of tags",
+                                "default": []
+                            },
+                            "agent": {
+                                "type": "string",
+                                "description": "Agent name for commit attribution (e.g. 'marvin', 'molty', 'coconut')",
+                                "default": "unknown"
+                            },
+                            "overwrite": {
+                                "type": "boolean",
+                                "description": "Overwrite if page already exists (default false)",
+                                "default": False
+                            }
+                        },
+                        "required": ["type", "slug", "title", "content"]
+                    }
                 )
             ]
         
@@ -193,6 +236,16 @@ class MemexServer:
                     result = await self._graph(arguments.get("format", "json"))
                 elif name == "wiki_stats":
                     result = await self._stats()
+                elif name == "wiki_write":
+                    result = await self._write(
+                        page_type=arguments.get("type", "concepts"),
+                        slug=arguments.get("slug", ""),
+                        title=arguments.get("title", ""),
+                        content=arguments.get("content", ""),
+                        tags=arguments.get("tags", []),
+                        agent=arguments.get("agent", "unknown"),
+                        overwrite=arguments.get("overwrite", False)
+                    )
                 else:
                     result = f"Unknown tool: {name}"
                 
@@ -495,6 +548,59 @@ See SCHEMA.md for detailed conventions.
 Run `wiki_lint` for detailed health check.
 """
     
+    async def _write(self, page_type: str, slug: str, title: str, content: str,
+                       tags: list = None, agent: str = "unknown", overwrite: bool = False) -> str:
+        """Write a new wiki page and git commit with agent attribution."""
+        import re as _re
+        import subprocess
+        from datetime import date
+
+        if not slug:
+            return "Error: slug is required"
+        if not title:
+            return "Error: title is required"
+
+        # Sanitise slug
+        slug = _re.sub(r'[^a-z0-9-]', '-', slug.lower()).strip('-')
+        if not slug:
+            return "Error: slug contains no valid characters"
+
+        type_dir = self.wiki_path / page_type
+        type_dir.mkdir(parents=True, exist_ok=True)
+        dest = type_dir / f"{slug}.md"
+
+        if dest.exists() and not overwrite:
+            return f"Error: {page_type}/{slug}.md already exists. Pass overwrite=true to replace."
+
+        tags_yaml = json.dumps(tags or [])
+        today = date.today().isoformat()
+        frontmatter = f"""---
+title: {title}
+type: {page_type[:-1] if page_type.endswith('s') else page_type}
+tags: {tags_yaml}
+created: {today}
+author: {agent}
+---
+"""
+        dest.write_text(frontmatter + "\n" + content, encoding="utf-8")
+
+        # Git commit
+        action = "update" if dest.exists() else "add"
+        try:
+            subprocess.run(["git", "add", str(dest)], cwd=str(self.wiki_path.parent), check=True, capture_output=True)
+            commit_msg = f"wiki({agent}): {action} {page_type}/{slug}"
+            result = subprocess.run(
+                ["git", "commit", "-m", commit_msg],
+                cwd=str(self.wiki_path.parent), capture_output=True, text=True
+            )
+            if result.returncode == 0:
+                sha = result.stdout.strip().split()[-1] if result.stdout else "unknown"
+                return f"✅ Written: {page_type}/{slug}.md\nCommit: {sha}\nAgent: {agent}"
+            else:
+                return f"✅ Written: {page_type}/{slug}.md (git commit failed: {result.stderr.strip()})"
+        except Exception as e:
+            return f"✅ Written: {page_type}/{slug}.md (git error: {e})"
+
     async def run(self, transport: str = "stdio", port: int = 3001):
         """Start the MCP server."""
         if transport == "stdio":
