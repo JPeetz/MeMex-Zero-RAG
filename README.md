@@ -42,25 +42,25 @@ MeMex: Source → [compile]  → Wiki → LLM       (compounds over time)
 ```mermaid
 flowchart LR
     subgraph Input
-        R["📥 raw/\nYour sources"]
+        R["raw/ sources"]
     end
     
     subgraph Processing
-        L["🤖 LLM\nReads & extracts"]
+        L["LLM reads & extracts"]
     end
     
     subgraph Knowledge
-        W["📚 wiki/\nCompiled knowledge"]
+        W["wiki/ compiled knowledge"]
     end
     
     subgraph Output
-        O["📤 outputs/\nReports & briefs"]
+        O["outputs/ reports"]
     end
     
     R --> L
     L --> W
     W --> O
-    W -->|"Compounds\nover time"| W
+    W -->|compounds over time| W
 ```
 
 ## Key Principles
