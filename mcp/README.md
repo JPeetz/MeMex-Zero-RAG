@@ -1,18 +1,46 @@
 # Memex MCP Server
 
-Expose your Memex wiki to Claude Code, Codex, and other MCP-compatible AI agents.
+Expose your Memex wiki to Claude Code, Codex, OpenClaw, and any MCP-compatible agent — locally via stdio or remotely via SSE.
 
 ## Installation
 
 ```bash
+# Core (required)
 pip install mcp
+
+# SSE transport (required for remote/multi-agent access)
+pip install uvicorn starlette sse-starlette
 ```
 
-## Usage
+## Transport Modes
 
-### With Claude Code
+### stdio (default) — local agents
 
-Add to your Claude Code MCP config (`~/.claude/mcp.json`):
+For Claude Code, Codex, or any agent running on the same machine:
+
+```bash
+cd /path/to/your/memex-wiki
+python /path/to/memex/mcp/server.py
+# or: memex serve
+```
+
+### SSE — remote/multi-agent access
+
+For cross-machine access, shared wikis, or multi-agent setups (e.g. a team of AI agents sharing one wiki):
+
+```bash
+cd /path/to/your/memex-wiki
+python /path/to/memex/mcp/server.py --transport sse --port 3001
+```
+
+Expose the port via Tailscale Funnel or ngrok, then connect any agent to:
+`https://<your-tunnel-url>/sse`
+
+## Configuration
+
+### Claude Code (stdio)
+
+Add to `~/.claude/mcp.json`:
 
 ```json
 {
@@ -26,11 +54,48 @@ Add to your Claude Code MCP config (`~/.claude/mcp.json`):
 }
 ```
 
-### Standalone
+### Remote SSE client (OpenClaw, Hermes, or any MCP client)
 
-```bash
-cd /path/to/your/memex-wiki
-python /path/to/memex/mcp/server.py
+Add to your agent's MCP config:
+
+```json
+{
+  "mcpServers": {
+    "memex": {
+      "transport": "sse",
+      "url": "https://<your-tunnel-url>/sse"
+    }
+  }
+}
+```
+
+### OpenClaw (mcp.json)
+
+```json
+{
+  "mcpServers": {
+    "trio-wiki": {
+      "transport": "sse",
+      "url": "https://<host-tailscale-funnel-url>/sse"
+    }
+  }
+}
+```
+
+## Multi-Agent Wiki Hosting
+
+The SSE transport enables a shared knowledge base for teams of AI agents:
+
+1. **One agent hosts** the wiki + MCP server (persistent machine recommended — server, always-on laptop, VPS)
+2. **Expose via tunnel**: Tailscale Funnel (preferred — stable HTTPS, no account needed for clients) or ngrok
+3. **All agents connect** as SSE clients using the public URL
+4. **Concurrency**: `wiki_lock.py` (in `/mcp/`) provides advisory locking for safe concurrent writes
+
+```
+Agent A (writer) ──┐
+                   ├──► MCP SSE Server ──► wiki/ (shared)
+Agent B (reader) ──┘
+Agent C (reader) ──┘
 ```
 
 ## Available Tools
@@ -48,7 +113,7 @@ python /path/to/memex/mcp/server.py
 
 ## Example Prompts
 
-Once connected, ask Claude:
+Once connected, ask your agent:
 
 - "Search my wiki for 'zero-rag'"
 - "Read the page about Karpathy"
@@ -58,7 +123,7 @@ Once connected, ask Claude:
 
 ## Roadmap
 
-- [ ] SSE transport for web clients
+- [x] SSE transport for remote/multi-agent access
 - [ ] Hybrid search (BM25 + embeddings)
 - [ ] Full ingest automation with LLM
 - [ ] Real-time file watching

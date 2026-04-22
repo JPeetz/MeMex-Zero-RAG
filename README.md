@@ -268,8 +268,11 @@ memex serve                      # Start MCP server
 ### Dependencies
 
 ```bash
-# Core (MCP server)
+# Core (MCP server, stdio transport)
 pip install mcp
+
+# SSE transport (remote/multi-agent access)
+pip install uvicorn starlette sse-starlette
 
 # Hybrid search (BM25 + semantic)
 pip install sentence-transformers
@@ -328,16 +331,24 @@ python mcp/batch.py --status <batch-id>
 
 ### MCP Server
 
-Expose your wiki to Claude Code, Codex, or any MCP-compatible agent:
+Expose your wiki to Claude Code, Codex, OpenClaw, or any MCP-compatible agent:
 
 ```bash
+# stdio (default) — for local agents on the same machine
 memex serve
 # Or: python mcp/server.py
+
+# SSE — for remote access or multi-agent shared wikis
+python mcp/server.py --transport sse --port 3001
 ```
+
+For cross-machine access, expose port 3001 via Tailscale Funnel or ngrok. All agents connect to the same wiki instance over a stable HTTPS URL.
+
+Requires for SSE: `pip install uvicorn starlette sse-starlette`
 
 Tools: `wiki_search`, `wiki_read`, `wiki_list`, `wiki_query`, `wiki_ingest`, `wiki_lint`, `wiki_graph`, `wiki_stats`
 
-See [mcp/README.md](mcp/README.md) for Claude Code configuration.
+See [mcp/README.md](mcp/README.md) for full configuration, multi-agent setup, and Claude Code / OpenClaw config snippets.
 
 ### Knowledge Graph
 
