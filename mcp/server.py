@@ -569,14 +569,26 @@ Run `wiki_lint` for detailed health check.
         type_dir.mkdir(parents=True, exist_ok=True)
         dest = type_dir / f"{slug}.md"
 
+        # Determine action before writing (for commit message)
+        action = "update" if dest.exists() else "add"
+
         if dest.exists() and not overwrite:
             return f"Error: {page_type}/{slug}.md already exists. Pass overwrite=true to replace."
+
+        # Bug fix: use explicit type map instead of naive trailing-s strip
+        TYPE_SINGULAR = {
+            "entities": "entity",
+            "concepts": "concept",
+            "sources": "source",
+            "synthesis": "synthesis",
+        }
+        type_singular = TYPE_SINGULAR.get(page_type, page_type)
 
         tags_yaml = json.dumps(tags or [])
         today = date.today().isoformat()
         frontmatter = f"""---
 title: {title}
-type: {page_type[:-1] if page_type.endswith('s') else page_type}
+type: {type_singular}
 tags: {tags_yaml}
 created: {today}
 author: {agent}
@@ -584,8 +596,7 @@ author: {agent}
 """
         dest.write_text(frontmatter + "\n" + content, encoding="utf-8")
 
-        # Git commit
-        action = "update" if dest.exists() else "add"
+        # Git commit — parse SHA from 'git rev-parse HEAD' for reliability
         try:
             subprocess.run(["git", "add", str(dest)], cwd=str(self.wiki_path.parent), check=True, capture_output=True)
             commit_msg = f"wiki({agent}): {action} {page_type}/{slug}"
@@ -594,7 +605,11 @@ author: {agent}
                 cwd=str(self.wiki_path.parent), capture_output=True, text=True
             )
             if result.returncode == 0:
-                sha = result.stdout.strip().split()[-1] if result.stdout else "unknown"
+                sha_result = subprocess.run(
+                    ["git", "rev-parse", "HEAD"],
+                    cwd=str(self.wiki_path.parent), capture_output=True, text=True
+                )
+                sha = sha_result.stdout.strip()[:12] if sha_result.returncode == 0 else "unknown"
                 return f"✅ Written: {page_type}/{slug}.md\nCommit: {sha}\nAgent: {agent}"
             else:
                 return f"✅ Written: {page_type}/{slug}.md (git commit failed: {result.stderr.strip()})"
