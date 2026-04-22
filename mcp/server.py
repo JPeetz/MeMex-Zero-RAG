@@ -32,6 +32,7 @@ from typing import Optional
 try:
     from mcp.server import Server
     from mcp.server.stdio import stdio_server
+    from mcp.server.sse import SseServerTransport
     from mcp.types import Tool, TextContent
 except ImportError:
     print("MCP package not installed. Run: pip install mcp")
@@ -500,8 +501,35 @@ Run `wiki_lint` for detailed health check.
             async with stdio_server() as (read_stream, write_stream):
                 await self.server.run(read_stream, write_stream, self.server.create_initialization_options())
         else:
-            # SSE transport would go here
-            raise NotImplementedError("SSE transport not yet implemented")
+            try:
+                import uvicorn
+                from starlette.applications import Starlette
+                from starlette.requests import Request
+                from starlette.responses import Response
+                from starlette.routing import Mount, Route
+            except ImportError:
+                raise ImportError("SSE transport requires: pip install uvicorn starlette sse-starlette")
+
+            sse_transport = SseServerTransport("/messages/")
+
+            async def handle_sse(request: Request) -> Response:
+                async with sse_transport.connect_sse(
+                    request.scope, request.receive, request._send
+                ) as streams:
+                    await self.server.run(
+                        streams[0], streams[1],
+                        self.server.create_initialization_options()
+                    )
+                return Response()
+
+            starlette_app = Starlette(routes=[
+                Route("/sse", endpoint=handle_sse, methods=["GET"]),
+                Mount("/messages/", app=sse_transport.handle_post_message),
+            ])
+
+            print(f"Starting Memex MCP SSE server on port {port}")
+            print(f"Connect via: http://localhost:{port}/sse")
+            uvicorn.run(starlette_app, host="0.0.0.0", port=port)
 
 
 def main():
