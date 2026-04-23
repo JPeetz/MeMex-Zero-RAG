@@ -650,7 +650,7 @@ author: {agent}
 
             print(f"Starting Memex MCP SSE server on port {port}")
             print(f"Connect via: http://localhost:{port}/sse")
-            uvicorn.run(starlette_app, host="0.0.0.0", port=port)
+            uvicorn.run(starlette_app, host="0.0.0.0", port=port, log_level="warning")
 
 
 def main():
