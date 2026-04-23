@@ -99,6 +99,8 @@ Implementation is agent-specific (how conflict context is injected into prompt/c
 
 **The immutable node is NOT overridden or deleted** until a human or agent explicitly resolves the conflict. This prevents silent data loss while surfacing the contradiction.
 
+**Edge case — contested node at confidence floor:** A node where `effective_confidence == confidence_floor` and `node_status == contested` is not distinguishable from a stable floor-clamped node by confidence value alone. The decay worker and any retrieval classifier must check **both** `dependency_taint` and `revalidation_status` to correctly classify it. A contested floor node will have `revalidation_status: pending` or `revalidation_status: contested` — a stable floor node will not. Implementations that check confidence alone will misclassify contested floor nodes as settled.
+
 **Resolution TTL:** If a `contested` node is not resolved within a configurable window (default: 48h), emit an `unresolved_conflict` system event. Routing and alert targets are deployment config — not hardcoded in the schema.
 
 **Dependency tainting:** When a node transitions to `contested`, its direct dependents (via `links_to` traversal, depth=1 only) are flagged:
