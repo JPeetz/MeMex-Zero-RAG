@@ -2,8 +2,8 @@
 
 > Master catalog of all wiki pages.
 
-**Last updated**: 2026-04-09  
-**Total pages**: 10
+**Last updated**: 2026-04-22  
+**Total pages**: 11
 
 ---
 
@@ -12,6 +12,7 @@
 - [[karpathy-llm-wiki-gist]] — Andrej Karpathy's original LLM Wiki pattern from April 2026
 - [[ai-agents-overview]] — Survey of AI agent landscape, frameworks, and challenges
 - [[memex-history]] — Vannevar Bush's 1945 Memex concept and its relevance today
+- [[daemon-squad-integration-test]] — Molty's first successful memex write (2026-04-22); canary phrase `hash-caged-velvet-77`
 
 ---
 

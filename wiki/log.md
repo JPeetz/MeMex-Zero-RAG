@@ -62,4 +62,13 @@
 
 ---
 
+## [2026-04-22 06:00] ingest | Processed daemon-squad-integration-test.md
+
+- Created: wiki/sources/daemon-squad-integration-test.md
+- Verification phrase: `hash-caged-velvet-77`
+- Context: first successful Molty write after resolving MCP connection via git worktree + stdio transport
+- Tags: agent:molty, type:test, project:daemon-squad-sentinel
+
+---
+
 *Log maintained by LLM. See SCHEMA.md for conventions.*
