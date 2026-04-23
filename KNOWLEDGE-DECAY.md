@@ -93,8 +93,9 @@ metadata: { status: "contested", conflict_trigger_id: "<id>", effective_confiden
 - Present the information with explicit uncertainty framing
 - Cite `conflict_trigger_id` when referencing the node
 - Not assert the node's content as established fact
+- **Not use the node as the sole basis for any automated execution path** — contested information cannot trigger irreversible actions until `revalidation_status` returns to `current`
 
-Implementation is agent-specific; this documents the required behavior contract, not the chain-of-thought mechanics.
+Implementation is agent-specific (how conflict context is injected into prompt/context is up to each agent); this documents the required behavior contract, not the chain-of-thought mechanics. Recommended pattern: surface `conflict_trigger_id` and an uncertainty marker in retrieved context so the agent has the signal without requiring schema-mandated prompt syntax.
 
 **The immutable node is NOT overridden or deleted** until a human or agent explicitly resolves the conflict. This prevents silent data loss while surfacing the contradiction.
 
