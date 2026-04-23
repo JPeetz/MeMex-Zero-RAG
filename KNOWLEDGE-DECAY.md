@@ -101,10 +101,19 @@ Implementation is agent-specific (how conflict context is injected into prompt/c
 
 **Resolution TTL:** If a `contested` node is not resolved within a configurable window (default: 48h), emit an `unresolved_conflict` system event. Routing and alert targets are deployment config — not hardcoded in the schema.
 
-**Dependency tainting:** When a node transitions to `contested`, its direct dependents (via `links_to` traversal, depth=1 only) are flagged with `dependency_taint: true`. Tainted nodes:
+**Dependency tainting:** When a node transitions to `contested`, its direct dependents (via `links_to` traversal, depth=1 only) are flagged:
+
+```yaml
+dependency_taint: true
+taint_origin_id: <id_of_contested_parent_node>
+```
+
+Tainted nodes:
 - Remain usable and do not inherit the no-solo-execution block
 - Are enqueued for secondary review
-- Surface a `dependency_taint: true` metadata warning at retrieval
+- Surface `dependency_taint: true` and `taint_origin_id` as metadata warnings at retrieval
+
+Auto-clear: when the parent node's `revalidation_status` returns to `current`, the revalidation worker clears `dependency_taint` and `taint_origin_id` on all nodes where `taint_origin_id` matches the resolved parent.
 
 Full cascading taint (depth > 1) is deferred to v2 — blast radius is uncontrollable without heat-map telemetry data to bound the scope.
 
