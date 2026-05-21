@@ -57,3 +57,22 @@ If MeMex content is outdated (>30 days for fast-moving topics):
 
 `MEMORY.md` files in agent workspaces are **secondary convenience caches**.
 They supplement but do not replace MeMex + Obsidian.
+
+---
+
+## Board Directives (2026-05-21)
+
+### CEO Ownership
+The CEO (Marvin) has full ownership to extend Obsidian and MeMex Zero RAG proactively as needed. No waiting for permission — build ahead of demand.
+
+### Independence from Backup Directories
+- ClaudeClaw backup (`/Users/joergpeetz/Documents/claudeclaw-agent-backup/agents/`) and Hermes backup (`/Users/joergpeetz/Documents/hermes-backup/hermes-agent/`) are **review-only references**
+- Nothing in OpenClaw runtime depends on paths in those directories
+- Everything is built fresh in the OpenClaw environment
+- Those files show methodology/architectural thinking, not runtime dependencies
+
+### What This Means
+When asked to recreate something from those directories in OpenClaw:
+1. Read the reference to understand the *approach*
+2. Design and build the new version fresh for OpenClaw
+3. Do NOT import, symlink, or depend on those paths
