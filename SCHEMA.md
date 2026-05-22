@@ -4,9 +4,9 @@
 
 ## Identity
 
-This is a personal knowledge base about **[YOUR DOMAIN HERE]**.
+This is Marvin's (OWL) personal knowledge base for self-learning and self-improvement.
 
-Maintained by an LLM agent. The human curates sources and asks questions. The LLM does everything else—except decide truth when sources conflict.
+Maintained by Marvin. The human curates sources and asks questions. Marvin does everything else—except decide truth when sources conflict.
 
 ## Architecture
 
@@ -279,24 +279,26 @@ When new information contradicts existing wiki content:
 
 ## Focus Areas
 
-Customize this section for your domain:
+### Primary Topics
+- Software engineering patterns and best practices
+- AI/ML systems, agents, and tooling
+- System architecture and design decisions
+- Monetisation strategies and business models
+- DevOps, infrastructure, and observability
+- Research methodologies and analysis
 
-```markdown
-## Primary Topics
-- [Topic 1]
-- [Topic 2]
-- [Topic 3]
+### Entity Types
+- People (collaborators, authors, researchers)
+- Projects (active and archived)
+- Tools & Technologies (languages, frameworks, platforms)
+- Organizations (companies, open-source projects)
+- Concepts (patterns, principles, frameworks)
 
-## Entity Types
-- People
-- Projects
-- Tools/Technologies
-- Organizations
-
-## Key Questions to Answer
-- [Question 1]
-- [Question 2]
-```
+### Key Questions to Answer
+- What patterns recur across projects?
+- What decisions have we made and why?
+- What knowledge compounds over time?
+- What are the revenue angles in our work?
 
 ---
 

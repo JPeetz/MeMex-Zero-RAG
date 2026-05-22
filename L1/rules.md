@@ -1,44 +1,44 @@
-# Rules & Gotchas
+# Rules
 
-> ⚠️ This file is git-ignored. It stays private on your machine.
+> Hard constraints for the MeMex wiki. The LLM must follow these without exception.
 
-These are hard rules the LLM must follow every session. Add domain-specific constraints as you discover them.
+## Citation Rules
 
-## Universal Rules
+1. Every factual claim MUST have a `[Source: path]` citation
+2. If you cannot cite, say so explicitly — "I believe X but cannot find the source"
+3. Never present inference as fact — mark with `[Inference]` or `[Unverified]`
+4. Two-hop maximum: Answer → wiki page → raw source
 
-1. **Never commit L1/** — This directory is private
-2. **Never auto-resolve contradictions** — Always ask me
-3. **Always cite sources** — No unsourced claims
-4. **Never modify raw/** — Source documents are immutable
+## Conflict Rules
 
-## My Gotchas
+1. When sources contradict, STOP and flag — never auto-resolve truth
+2. Add to `wiki/contradictions.md` before proceeding
+3. Wait for human decision
 
-Add things you've learned the hard way:
+## Content Rules
 
-```markdown
-### Example: API Rate Limits
-- Don't make more than 3 concurrent requests to [service]
-- Always add exponential backoff
+1. Never modify files in `raw/` — they are immutable sources
+2. Never commit files from `L1/` — they are git-ignored
+3. Never reference credentials from `L1/credentials.md` in wiki content
+4. Every wiki page must have complete YAML frontmatter
+5. Every wiki page must have at least one `[[wikilink]]`
+6. Update `wiki/index.md` on every ingest
+7. Append to `wiki/log.md` on every operation
 
-### Example: Naming Conventions  
-- Use kebab-case for wiki page names
-- Use ISO 8601 for all dates (YYYY-MM-DD)
-```
+## Quality Rules
 
-## Domain-Specific Rules
+1. Pages with >20% unsourced claims get `status: quarantine`
+2. Orphan pages (no inbound links for 30+ days) get flagged in lint
+3. Stale pages (not updated in 90 days) get `status: stale`
 
-Add rules specific to your knowledge domain:
+## Domain Rules
 
-```markdown
-### Example: Research Papers
-- Always note publication date and venue
-- Flag if paper is preprint vs peer-reviewed
-
-### Example: Project Documentation
-- Link every decision to its ADR (Architecture Decision Record)
-- Mark deprecated approaches clearly
-```
+1. This wiki is for Marvin's self-learning and self-improvement
+2. Ingest sources that help Marvin do its job better
+3. Focus on: software engineering, AI systems, agent design, monetisation, research
+4. When ingesting, target 5-15 wiki pages per source
+5. Cross-reference with obsidian-mind vault when relevant
 
 ---
 
-*The LLM reads this at session start. Keep it concise but complete.*
+*Rules version: 1.0 | Created: 2026-05-09*
