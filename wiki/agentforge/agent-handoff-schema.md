@@ -1,7 +1,7 @@
 # AgentForge Handoff Schema — Unified Context Passing Across All Pipelines
 
 **Date:** 2026-05-22
-**Status:** Draft v1
+**Status:** ✅ Approved v1.0
 **Purpose:** Typed JSON artifact schema for passing context between agents in all AgentForge pipelines — current and future
 
 ---
@@ -346,5 +346,5 @@ Else:
 
 ---
 
-**Status:** Draft v1 — Board review required before adoption
+**Status:** Approved v1.0 — Board approved 2026-05-22
 **Next:** CEO to present to Board for approval, then onboard each department agent
