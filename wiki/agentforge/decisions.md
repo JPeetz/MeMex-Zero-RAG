@@ -36,3 +36,19 @@
 - Honcho user modeling → OpenClaw memory engines
 - Cron-native scheduling → OpenClaw cron (already in use)
 - Multi-platform gateway → OpenClaw channels (already in use)
+
+## 2026-05-22 — Tier 1 Deployment Complete
+
+### Deployed
+- **6 agents total:** CEO (main) + 5 department agents (content, seo, social, pdf, analytics)
+- **Model policy:** OpenRouter only — all Claude models stripped
+- **3 cron jobs:** content_pipeline_daily (Mon-Fri 08:30 IE), analytics_weekly_report (Mon 09:00 IE), model_policy_review (2026-05-31)
+- **Agent registries:** 5 active agents registered in MeMex + Obsidian
+- **Standby registry:** 8 agents (prompts, wp-design, hiring, research, comms, niche-scout, ops, design) — on-demand activation
+- **Artifact structure:** MeMex/Obsidian mirror at artifacts/YYYY/MM/<pipeline>/
+- **Handoff mechanism:** JSON artifacts v1.0 (poll-based downstream, cron-initiated upstream)
+
+### Next: Tier 2 — Skill Packs
+- 8 AgentForge skill packs to create in ~/.openclaw/skills/agentforge/
+- Wire downstream agents to poll MeMex for artifacts
+- End-to-end pipeline test: Content fires → produces artifacts → SEO polls → scores
