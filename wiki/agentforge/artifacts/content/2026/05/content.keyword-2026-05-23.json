@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "artifact_id": "ck-8f3a2b71-d4e6-4c9f-b12a-8e7f3d5c6102",
+  "agent": "content",
+  "mission_id": "dailypipeline-2026-05-23",
+  "pipeline": "content",
+  "stage": "keyword",
+  "status": "complete",
+  "timestamp": "2026-05-23T01:48:00+01:00",
+  "input_received": {
+    "mission_id": "dailypipeline-2026-05-23",
+    "prior_artifact_id": null,
+    "original_request": "Daily content pipeline keyword research — 2026-05-23 Mon"
+  },
+  "output": {
+    "keyword": "AI Agent Orchestration",
+    "cluster": "agent orchestration frameworks",
+    "secondary_keywords": [
+      "multi-agent systems 2026",
+      "enterprise AI agent orchestration",
+      "AI agent coordination patterns",
+      "agentic AI best practices",
+      "multi-agent architecture",
+      "AI orchestration frameworks comparison"
+    ],
+    "search_volume_estimate": "high — trending across Gartner, Deloitte, Google, Forrester, Codebridge, Kanerika in May 2026",
+    "competition_level": "medium",
+    "commercial_intent": "high — enterprise buyers evaluating orchestration platforms",
+    "research_sources": [
+      "Deloitte — AI Agent Orchestration predictions 2026",
+      "Gartner — Strategic Technology Trends 2026 (multi-agent systems)",
+      "Google — Agent Trends 2026 (coordinated multi-agent systems)",
+      "Kanerika — AI Agent Orchestration in 2026: What Enterprises Need to Know",
+      "Codebridge — Mastering Multi-Agent Orchestration",
+      "machinelearningmastery.com — 7 Agentic AI Trends 2026",
+      "Firecrawl — Top 11 Agentic AI Trends 2026"
+    ],
+    "keyword_density_check": {
+      "api": "https://seo-api-nu.vercel.app/api/seo/keyword-density",
+      "status": "API LIVE — ready for article analysis"
+    }
+  },
+  "quality": {
+    "confidence": 0.92,
+    "score": null,
+    "checks_passed": ["keyword_trending_verified", "multiple_authoritative_sources", "enterprise_intent_confirmed", "cluster_defined"],
+    "checks_failed": []
+  },
+  "escalation": {
+    "triggered": false,
+    "reason": null,
+    "detail": null
+  },
+  "next_steps": [
+    {
+      "agent": "content",
+      "action": "Write 2000-5000 word SEO article on AI Agent Orchestration",
+      "input_artifact_id": "ck-8f3a2b71-d4e6-4c9f-b12a-8e7f3d5c6102",
+      "priority": 1
+    },
+    {
+      "agent": "seo",
+      "action": "SEO gate review — keyword density, readability, meta tags analysis",
+      "input_artifact_id": "to-be-assigned-on-article-completion",
+      "priority": 2
+    },
+    {
+      "agent": "social",
+      "action": "Prepare social distribution snippets post-SEO approval",
+      "input_artifact_id": "to-be-assigned",
+      "priority": 3
+    }
+  ],
+  "hive_mind_signal": {
+    "type": "KEYWORD_RESEARCHED",
+    "content": "Content Agent selected keyword 'AI Agent Orchestration' (cluster: agent orchestration frameworks) for daily pipeline 2026-05-23. High commercial intent, trending across Gartner/Deloitte/Google. Confidence: 0.92",
+    "confidence": 0.92
+  }
+}
