@@ -137,3 +137,9 @@ Tracks keyword selection patterns, SEO performance signals, and pipeline learnin
 - If bounce rate > 70% → review structure, add more visual elements
 - Track whether FLAG→PASS revision time improves (first revision cycle benchmark: 1 cycle)
 - Revision cycle 1 baseline: 65 → 79 (+14), single revision pass
+
+## 2026-05-23 — GEO Structural Gaps (found in review)
+- **Issue:** Article scored 79 SEO but failed GEO structural checks
+- **Root cause:** SEO/GEO API lacks GEO endpoints (`/api/geo`, `/api/seo/eeat`, `/api/seo/quotability` all 404)
+- **Fix:** Manual GEO check added — verified definition block expansion, FAQ block, quotable summary
+- **Pattern:** SEO agent is strong on SEO scoring, weak on GEO structural enforcement — needs AGENTS.md update to include mandatory GEO structural verification step
