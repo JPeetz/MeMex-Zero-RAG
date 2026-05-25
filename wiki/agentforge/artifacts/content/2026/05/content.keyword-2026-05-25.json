@@ -1,0 +1,70 @@
+{
+  "artifact_id": "7a3f18d2-c491-4b6e-a129-8f5d2c7b4e61",
+  "type": "content.keyword",
+  "created": "2026-05-25T08:30:00+01:00",
+  "pipeline_run": 2,
+  "keyword": {
+    "primary": "Agentic AI Governance",
+    "cluster": "enterprise AI governance security compliance",
+    "search_volume_estimate": "medium-high (3,200–5,400/mo combined cluster)",
+    "competition": "medium",
+    "commercial_intent": "high",
+    "trend_momentum": "accelerating — NIST AI Agent Standards Initiative Q1 2026, OWASP State of Agentic AI Security & Governance 1.0 (March 2026), EU AI Act enforcement phase, FTC enforcement actions",
+    "secondary": [
+      "AI governance frameworks 2026",
+      "agentic AI security best practices",
+      "NIST AI agent standards",
+      "enterprise AI compliance",
+      "agentic AI risk management",
+      "OWASP agentic AI security",
+      "EU AI Act agentic systems",
+      "ISO 42001 AI governance",
+      "autonomous AI oversight",
+      "agentic AI guardrails"
+    ]
+  },
+  "selection_rationale": {
+    "why_this_keyword": "Agentic AI Governance is the natural next topic for AgentForge's editorial pipeline. The first run covered orchestration (architecture); governance is the operational and compliance layer enterprises need immediately after adopting orchestration. It bridges the 'how to build' (May 23) with 'how to run safely' (today).",
+    "timeliness_factors": [
+      "NIST launched AI Agent Standards Initiative and issued RFI (due March 9, 2026) — creating urgency for enterprises",
+      "OWASP published 'State of Agentic AI Security and Governance 1.0' (March 2026) — first comprehensive framework",
+      "FTC imposed 20-year audit order on AI vendor for false claims — enforcement is real",
+      "EU AI Act enforcement phase begins for high-risk AI systems",
+      "Texas HB 149, South Korea AI Basic Law, China algorithmic transparency — global regulatory wave",
+      "Forbes: 'Agentic AI Is Changing The Security Model For Enterprise Systems' (March 7, 2026)"
+    ],
+    "domain_alignment": "Strong — AgentForge's core domain is AI agents and enterprise automation. Governance is the #1 concern CTOs raise after seeing orchestration demos. This article positions AgentForge as a trusted advisor on the full agent lifecycle.",
+    "differentiation_from_prior_run": "The May 23 article covered AI agent orchestration (build). This article covers governance (run safely). Together they form a complete enterprise agent lifecycle narrative. No overlap — complementary."
+  },
+  "research_sources": [
+    {"title": "State of Agentic AI Security and Governance 1.0", "publisher": "OWASP", "url": "https://genai.owasp.org/resource/state-of-agentic-ai-security-and-governance-1-0", "date": "2026-03"},
+    {"title": "Agentic AI Is Changing The Security Model For Enterprise Systems", "publisher": "Forbes", "url": "https://www.forbes.com/sites/heatherwishartsmith/2026/03/07/agentic-ai-is-changing-the-security-model-for-enterprise-systems", "date": "2026-03-07"},
+    {"title": "State of Agentic AI Security and Governance in 2026: What the Data Reveals", "publisher": "Elevate Consult", "url": "https://elevateconsult.com/insights/state-of-agentic-ai-security-and-governance-in-2026-what-the-data-reveals/", "date": "2026"},
+    {"title": "Governance: NIST AI Agent Standards Initiative", "publisher": "Cloud Security Alliance", "url": "https://labs.cloudsecurityalliance.org/", "date": "2026-03"},
+    {"title": "EU AI Act", "publisher": "European Commission", "url": "https://artificialintelligenceact.eu/", "date": "2026"},
+    {"title": "5 Production Scaling Challenges for Agentic AI in 2026", "publisher": "Machine Learning Mastery", "url": "https://machinelearningmastery.com/5-production-scaling-challenges-for-agentic-ai-in-2026", "date": "2026"},
+    {"title": "Agentic AI Governance: A Strategic Framework for 2026", "publisher": "EW Solutions", "url": "https://www.ewsolutions.com/agentic-ai-governance", "date": "2026"}
+  ],
+  "article_plan": {
+    "target_word_count": "2,800–3,200",
+    "sections": [
+      "Executive Summary / TL;DR",
+      "Why Governance Is the Missing Layer in Enterprise AI",
+      "The Regulatory Landscape: NIST, EU AI Act, FTC, and Beyond",
+      "The OWASP Agentic AI Security Framework — What's New in 2026",
+      "The 6 Pillars of Agentic AI Governance",
+      "Real-World Attack Vectors: Tool Misuse, Identity Spoofing, Human-in-the-Loop Overload",
+      "Governance Implementation: From Pilot to Production",
+      "The Vendor Landscape: Platform Guardrails vs. Independent Governance",
+      "Conclusion: Governance as Competitive Advantage"
+    ],
+    "tone": "Enterprise B2B, authoritative but accessible — learnings from May 23 audit: target Flesch 35+, include 3+ plain-language interludes, embed hyperlinks from the start"
+  },
+  "next_steps": [
+    "Write SEO-optimized article → content.article artifact",
+    "Hand off to SEO Agent for quality gate audit (keyword density, readability, meta tags, SERP preview, E-E-A-T)",
+    "GEO audit via SEO API (entity density, answer structure, quotability, E-E-A-T)",
+    "If SEO ≥70 and GEO ≥40 → hand off to Social Agent for distribution",
+    "If FLAG (50-69) → auto-revision cycle (1 pass expected based on prior run benchmark)"
+  ]
+}

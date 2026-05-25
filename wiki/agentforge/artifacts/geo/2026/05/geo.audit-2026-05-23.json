@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.0",
+  "artifact_id": "ga-7e1c2f3a-b9d4-4a1e-8c2f-5d6e7f8a9b0c",
+  "agent": "ceo",
+  "mission_id": "dailypipeline-2026-05-23",
+  "pipeline": "geo",
+  "stage": "audit",
+  "status": "complete",
+  "timestamp": "2026-05-23T10:10:00+01:00",
+  "input_received": {
+    "article_slug": "ai-agent-orchestration-2026",
+    "article_title": "AI Agent Orchestration in 2026: The Enterprise Guide",
+    "seo_score": 79,
+    "seo_artifact_id": "sa-9f2b7c41-d5e8-4a3f-b9c1-3d6e7f8a2b4c"
+  },
+  "api": {
+    "base_url": "https://seo-api-nu.vercel.app",
+    "all_endpoints_working": true,
+    "geo_endpoints": [
+      {"path": "/api/geo/entity-density", "status": "200", "type": "algorithmic"},
+      {"path": "/api/geo/answer-structure", "status": "200", "type": "algorithmic"},
+      {"path": "/api/geo/quotability", "status": "200", "type": "algorithmic"},
+      {"path": "/api/geo/eeat-signals", "status": "200", "type": "algorithmic"},
+      {"path": "/api/geo/evaluation-prompt", "status": "200", "type": "prompt-builder"}
+    ],
+    "deployment_fix": "Repo pushed to JPeetz/SEO-API, Vercel auto-deployed. All 11 routes (6 SEO + 5 GEO) now serving 200."
+  },
+  "output": {
+    "entity_density": {
+      "totalWords": 3163,
+      "namedEntityCount": 402,
+      "statisticCount": 26,
+      "factMarkerCount": 47,
+      "citationMarkerCount": 0,
+      "dateReferenceCount": 20,
+      "entityDensityPer100": 12.71,
+      "statDensityPer100": 0.82,
+      "score": 62,
+      "rating": "good",
+      "notes": "Strong entity presence. 402 named entities across 3,163 words. 26 statistics with data-backed claims. 20 date references anchor content temporally. Citation marker count is 0 — could benefit from explicit 'according to'/'research shows' language."
+    },
+    "answer_structure": {
+      "questionCount": 18,
+      "definitionCount": 3,
+      "stepPatternCount": 7,
+      "conclusionMarkerCount": 2,
+      "directAnswerCount": 0,
+      "listDensity": 3,
+      "avgSentenceLength": 13.8,
+      "score": 80,
+      "rating": "excellent",
+      "strengths": [
+        "18 question(s) — helps match user queries",
+        "3 definition(s) — AI engines extract these directly",
+        "7 step/list pattern(s) — high citation value",
+        "Conclusion marker present — good for AI summarisation"
+      ],
+      "gaps": [
+        "No direct answer patterns — add 'The answer is...' style sentences"
+      ]
+    },
+    "quotability": {
+      "compositeScore": 83,
+      "rating": "strong",
+      "topSentences": [
+        {
+          "text": "The key insight from production deployments: coordinating agents across monitoring, runbooks, and ticketing systems produces actionable recommendations 60x more frequently than single-agent approaches",
+          "score": 91,
+          "reasons": ["optimal length", "contains statistic", "power words: key, insight", "clear subject opening", "assertive"]
+        },
+        {
+          "text": "But here is the reality check: 95% of AI initiatives still fail to reach production",
+          "score": 90,
+          "reasons": ["optimal length", "contains statistic", "clear subject opening", "assertive", "definition pattern"]
+        },
+        {
+          "text": "Gartner reports that 40% of net-new enterprise applications will include task-specific AI agent capabilities by end of 2026",
+          "score": 88,
+          "reasons": ["optimal length", "contains statistic", "power words: capabilities", "clear subject opening", "assertive"]
+        }
+      ],
+      "totalSentencesAnalyzed": 72,
+      "avgQuotabilityScore": 45.2
+    },
+    "eeat_signals": {
+      "experienceScore": 15,
+      "expertiseScore": 100,
+      "authorityScore": 60,
+      "trustScore": 10,
+      "compositeScore": 46,
+      "rating": "moderate",
+      "signals": {
+        "experience": ["when i"],
+        "expertise": ["architecture", "framework", "protocol", "optimization", "latency", "governance", "orchestration", "deployment"],
+        "authority": ["published", "findings", "based on", "source", "reference"],
+        "trust": ["while"]
+      },
+      "gaps": [
+        "Add first-hand experience language ('I tested', 'we found', 'in our experience')",
+        "Add nuance and caveats ('however', 'it depends', 'note that') to build trust signals"
+      ]
+    }
+  },
+  "scoring": {
+    "geo_composite_score": 68,
+    "max_score": 100,
+    "thresholds": {
+      "cite_ready": 75,
+      "needs_work": 40,
+      "not_citable": 40
+    },
+    "breakdown": {
+      "entity_density": {"score": 62, "max": 100, "weight": 0.25, "weighted": 15.5},
+      "answer_structure": {"score": 80, "max": 100, "weight": 0.25, "weighted": 20.0},
+      "quotability": {"score": 83, "max": 100, "weight": 0.25, "weighted": 20.75},
+      "eeat_signals": {"score": 46, "max": 100, "weight": 0.25, "weighted": 11.5}
+    },
+    "verdict": "needs-work",
+    "verdict_detail": "Composite 68 is below 75 cite-ready threshold. Three of four categories are strong (answer-structure 80, quotability 83, entity-density 62). E-E-A-T at 46 is the single blocker — specifically experience (15) and trust (10) signals. Article reads as authoritative third-party synthesis but lacks first-hand practitioner perspective."
+  },
+  "quality": {
+    "confidence": 0.95,
+    "checks_passed": [
+      "all_5_geo_endpoints_responding",
+      "all_results_algorithmic_no_llm_calls",
+      "entity_density_good_or_better",
+      "answer_structure_excellent",
+      "quotability_strong",
+      "eeat_expertise_strong",
+      "eeat_authority_moderate"
+    ],
+    "checks_flag": [
+      "eeat_experience_weak_15",
+      "eeat_trust_weak_10",
+      "geo_composite_below_cite_ready_threshold"
+    ]
+  },
+  "escalation": {
+    "triggered": false,
+    "reason": "GEO composite 68/100 — above 40 needs-work floor, below 75 cite-ready ceiling. Single category (E-E-A-T) drags score. Article is publication-ready with note that E-E-A-T improvements would increase AI citation likelihood."
+  },
+  "next_steps": [
+    {
+      "agent": "content",
+      "action": "Optional revision to boost E-E-A-T experience/trust signals — add first-hand pipeline language and caveats",
+      "priority": 2,
+      "blocked": false,
+      "note": "Not blocking publication — article is GEO-sufficient for current publishing"
+    },
+    {
+      "agent": "ceo",
+      "action": "Update pipeline protocol: GEO audit now automated via algorithmic API endpoints after SEO PASS",
+      "priority": 1,
+      "blocked": false
+    }
+  ],
+  "hive_mind_signal": {
+    "type": "GEO_AUDIT_COMPLETE",
+    "content": "GEO audit of 'AI Agent Orchestration in 2026' — composite 68/100 (needs-work). Three strong categories: Answer Structure 80 (excellent), Quotability 83 (strong), Entity Density 62 (good). Blocker: E-E-A-T 46 (moderate) — experience 15, trust 10. Article is publication-ready with optional E-E-A-T revision. API status: All 5 GEO endpoints now live at seo-api-nu.vercel.app after repo fix (JPeetz/SEO-API).",
+    "confidence": 0.95
+  }
+}

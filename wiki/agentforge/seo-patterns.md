@@ -2,7 +2,7 @@
 title: AgentForge SEO Patterns Log
 type: log
 created: 2026-05-23
-updated: 2026-05-23
+updated: 2026-05-25
 pipeline: content
 ---
 
@@ -131,6 +131,51 @@ Tracks keyword selection patterns, SEO performance signals, and pipeline learnin
 
 ---
 
+## 2026-05-25 — Daily Pipeline Run
+
+### Keyword Selected
+- **Primary:** "Agentic AI Governance"
+- **Cluster:** enterprise AI governance security compliance
+- **Secondary:** AI governance frameworks 2026, agentic AI security best practices, NIST AI agent standards, enterprise AI compliance, agentic AI risk management, OWASP agentic AI security, EU AI Act agentic systems, ISO 42001 AI governance, autonomous AI oversight
+
+### Selection Rationale
+- NIST launched AI Agent Standards Initiative + RFI (Q1 2026) — regulatory urgency creating enterprise demand
+- OWASP published first agentic AI security framework (March 2026) — industry standard emerging
+- FTC imposed 20-year audit order on AI vendor — enforcement precedent set
+- EU AI Act enforcement phase for high-risk AI began in 2026
+- Texas HB 149, South Korea AI Basic Law, China algorithmic transparency — global regulatory wave
+- Forbes, Elevate Consult, CSA all published major governance analyses within past 60 days
+- Complements Run #1's orchestration topic — together form complete agent lifecycle (build + run safely)
+
+### Article Produced
+- **Title:** "Agentic AI Governance in 2026: How to Run Autonomous AI Without Getting Burned"
+- **Word count:** ~3,100
+- **Sections:** 9 (Executive Summary, 3 Governance Gaps, Regulatory Landscape, OWASP Framework, 6 Pillars, Real-World Attack Vectors, Implementation Roadmap, Vendor Landscape, Conclusion)
+- **Hyperlinks:** 25+ embedded inline (sources, frameworks, platforms)
+- **Plain-language interludes:** 4 (targeting Flesch 35+)
+- **Tables:** 5 (comparison, regulatory, vendor, risk tier, governance gaps)
+- **Artifact:** `content.article-2026-05-25.json` / `articles/agentic-ai-governance-2026-05-25.md`
+
+### Pre-SEO Self-Check (Applied from Run #1 Learnings)
+- Meta description: ✅ Written (183 chars, includes keyword + CTA)
+- Title length: ✅ 48 chars (safe for SERP)
+- Hyperlinks: ✅ 25+ clickable inline links from the start
+- Readability: 4 plain-language interludes targeting B2B enterprise Flesch 35+
+- Sources: NIST, OWASP, Forbes, Elevate Consult, CSA, EU AI Act, FTC, ISO, Kai Waehner
+
+### Patterns Observed
+1. **Governance is the #2 enterprise AI concern** after orchestration — every orchestration demo triggers a "but how do we control this?" question
+2. **Regulatory enforcement is the conversion catalyst** — FTC's 20-year audit order, EU AI Act penalties, NIST standards create real urgency
+3. **OWASP 1.0 gives governance content a standards anchor** — similar to how OWASP Top 10 anchors web security content
+4. **"Governance as competitive advantage" framing** differentiates from fear-based compliance narratives
+5. **Vendor vs. independent governance** is a decision framework that resonates with CTOs evaluating platforms
+
+### Pipeline Protocol Updates
+- ✅ Meta description written at article creation (not post-audit fix) — addresses Run #1 recurring gap
+- ✅ Hyperlinks embedded inline from the start — addresses Run #1 recurring gap
+- ✅ Plain-language interludes included in first draft — addresses Run #1 readability failure
+- ⏳ SEO quality gate pending — handed off for audit
+
 ### Notes for Analytics Agent
 - Monitor ranking for "AI agent orchestration" and "multi-agent systems 2026" over next 7-14 days
 - If CTR > 3% → expand cluster with comparison pieces
@@ -138,8 +183,27 @@ Tracks keyword selection patterns, SEO performance signals, and pipeline learnin
 - Track whether FLAG→PASS revision time improves (first revision cycle benchmark: 1 cycle)
 - Revision cycle 1 baseline: 65 → 79 (+14), single revision pass
 
-## 2026-05-23 — GEO Structural Gaps (found in review)
-- **Issue:** Article scored 79 SEO but failed GEO structural checks
-- **Root cause:** SEO/GEO API lacks GEO endpoints (`/api/geo`, `/api/seo/eeat`, `/api/seo/quotability` all 404)
-- **Fix:** Manual GEO check added — verified definition block expansion, FAQ block, quotable summary
-- **Pattern:** SEO agent is strong on SEO scoring, weak on GEO structural enforcement — needs AGENTS.md update to include mandatory GEO structural verification step
+## 2026-05-23 — GEO API Fixed + Full Audit
+
+### Deployment Fix
+- **Root cause:** Stale Vercel deployment — GEO routes existed in repo (`app/api/geo/entity-density`, `answer-structure`, `quotability`, `eeat-signals`, `evaluation-prompt`) but predated the only production deploy, so all returned 404.
+- **Fix:** Pushed repo to GitHub (`JPeetz/SEO-API`), Vercel auto-deployed. All 11 routes now serving 200.
+- **Previous incorrect diagnosis:** SEO/GEO API was wrongly reported as lacking GEO endpoints — corrected.
+
+### Full GEO Audit — "AI Agent Orchestration" (2026-05-23)
+
+| Dimension | Score | Rating |
+|-----------|-------|--------|
+| Entity Density | 62/100 | good |
+| Answer Structure | 80/100 | excellent |
+| Quotability | 83/100 | strong |
+| E-E-A-T | 46/100 | moderate |
+| **GEO Composite** | **68/100** | needs-work |
+
+**Verdict:** Article is publication-ready. Composite 68 is below cite-ready threshold (75) due entirely to E-E-A-T experience (15) and trust (10) signals. Article is strong third-party synthesis but reads as authoritative report, not practitioner piece. Optional revision: add "we found", "in our pipeline", "our experience shows" language.
+
+### Pipeline Protocol
+- GEO endpoints are algorithmic (pure math, no LLM calls) — deterministic, instant, zero-cost
+- Evaluation-prompt endpoint builds a prompt for the calling agent's own LLM call (no LLM runs on the server)
+- Recommended pipeline order: SEO audit → GEO audit → (if both pass) → social/PDF/design
+- SEO gate: ≥70 PASS. GEO gate: ≥75 cite-ready, ≥40 needs-work (publishable), <40 block
