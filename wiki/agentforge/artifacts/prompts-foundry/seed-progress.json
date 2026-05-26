@@ -1,0 +1,21 @@
+{
+  "total_inventory": 52,
+  "refactored": 0,
+  "remaining": 52,
+  "categories": {
+    "openclaw": {"total": 14, "refactored": 0, "path": "~/obsidian-vault/AgentForge/prompts/openclaw"},
+    "coding": {"total": 10, "refactored": 0, "path": "~/obsidian-vault/AgentForge/prompts/coding"},
+    "hermes": {"total": 7, "refactored": 0, "path": "~/obsidian-vault/AgentForge/prompts/hermes"},
+    "agent-swarms": {"total": 5, "refactored": 0, "path": "~/obsidian-vault/AgentForge/prompts/agent-swarms"},
+    "research": {"total": 3, "refactored": 0, "path": "~/obsidian-vault/AgentForge/prompts/research"},
+    "email-calendar": {"total": 3, "refactored": 0, "path": "~/obsidian-vault/AgentForge/prompts/email-calendar"},
+    "content-creation": {"total": 3, "refactored": 0, "path": "~/obsidian-vault/AgentForge/prompts/content-creation"},
+    "project-mgmt": {"total": 2, "refactored": 0, "path": "~/obsidian-vault/AgentForge/prompts/project-mgmt"},
+    "customer-support": {"total": 2, "refactored": 0, "path": "~/obsidian-vault/AgentForge/prompts/customer-support"},
+    "youtube-automation": {"total": 1, "refactored": 0, "path": "~/obsidian-vault/AgentForge/prompts/youtube-automation"},
+    "social-media-ai": {"total": 1, "refactored": 0, "path": "~/obsidian-vault/AgentForge/prompts/social-media-ai"},
+    "rpa": {"total": 1, "refactored": 0, "path": "~/obsidian-vault/AgentForge/prompts/rpa"}
+  },
+  "refactored_prompts": [],
+  "current_category_index": 0
+}
