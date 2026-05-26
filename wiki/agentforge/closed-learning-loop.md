@@ -103,18 +103,18 @@ Once per day (during low-activity period):
 ## Activation Plan
 
 ### Phase 1 — CEO + Today (2026-05-24)
-- [ ] Create reflection directory structure
-- [ ] CEO writes first reflection for today's session
-- [ ] Create user-model.md with initial model from this conversation
+- [x] Create reflection directory structure
+- [x] CEO writes first reflection for today's session (2026-05-24-ceo-multi-dept-build.md)
+- [x] Create user-model.md with initial model (stored at ~/workspace/memory/user-model.md)
 
 ### Phase 2 — Department Agents (2026-05-25)
-- [ ] Add reflection requirement to all agent AGENTS.md files
-- [ ] Test: app-discovery agent writes reflection after Monday's 06:00 run
+- [x] Add reflection requirement to all agent AGENTS.md files → REPLACED by playbook.md system (2026-05-26). Playbooks are lighter-weight and machine-readable. Each cron job now reads playbook first, writes lessons after.
+- [x] Test: app-discovery agent writes reflection → Not tested directly; playbook system tested via cron updates
 
 ### Phase 3 — Automated (2026-05-26+)
-- [ ] Add pattern extraction to heartbeat routine
-- [ ] Add user model update triggers
-- [ ] Wire hive-mind signals into active cross-agent communication
+- [x] Add pattern extraction to heartbeat routine → CEO heartbeat reads all playbooks, watches for cross-dept patterns
+- [ ] Add user model update triggers → continuous, not gated
+- [x] Wire hive-mind signals into active cross-agent communication → Analytics weekly runs cross-dept playbook analysis
 
 ---
 
