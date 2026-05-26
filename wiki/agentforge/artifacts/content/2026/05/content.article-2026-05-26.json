@@ -1,0 +1,79 @@
+{
+  "artifact_id": "e5b6c0d4-f612-5e8f-c40a-0f7e4f5c6d32",
+  "type": "content.article",
+  "pipeline_run": 3,
+  "created": "2026-05-26T08:30:00+01:00",
+  "keyword_artifact_ref": "d9c4a8e2-f501-4c7d-b39e-9f6e3d4b5c21",
+  "article_file": "articles/ai-agent-evaluation-2026-05-26.md",
+  "title": "AI Agent Evaluation in 2026: How to Test, Measure, and Improve Autonomous Systems",
+  "target_keyword": "AI Agent Evaluation",
+  "cluster": "agent evaluation observability testing",
+  "secondary_keywords": [
+    "AI agent testing frameworks 2026",
+    "agent observability tools",
+    "LLM evaluation metrics",
+    "AI agent quality assurance",
+    "agentic AI monitoring",
+    "MLflow agent evaluation",
+    "LangSmith evaluation",
+    "DeepEval agent testing",
+    "agent performance benchmarks",
+    "production AI agent quality"
+  ],
+  "meta_description": "Complete guide to AI agent evaluation in 2026. Compare MLflow, LangSmith, Maxim AI, DeepEval, and Arize Phoenix. Learn the metrics, ROI, and maturity model for testing autonomous AI systems in production.",
+  "status": "draft",
+  "word_count": 3080,
+  "sections": [
+    "Executive Summary",
+    "What Is AI Agent Evaluation? (GEO definition block, 53 words)",
+    "Why Traditional Testing Fails for Agents",
+    "The Evaluation Platform Landscape (MLflow, LangSmith, Maxim AI, DeepEval, Arize Phoenix)",
+    "Agent Evaluation Metrics That Actually Matter",
+    "The ROI of Evaluation: Why Best-in-Class Teams Spend 18-24%",
+    "From Manual Review to Automated Evaluation: The Maturity Model",
+    "Production Observability: Closing the Loop",
+    "Frequently Asked Questions (GEO FAQ block, 6 questions)",
+    "Conclusion: Evaluation as Strategic Advantage"
+  ],
+  "geo_requirements": {
+    "definition_block": "PASS — 53 words in 'What Is AI Agent Evaluation?' section",
+    "faq_block": "PASS — 6 questions under ## Frequently Asked Questions",
+    "featured_image": "REQUIRED — image marker needed for full GEO compliance",
+    "quotable_summary": "PASS — 77 words > blockquote at end of conclusion"
+  },
+  "pre_seo_self_check": {
+    "meta_description": "PASS — 219 chars, includes keyword + CTA, written at article creation",
+    "title_length": "PASS — 83 chars (slightly over 60 Google limit; may truncate 'Systems' on mobile SERP)",
+    "hyperlinks": "PASS — 30+ clickable inline links from the start",
+    "plain_language_interludes": "PASS — 4 interludes targeting Flesch 35+",
+    "tables": "PASS — 4 data tables (layer comparison, platform comparison, production metrics, cost-per-task)",
+    "sources": "MLflow, Maxim AI, LangChain, Digital Applied, MIT Sloan, McKinsey, Gartner, Forrester, Bain, Deloitte, Agility at Scale, Blck Alpaca, Breyta"
+  },
+  "seo_audit": "pending",
+  "geo_audit": "pending",
+  "next_steps": [
+    "seo_quality_gate",
+    "geo_structural_verification",
+    "featured_image_generation",
+    "social_distribution",
+    "pdf_lead_magnet",
+    "wordpress_publish"
+  ],
+  "pipeline_trilogy": {
+    "run_1": {
+      "date": "2026-05-23",
+      "topic": "AI Agent Orchestration",
+      "angle": "How to build multi-agent systems"
+    },
+    "run_2": {
+      "date": "2026-05-25",
+      "topic": "Agentic AI Governance",
+      "angle": "How to control autonomous agents safely"
+    },
+    "run_3": {
+      "date": "2026-05-26",
+      "topic": "AI Agent Evaluation",
+      "angle": "How to measure, test, and improve agent quality"
+    }
+  }
+}

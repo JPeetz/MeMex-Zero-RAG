@@ -1,0 +1,80 @@
+{
+  "artifact_id": "d9c4a8e2-f501-4c7d-b39e-9f6e3d4b5c21",
+  "type": "content.keyword",
+  "created": "2026-05-26T08:30:00+01:00",
+  "pipeline_run": 3,
+  "keyword": {
+    "primary": "AI Agent Evaluation",
+    "cluster": "agent evaluation observability testing",
+    "search_volume_estimate": "medium-high (2,800–4,600/mo combined cluster)",
+    "competition": "medium",
+    "commercial_intent": "high",
+    "trend_momentum": "accelerating — LangChain 2026 State of AI Agents: 57% of orgs in production, 32% cite quality as top barrier. MLflow 30M+ monthly downloads. Evaluation tooling ecosystem exploded Q1 2026 (Maxim, DeepEval, Ragas, Arize, LangSmith). First year with telemetry-grade production benchmarks.",
+    "secondary": [
+      "AI agent testing frameworks 2026",
+      "agent observability tools",
+      "LLM evaluation metrics",
+      "AI agent quality assurance",
+      "agentic AI monitoring",
+      "MLflow agent evaluation",
+      "LangSmith evaluation",
+      "DeepEval agent testing",
+      "agent performance benchmarks",
+      "production AI agent quality"
+    ]
+  },
+  "selection_rationale": {
+    "why_this_keyword": "AI Agent Evaluation is the logical third chapter in AgentForge's enterprise agent lifecycle series. Run #1 covered orchestration (build). Run #2 covered governance (control). Run #3 covers evaluation (measure and improve). Together they form the complete enterprise AI agent lifecycle: Build → Control → Measure.",
+    "timeliness_factors": [
+      "LangChain 2026 State of AI Agents report: 57% of organizations have agents in production, 32% cite quality as #1 barrier",
+      "MLflow crossed 30M+ monthly downloads — evaluation is the fastest-growing AI engineering category",
+      "Multiple evaluation platforms launched or matured in Q1 2026: Maxim AI, DeepEval 2.0, Ragas, Arize Phoenix, LangSmith",
+      "2026 is the first year with telemetry-grade benchmarks (McKinsey, Gartner, Forrester, Bain) — before this, all ROI claims were self-reported",
+      "McKinsey 2026: 6.4 median hours saved/week, 41% year-one ROI, but 19% of programs never reach payback — evaluation is the dividing line",
+      "Forrester: 25% of enterprise AI spend deferred due to quality/governance concerns",
+      "Complementary to prior runs: orchestration (May 23), governance (May 25), evaluation (today) — complete lifecycle"
+    ],
+    "domain_alignment": "Strong — AgentForge's core domain is AI agents and enterprise automation. Evaluation is the operational reality layer that makes orchestration and governance measurable. This article positions AgentForge as covering the full lifecycle.",
+    "differentiation_from_prior_runs": "Run #1 (May 23): AI Agent Orchestration — how to build multi-agent systems. Run #2 (May 25): Agentic AI Governance — how to control autonomous agents safely. Run #3 (today): AI Agent Evaluation — how to measure, test, and improve agent quality in production. No overlap — complementary lifecycle stages."
+  },
+  "research_sources": [
+    {"title": "Top 5 Agent Evaluation Tools in 2026", "publisher": "MLflow", "url": "https://mlflow.org/top-5-agent-evaluation-frameworks", "date": "2026"},
+    {"title": "Top 5 AI Agent Evaluation Platforms in 2026", "publisher": "Maxim AI", "url": "https://www.getmaxim.ai/articles/top-5-ai-agent-evaluation-platforms-in-2026", "date": "2026"},
+    {"title": "AI Agent Productivity Statistics 2026: 100+ ROI Data Points", "publisher": "Digital Applied", "url": "https://www.digitalapplied.com/blog/ai-agent-productivity-statistics-2026-roi-data-points", "date": "2026-04-20"},
+    {"title": "State of AI Agents 2026", "publisher": "LangChain", "url": "https://blog.langchain.dev/state-of-ai-agents/", "date": "2026"},
+    {"title": "Building Better AI Agents: Observability and Evaluation", "publisher": "LangChain (YouTube)", "url": "https://www.youtube.com/watch?v=reISMhbZ2XE", "date": "2026-02-09"},
+    {"title": "Best AI Agent Observability Tools in 2026", "publisher": "Breyta", "url": "https://breyta.ai/blog/best-ai-agent-observability-tools", "date": "2026"},
+    {"title": "Enterprise AI Agent ROI: How to Measure, Calculate, and Maximize", "publisher": "Agility at Scale", "url": "https://agility-at-scale.com/ai/agents/enterprise-ai-agent-roi", "date": "2026"},
+    {"title": "Enterprise AI Agents 2026: Maximize Your ROI", "publisher": "Blck Alpaca", "url": "https://blckalpaca.at/en/blog/enterprise-ai-agents-2026-maximize-your-roi", "date": "2026"}
+  ],
+  "article_plan": {
+    "target_word_count": "2,800–3,200",
+    "sections": [
+      "Executive Summary / TL;DR",
+      "What Is AI Agent Evaluation? (GEO definition block)",
+      "Why Traditional Testing Fails for Agents",
+      "The Evaluation Platform Landscape: MLflow, LangSmith, Maxim AI, DeepEval, Arize Phoenix",
+      "Agent Evaluation Metrics That Actually Matter",
+      "The ROI of Evaluation: Why Best-in-Class Teams Spend 18-24% on Eval",
+      "From Manual Review to Automated Evaluation: The Maturity Model",
+      "Production Observability: Closing the Loop",
+      "Frequently Asked Questions (GEO FAQ block)",
+      "Conclusion: Evaluation as Strategic Advantage"
+    ],
+    "tone": "Enterprise B2B, authoritative but accessible — learnings from Runs #1 and #2: target Flesch 35+, include 3+ plain-language interludes, embed hyperlinks from the start, meta description filled, title ≤60 chars",
+    "geo_requirements": {
+      "definition_block": "45-55 words in 'What Is AI Agent Evaluation?' section",
+      "faq_block": "4-6 questions with ## Frequently Asked Questions heading",
+      "featured_image": "Image marker required",
+      "quotable_summary": "60-80 word blockquote at end"
+    }
+  },
+  "next_steps": [
+    "Write SEO-optimized article → content.article-2026-05-26.json",
+    "Hand off to SEO Agent for quality gate audit (keyword density, readability, meta tags, SERP preview, E-E-A-T)",
+    "GEO structural verification (definition, FAQ, image, quotable summary — all 4 required)",
+    "If SEO ≥70 and GEO all blocks present → hand off to Social Agent for distribution",
+    "If FLAG (50-69) → auto-revision cycle",
+    "Update pipeline-log.md and seo-patterns.md"
+  ]
+}

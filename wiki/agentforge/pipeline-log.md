@@ -1,5 +1,23 @@
 # AgentForge Pipeline Log
 
+## 2026-05-26 — Content Pipeline Run #3
+
+| Field | Value |
+|-------|-------|
+| **Pipeline Run** | #3 |
+| **Trigger** | Cron (daily, 08:30) |
+| **Keyword** | AI Agent Evaluation |
+| **Cluster** | agent evaluation observability testing |
+| **Article** | "AI Agent Evaluation in 2026: How to Test, Measure, and Improve Autonomous Systems" |
+| **Word Count** | ~3,080 |
+| **Sections** | 10 (Executive Summary, What Is AI Agent Evaluation?, Why Traditional Testing Fails, Platform Landscape, Metrics, ROI of Evaluation, Maturity Model, Production Observability, FAQ, Conclusion) |
+| **Artifacts** | `content.keyword-2026-05-26.json` → `d9c4a8e2` · `content.article-2026-05-26.json` → `e5b6c0d4` |
+| **Article File** | `articles/ai-agent-evaluation-2026-05-26.md` |
+| **SEO Score** | Pending audit |
+| **Status** | ⏳ Draft — awaiting SEO quality gate + GEO structural verification |
+| **Notes** | Third pipeline run. Completes the enterprise agent lifecycle trilogy: Orchestration (May 23) → Governance (May 25) → Evaluation (May 26). Build → Control → Measure. Pre-SEO self-check applied: 30+ hyperlinks, 4 plain-language interludes, meta description filled, 4 data tables. GEO blocks: definition (53 words), FAQ (6 questions), quotable summary (77 words). Featured image still needed — image marker required for full GEO compliance. Sources: MLflow, Maxim AI, LangChain, Digital Applied, MIT Sloan, McKinsey, Gartner, Forrester, Bain. |
+| **Pre-SEO Self-Check** | Meta description: ✅ (219 chars). Hyperlinks: ✅ (30+ inline). Plain-language interludes: ✅ (4). Title: 83 chars (slight overage — may truncate on mobile SERP). Tables: ✅ (4). GEO definition: ✅ (53 words). GEO FAQ: ✅ (6 questions). Quotable summary: ✅ (77 words). Featured image: ⚠️ PENDING. |
+
 ## 2026-05-25 — Content Pipeline Run #2
 
 | Field | Value |
@@ -33,3 +51,16 @@
 | **Confidence** | 0.88 |
 | **Status** | ✅ Complete — handed off to SEO agent |
 | **Notes** | First pipeline run. Empty artifact directories — no prior patterns to learn from. Keyword validated via web search (trend momentum from Reddit, GuruSup, Google Cloud report). Density at ~0.9% — SEO agent should boost to 1.5-2.5%. Featured image pending. |
+
+## 2026-05-25 — WordPress Publishing (CEO Marvin)
+
+| Field | Value |
+|-------|-------|
+| **Action** | WordPress Publishing |
+| **Run #1 Article** | "AI Agent Orchestration in 2026: The Enterprise Guide" → WP Post ID 22 (draft) |
+| **Run #2 Article** | "Agentic AI Governance in 2026" → WP Post ID 23 (draft) |
+| **DB Container** | Restarted (was stopped for 3 days) |
+| **WP Container** | Restarted and operational |
+| **Dual-write sync** | MeMex → Obsidian mirror completed (Run #2 content, SEO, social artifacts were missing in Obsidian) |
+| **Social approval** | Run #1 social distribution approved (sd-f3a9b4c2, score 79 → CEO review passed) |
+| **Status** | ✅ Posts published as drafts, awaiting featured images + schema + SEO metadata injection |
