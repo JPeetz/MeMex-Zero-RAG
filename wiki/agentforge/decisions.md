@@ -68,3 +68,11 @@
 - [2026-05-24] [DECISION v3]: Astra Ad Dept tool stack upgraded to explicit model routing. Image: fal.ai FLUX (schnell/dev/pro-ultra tiers) as primary, image_generate as fallback. Video: Runway Gen-4.5 primary for premium ads, Luma Dream Machine secondary for rapid iteration, video_generate for motion graphics/avatars. Audio: music_generate. Routing rule: still → FLUX, premium video → Runway, rapid tests → Luma, motion graphics → video_generate. Every asset now specifies: primary tool, secondary fallback, why chosen, expected quality, export settings, engine-aware prompt variant, seed values.
 
 - [2026-05-24] [DECISION]: AgentForge capabilities packaged as Agent Skills (agentskills.io open standard). Three skills created: (1) app-discovery-scrutiny — "Zero-Day Dominance Report" framework, 5-section VC/PM/behavioral analysis ending in Build/Pivot/Kill. (2) app-scaffolding — 12-section mobile app build blueprint covering iOS/Android/ASO/Hooked Model/financial/virality/30-day sprint. (3) astra-campaign — full-service ad campaign generator, 7-phase Diagnose→Research→Strategize→Create→Optimize→QC→Export. All three use progressive disclosure (name+description loaded at startup, full instructions only when task matches). Cross-platform: works on OpenClaw, Claude Code, Codex, Cursor, Hermes Agent, any skills-compatible agent. Stored at ~/.openclaw/workspace/skills/. This closes the loop with Hermes Agent's self-improving skills architecture.
+
+## 2026-05-25 — Social Distribution Approval
+
+- **[DECISION]:** Social distribution for "AI Agent Orchestration in 2026" (Run #1, sd-f3a9b4c2) APPROVED for posting.
+  - SEO: 79/100 (below ≥80 full-auto threshold — CEO review required per standing orders)
+  - Platforms: Reddit (r/LocalLLaMA), Hacker News (Show HN), X/Twitter (5-tweet thread), LinkedIn, Dev.to
+  - Rationale: Social content quality is high — platform-specific adaptations, value-first framing, contrarian hook. Risk of posting sub-80 SEO score article is low because the article itself is 3,091 words of original technical content with 7 real-world patterns. The SEO score was docked for metadata/schema issues (which don't affect social), not content quality.
+  - CEO: Marvin | Signed: 2026-05-25 16:40 IST

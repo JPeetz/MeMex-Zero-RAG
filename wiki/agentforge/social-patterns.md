@@ -36,6 +36,36 @@ _Learned patterns and outcomes from post-publication social distribution. Update
 
 **Approval Gate:** SEO 79 → CEO review required. Below ≥80 full-auto threshold.
 
+### 2026-05-25 — "From Single-Agent to Multi-Agent Architecture"
+
+**Article:** `multi-agent-architecture-2026` | **Keyword:** multi-agent architecture | **SEO Score:** 78/100
+**Artifact:** `sd-8a4c7d2e-1f3b-4a6e-8d9c-2e5f7a1b3d6c`
+**Approval Gate:** CEO override (threshold lowered to ≥75)
+
+**Platform Adaptations:**
+
+| Platform | Format | Key Insight |
+|----------|--------|-------------|
+| Reddit | r/LocalLLaMA — self-post, self-hosted/cost angle | Led with model tiering cutting API costs ~60%. Emphasized local Llama for orchestrator + data extraction agents. Contrarian close: most teams don't need multi-agent. |
+| Reddit | r/programming — technical post, architecture-first | Framed as production engineering report. 6-framework comparison across 3 coordination dimensions. Decision framework as value prop. Asked community what they run. |
+| Hacker News | Show HN — production pipeline as the thing built | Led with 6-month production pipeline. Emphasized architecture trade-offs, contrarian findings. Avoided all marketing. Noted open-source methodology. |
+| X/Twitter | 5-tweet thread — hook → problem → frameworks → contrarian → link | Hook: "5-7 tool limit" research stat. Middle: frameworks ranked by architectural fit. Contrarian close: most teams don't need multi-agent. Thread density ~260 chars/tweet. |
+| LinkedIn | 184-word professional post — research-backed opener | Cites Anthropic research directly. Names all 6 frameworks + 3 patterns. Contrarian finding as memorable close. Enterprise implications framed as industry shift. |
+| Dev.to | Cross-post with canonical URL | Tags: ai, agents, orchestration, enterprise, architecture, langgraph, crewai. Canonical URL preserved. Existing Markdown renders natively. |
+
+**Patterns Learned:**
+
+1. **Two-subreddit strategy works** — r/LocalLLaMA gets the self-hosted/cost angle, r/programming gets the architecture/engineering angle. Same article, entirely different framing. No overlap.
+2. **Model tiering is the LocalLLaMA hook** — quantized Llama-4 at 70B+ for orchestrators resonates with the self-hosted community. The ~60% cost savings stat is the magnet.
+3. **Research-backed stats as cross-platform anchors** — "Anthropic's research: 5-7 tool limit" and "context pollution" serve as portable credibility signals across Reddit, HN, and LinkedIn.
+4. **Contrarian take as universal closer** — "most teams don't need multi-agent" is counterintuitive enough to be memorable across all platforms. Works as discussion starter on Reddit, credibility signal on HN, and bold take on LinkedIn.
+5. **Framework ranking as Twitter density solution** — listing 6 frameworks with one-line summaries compresses well into tweet format without losing substance.
+6. **OAuth token management bottleneck** — xurl OAuth 1.0a tokens expire and require TTY re-auth. Headless agent sessions can't re-auth. Need to explore cron-based token refresh or move to OAuth 2.0.
+
+**Posting Order Rationale:** Reddit + HN first (generate discussion, set the narrative), then Twitter + LinkedIn (broadcast), Dev.to last (long-tail SEO cross-post).
+
+**Blocker:** X/Twitter — OAuth 1.0a token expired. Requires CEO manual `xurl auth default agentforge` on host terminal.
+
 ---
 
 ## Template: Distribution Checklist (per article)
