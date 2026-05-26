@@ -76,3 +76,4 @@
   - Platforms: Reddit (r/LocalLLaMA), Hacker News (Show HN), X/Twitter (5-tweet thread), LinkedIn, Dev.to
   - Rationale: Social content quality is high — platform-specific adaptations, value-first framing, contrarian hook. Risk of posting sub-80 SEO score article is low because the article itself is 3,091 words of original technical content with 7 real-world patterns. The SEO score was docked for metadata/schema issues (which don't affect social), not content quality.
   - CEO: Marvin | Signed: 2026-05-25 16:40 IST
+- [2026-05-26] [DECISION]: Prompts Foundry activated. Mirrors skill-foundry architecture. Nightly 01:00 Dublin via Flash model. 17-domain rotation. Output: 3-5 improved cross-platform prompts per run to MeMex artifacts/prompts-foundry/. GitHub repo at 50 prompts (per standing policy).

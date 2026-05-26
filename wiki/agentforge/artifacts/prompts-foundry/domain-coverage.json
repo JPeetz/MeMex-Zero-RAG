@@ -1,0 +1,25 @@
+{
+  "domains": [
+    {"name": "coding", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "business", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "creative", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "research", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "automation", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "education", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "marketing", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "security", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "devops", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "data-science", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "writing", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "legal", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "finance", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "healthcare", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "gaming", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "infrastructure", "covered": false, "last_run": null, "prompts_shipped": 0},
+    {"name": "productivity", "covered": false, "last_run": null, "prompts_shipped": 0}
+  ],
+  "total_prompts_shipped": 0,
+  "runs": 0,
+  "current_domain_index": 0,
+  "rotation_order": "G"
+}

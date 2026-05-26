@@ -15,7 +15,7 @@ Agents not yet deployed. Activate on-demand via CEO directive when their pipelin
 
 | Agent | Trigger | Pipeline Position | Source |
 |-------|---------|-------------------|--------|
-| prompts | 50+ prompts ready for bundle | Producer: prompt-bundle artifacts | ClaudeClaw prompts/CLAUDE.md |
+| ~~prompts~~ | ~~50+ prompts ready for bundle~~ | Activated 2026-05-26 → prompts-foundry, nightly 01:00 | ~~ClaudeClaw prompts/CLAUDE.md~~ |
 | wp-design | Docker WP theme needed | Consumer: design-spec → Producer: theme-deployed | ClaudeClaw wp-design/CLAUDE.md |
 | hiring | New department/agent proposal | Adversarial review pipeline | ClaudeClaw hiring/CLAUDE.md |
 | research | CEO requests external analysis | Isolated producer | ClaudeClaw research/CLAUDE.md |
