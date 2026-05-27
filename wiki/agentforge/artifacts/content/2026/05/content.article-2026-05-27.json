@@ -1,0 +1,66 @@
+{
+  "artifact_id": "a1c2d3e4-f506-4b7c-b80d-2f6g7h8i9j0k",
+  "type": "content.article",
+  "pipeline_run": 4,
+  "created": "2026-05-27T08:30:00+01:00",
+  "keyword_artifact_ref": "f8d1b3a7-c602-4e8f-b50c-1e7f5c6d4e83",
+  "article_file": "articles/enterprise-ai-agent-deployment-2026-05-27.md",
+  "title": "Enterprise AI Agent Deployment 2026: The Scaling Playbook",
+  "target_keyword": "Enterprise AI Agent Deployment",
+  "cluster": "AI agent production deployment scaling enterprise",
+  "secondary_keywords": [
+    "AI agent production deployment 2026",
+    "enterprise AI scaling strategy",
+    "moving AI agents from pilot to production",
+    "AI agent infrastructure enterprise",
+    "production AI agent best practices",
+    "NVIDIA Agent Toolkit enterprise",
+    "enterprise AI agent ROI 2026",
+    "scaling autonomous AI systems",
+    "AI agent ops MLOps LLMOps",
+    "agentic AI production readiness"
+  ],
+  "meta_description": "How to deploy AI agents at scale in 2026. The complete enterprise playbook: 5-layer deployment stack, infrastructure decisions, NIST/NVIDIA security standards, maturity model, and ROI data showing 80% of enterprises achieve measurable returns.",
+  "status": "draft",
+  "word_count": 2980,
+  "sections": [
+    "Executive Summary",
+    "What Is Enterprise AI Agent Deployment? (GEO definition block, 50 words)",
+    "The Pilot-to-Production Gap: Why Most Agents Never Ship",
+    "The Enterprise AI Agent Deployment Stack: 5 Layers",
+    "Deployment Patterns: Internal Tools, Customer-Facing Agents, and Autonomous Operations",
+    "Infrastructure Decisions: Cloud-Native, Hybrid, On-Prem, and Edge",
+    "The ROI Case: 80% of Enterprises Report Measurable Returns",
+    "Security and Identity: The NIST Standards and NVIDIA Toolkit Era",
+    "Deployment Maturity Model: From Experiment to Infrastructure",
+    "Frequently Asked Questions (GEO FAQ block, 6 questions)",
+    "Conclusion: Deployment Is the New Frontier"
+  ],
+  "geo_requirements": {
+    "definition_block": "PASS — 50 words in 'What Is Enterprise AI Agent Deployment?' section",
+    "faq_block": "PASS — 6 questions under ## Frequently Asked Questions",
+    "featured_image": "REQUIRED — image marker needs generation and replacement",
+    "quotable_summary": "PASS — 76 words blockquote at end of conclusion"
+  },
+  "pre_seo_self_check": {
+    "meta_description": "PASS — 243 chars, includes keyword + key signals (5-layer stack, NIST/NVIDIA, maturity model, 80% ROI data)",
+    "title_length": "PASS — 57 chars, fits SERP limit with room",
+    "hyperlinks": "PASS — 15+ inline links to authoritative sources",
+    "plain_language_interludes": "PASS — 3 interludes (Executive Summary, Pilot-to-Production, Layer intro)",
+    "tables": "PASS — 2 tables (Layer comparison, Maturity model)",
+    "series_crosslinks": "PASS — links to all 3 prior articles in series"
+  },
+  "pipeline_series": {
+    "run_1": {"date": "2026-05-23", "topic": "AI Agent Orchestration", "angle": "How to build multi-agent systems"},
+    "run_2": {"date": "2026-05-25", "topic": "Agentic AI Governance", "angle": "How to control autonomous agents safely"},
+    "run_3": {"date": "2026-05-26", "topic": "AI Agent Evaluation", "angle": "How to measure, test, and improve agent quality"},
+    "run_4": {"date": "2026-05-27", "topic": "Enterprise AI Agent Deployment", "angle": "How to scale agents from pilot to production"}
+  },
+  "next_steps": [
+    "featured_image_generation",
+    "insert_image_markdown",
+    "pipeline_copy",
+    "pdf_lead_magnet",
+    "me_mex_git_commit"
+  ]
+}

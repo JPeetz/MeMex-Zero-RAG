@@ -1,0 +1,27 @@
+{
+  "artifact_id": "seo-audit-2026-05-27-enterprise-deployment",
+  "type": "seo.audit",
+  "created": "2026-05-27T09:15:00+01:00",
+  "article_ref": "a1c2d3e4-f506-4b7c-b80d-2f6g7h8i9j0k",
+  "seo_score": 78,
+  "geo_checks": {
+    "definition_block": {"status": "PASS", "words": 50, "target": "45-55"},
+    "faq_block": {"status": "PASS", "questions": 6, "min_required": 4},
+    "featured_image": {"status": "PASS", "generated": true},
+    "quotable_summary": {"status": "PASS", "words": 76, "target": "60-80"}
+  },
+  "serp_check": {
+    "title_length": 57,
+    "title_status": "PASS (≤60 chars)",
+    "meta_description_length": 243,
+    "meta_description_status": "PASS",
+    "url_slug": "enterprise-ai-agent-deployment-2026-05-27"
+  },
+  "keyword_target": "Enterprise AI Agent Deployment",
+  "cluster": "AI agent production deployment scaling enterprise",
+  "flesch": 24.3,
+  "notes": "Standard B2B enterprise difficulty — Flesch 24 is typical for infrastructure/CTO audience. 11 H2s, 15+ hyperlinks, 2 tables, series crosslinks. All 4 GEO blocks pass.",
+  "decision": "PASS (≥70)",
+  "routing": "route to PDF finalization",
+  "pipeline_status": "completed_with_ceo_intervention"
+}

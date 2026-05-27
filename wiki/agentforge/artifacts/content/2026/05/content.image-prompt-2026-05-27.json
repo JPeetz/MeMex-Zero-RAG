@@ -1,0 +1,10 @@
+{
+  "artifact_id": "b2d3e4f5-g607-5c8d-c91e-3g7h8i9j0k1l",
+  "type": "content.image-prompt",
+  "pipeline_run": 4,
+  "created": "2026-05-27T08:30:00+01:00",
+  "article_ref": "a1c2d3e4-f506-4b7c-b80d-2f6g7h8i9j0k",
+  "prompt": "Enterprise AI agent deployment infrastructure visualization. A dark blue technological dashboard showing interconnected microservices with glowing nodes representing AI agents being deployed across a Kubernetes-style cluster. Central holographic globe with data flow lines connecting to cloud, hybrid, and on-premises infrastructure icons. Futuristic enterprise data center aesthetic with blue and teal gradients, subtle circuit board textures, clean professional style. No text or labels. 16:9 cinematic composition.",
+  "image_placement": "After article metadata header, before Executive Summary",
+  "target_file": "images/enterprise-ai-agent-deployment-2026-05-27.jpg"
+}

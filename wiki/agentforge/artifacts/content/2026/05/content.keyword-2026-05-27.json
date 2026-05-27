@@ -1,0 +1,86 @@
+{
+  "artifact_id": "f8d1b3a7-c602-4e8f-b50c-1e7f5c6d4e83",
+  "type": "content.keyword",
+  "created": "2026-05-27T08:30:00+01:00",
+  "pipeline_run": 4,
+  "keyword": {
+    "primary": "Enterprise AI Agent Deployment",
+    "cluster": "AI agent production deployment scaling enterprise",
+    "search_volume_estimate": "high (4,800–7,200/mo combined cluster)",
+    "competition": "high",
+    "commercial_intent": "very high",
+    "trend_momentum": "accelerating — 80% of enterprises report measurable ROI from AI agents (Claude/KPMG 2026 data), NVIDIA Agent Toolkit launched March 2026, NIST AI Agent Standards Initiative active, Gartner: 40% of net-new enterprise apps will include task-specific agents by end of 2026. The bridge from 'pilot' to 'production at scale' is the defining enterprise challenge of H1 2026.",
+    "secondary": [
+      "AI agent production deployment 2026",
+      "enterprise AI scaling strategy",
+      "moving AI agents from pilot to production",
+      "AI agent infrastructure enterprise",
+      "production AI agent best practices",
+      "NVIDIA Agent Toolkit enterprise",
+      "enterprise AI agent ROI 2026",
+      "scaling autonomous AI systems",
+      "AI agent ops MLOps LLMOps",
+      "agentic AI production readiness"
+    ]
+  },
+  "selection_rationale": {
+    "why_this_keyword": "Enterprise AI Agent Deployment is the culmination of AgentForge's enterprise AI agent lifecycle series. Run #1 covered orchestration (how to build). Run #2 covered governance (how to control). Run #3 covered evaluation (how to measure). Run #4 covers deployment (how to scale into production). Together they form the complete framework: Build → Control → Measure → Deploy.",
+    "timeliness_factors": [
+      "Claude/KPMG 2026 survey: 80% of enterprises report measurable ROI — the 'does it work?' question is answered, the 'how do we scale it?' question is now urgent",
+      "NVIDIA Agent Toolkit launch (March 16, 2026) — first major infrastructure vendor to ship agent-native deployment tooling",
+      "NIST AI Agent Standards Initiative — security and interoperability standards now under development, enterprises need guidance",
+      "Gartner: 40% of net-new enterprise apps will include task-specific agents by end of 2026 — deployment tooling is racing to catch up",
+      "85% of companies experiment with agentic AI, but the gap between 'experiment' and 'production at scale' is where value is captured or lost",
+      "Perfect capstone to AgentForge's lifecycle series: orchestration (May 23), governance (May 25), evaluation (May 26), deployment (May 27)"
+    ],
+    "domain_alignment": "Perfect — AgentForge's core domain is AI agents and enterprise automation. This is the 'how to ship it' article that makes the previous three actionable. Highest commercial intent in the series.",
+    "differentiation_from_prior_runs": "Run #1 (May 23): AI Agent Orchestration — architectural patterns for multi-agent systems. Run #2 (May 25): Agentic AI Governance — control frameworks and compliance. Run #3 (May 26): AI Agent Evaluation — measuring and testing agent quality. Run #4 (today): Enterprise AI Agent Deployment — scaling from pilot to production, infrastructure, ops, and ROI. Each builds on the previous. No overlap."
+  },
+  "research_sources": [
+    {"title": "How Enterprises Are Building AI Agents in 2026: From Pilots to Production", "publisher": "Claude/BeamSec", "url": "https://beamsec.com/how-enterprises-are-building-ai-agents-in-2026-from-pilots-to-production/", "date": "2026"},
+    {"title": "AI Agents Enterprise News 2026: Standards & Deployment", "publisher": "Oski Site", "url": "https://oski.site/blog/ai-agents-enterprise-news", "date": "2026"},
+    {"title": "5 Takeaways from the 2026 State of AI Agents Report", "publisher": "Arcade.dev", "url": "https://www.arcade.dev/blog/5-takeaways-2026-state-of-ai-agents-claude", "date": "2026"},
+    {"title": "Gartner Predicts 40% of Enterprise Apps Will Feature Task-Specific AI Agents by 2026", "publisher": "Gartner", "url": "https://www.gartner.com/en/newsroom/press-releases/2025-08-26-gartner-predicts-40-percent-of-enterprise-apps", "date": "2025-08"},
+    {"title": "Top Agentic AI Trends to Watch in 2026", "publisher": "CloudKeeper", "url": "https://www.cloudkeeper.com/insights/blog/top-agentic-ai-trends-watch-2026-how-ai-agents-are-redefining-enterprise-automation", "date": "2026"},
+    {"title": "AI Agent Trends 2026 Report", "publisher": "Google Cloud", "url": "https://cloud.google.com/resources/content/ai-agent-trends-2026", "date": "2026"},
+    {"title": "Enterprise AI Agents Platform Guide 2026", "publisher": "JetRuby", "url": "https://jetruby.com/blog/enterprise-ai-agents", "date": "2026"},
+    {"title": "Future of AI Agents: Top Trends in 2026", "publisher": "Blue Prism/SS&C", "url": "https://www.blueprism.com/resources/blog/future-ai-agents-trends", "date": "2026"}
+  ],
+  "article_plan": {
+    "target_word_count": "2,800–3,200",
+    "sections": [
+      "Executive Summary / TL;DR",
+      "What Is Enterprise AI Agent Deployment? (GEO definition block)",
+      "The Pilot-to-Production Gap: Why Most Agents Never Ship",
+      "The Enterprise AI Agent Deployment Stack: 5 Layers",
+      "Deployment Patterns: Internal Tools, Customer-Facing Agents, and Autonomous Operations",
+      "Infrastructure Decisions: Cloud-Native, Hybrid, On-Prem, and Edge",
+      "The ROI Case: 80% of Enterprises Report Measurable Returns",
+      "Security and Identity: The NIST Standards and NVIDIA Toolkit Era",
+      "Deployment Maturity Model: From Experiment to Infrastructure",
+      "Frequently Asked Questions (GEO FAQ block)",
+      "Conclusion: Deployment Is the New Frontier"
+    ],
+    "tone": "Enterprise B2B, authoritative but accessible — learnings from Runs #1–3: target Flesch 35+, include 3+ plain-language interludes, embed hyperlinks from the start, meta description filled, title ≤60 chars, write article and meta description simultaneously",
+    "geo_requirements": {
+      "definition_block": "45-55 words in 'What Is Enterprise AI Agent Deployment?' section",
+      "faq_block": "5-6 questions with ## Frequently Asked Questions heading",
+      "featured_image": "Image marker required — generate and insert",
+      "quotable_summary": "60-80 word blockquote at end"
+    }
+  },
+  "pipeline_series_position": {
+    "run_1": {"date": "2026-05-23", "topic": "AI Agent Orchestration", "angle": "How to build multi-agent systems"},
+    "run_2": {"date": "2026-05-25", "topic": "Agentic AI Governance", "angle": "How to control autonomous agents safely"},
+    "run_3": {"date": "2026-05-26", "topic": "AI Agent Evaluation", "angle": "How to measure, test, and improve agent quality"},
+    "run_4": {"date": "2026-05-27", "topic": "Enterprise AI Agent Deployment", "angle": "How to scale agents from pilot to production"}
+  },
+  "next_steps": [
+    "Write SEO-optimized article → content.article-2026-05-27.json",
+    "Generate image prompt from article concept",
+    "Generate featured image via image_generate",
+    "Insert image markdown into article, update status to draft_with_image",
+    "Copy to pipeline dir, generate PDF",
+    "Commit to MeMex git"
+  ]
+}
