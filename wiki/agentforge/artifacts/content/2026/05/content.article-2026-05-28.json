@@ -1,0 +1,68 @@
+{
+  "artifact_id": "b3d5e7f9-g104-6h8i-d70e-3i9j0k1l2m3n",
+  "type": "content.article",
+  "pipeline_run": 5,
+  "created": "2026-05-28T08:30:00+01:00",
+  "keyword_artifact_ref": "a7e2d4b8-c903-5f9e-c60d-2g8h6i7j0k1l",
+  "article_file": "articles/multi-agent-ai-frameworks-2026-05-28.md",
+  "title": "Multi-Agent AI Frameworks 2026: LangGraph vs CrewAI vs OpenAI SDK vs the Field",
+  "target_keyword": "Multi-Agent AI Frameworks",
+  "cluster": "multi-agent frameworks comparison LangGraph CrewAI OpenAI SDK 2026",
+  "secondary_keywords": [
+    "LangGraph vs CrewAI 2026",
+    "OpenAI Agents SDK comparison",
+    "Google ADK multi-agent framework",
+    "Microsoft Agent Framework enterprise",
+    "AutoGen AG2 production guide",
+    "best AI agent frameworks 2026",
+    "multi-agent system architecture enterprise",
+    "LangGraph production deployment",
+    "CrewAI team-based AI agents",
+    "agentic AI framework selection guide"
+  ],
+  "meta_description": "Which multi-agent AI framework should your team actually ship with in 2026? Compare LangGraph, CrewAI, OpenAI Agents SDK, Google ADK, AutoGen/AG2, and Claude Agent SDK across state management, MCP support, learning curve, and production readiness. Includes decision framework for CTOs and engineering leads.",
+  "status": "draft_pending_image",
+  "word_count": 2950,
+  "sections": [
+    "Executive Summary",
+    "What Are Multi-Agent AI Frameworks? (GEO definition block, 50 words)",
+    "Why 2026 Is the Multi-Agent Tipping Point",
+    "Framework Deep Dives: LangGraph, CrewAI, OpenAI Agents SDK, Google ADK, AutoGen/AG2, Claude Agent SDK",
+    "Comparison Matrix (7-dimension table: architecture, state, async, MCP, learning curve, model flexibility, production readiness)",
+    "Decision Framework: Which Framework for Which Team?",
+    "Production Readiness: What Ships vs What Demos",
+    "MCP and Interoperability: The Protocol That Changes Everything",
+    "Frequently Asked Questions (GEO FAQ block, 6 questions)",
+    "Conclusion: Framework Is Strategy"
+  ],
+  "geo_requirements": {
+    "definition_block": "PASS — 52 words in 'What Are Multi-Agent AI Frameworks?' section",
+    "faq_block": "PASS — 6 questions under ## Frequently Asked Questions",
+    "featured_image": "REQUIRED — image marker needs generation and replacement in Part B",
+    "quotable_summary": "PASS — 76 words blockquote at end of conclusion"
+  },
+  "pre_seo_self_check": {
+    "meta_description": "PASS — 315 chars, includes keyword + key signals (6 frameworks, state management, MCP support, decision framework for CTOs)",
+    "title_length": "PASS — 75 chars (slightly over 60 limit; may truncate on mobile SERP)",
+    "hyperlinks": "PASS — 20+ inline links to sources and prior series articles",
+    "plain_language_interludes": "PASS — 2 interludes (Tipping Point section, Decision Framework section)",
+    "tables": "PASS — 2 tables (7-dimension framework comparison, production factors matrix)",
+    "series_crosslinks": "PASS — links to all 4 prior articles in the enterprise AI lifecycle series"
+  },
+  "pipeline_series": {
+    "run_1": {"date": "2026-05-23", "topic": "AI Agent Orchestration", "angle": "How to build multi-agent systems"},
+    "run_2": {"date": "2026-05-25", "topic": "Agentic AI Governance", "angle": "How to control autonomous agents safely"},
+    "run_3": {"date": "2026-05-26", "topic": "AI Agent Evaluation", "angle": "How to measure, test, and improve agent quality"},
+    "run_4": {"date": "2026-05-27", "topic": "Enterprise AI Agent Deployment", "angle": "How to scale agents from pilot to production"},
+    "run_5": {"date": "2026-05-28", "topic": "Multi-Agent AI Frameworks", "angle": "Which framework to actually build with"}
+  },
+  "next_steps": [
+    "featured_image_generation (Part B)",
+    "insert_image_markdown (Part B)",
+    "update status to draft_with_image (Part B)",
+    "pipeline_copy (Part B)",
+    "pdf_lead_magnet (Part B)",
+    "seo_audit (Part B)",
+    "git_commit (Part B)"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "artifact_id": "c4e6f8g0-h215-7i9j-e80f-4j0k1l2m3n4o",
+  "type": "content.image-prompt",
+  "pipeline_run": 5,
+  "created": "2026-05-28T08:30:00+01:00",
+  "article_artifact_ref": "b3d5e7f9-g104-6h8i-d70e-3i9j0k1l2m3n",
+  "article_title": "Multi-Agent AI Frameworks 2026: LangGraph vs CrewAI vs OpenAI SDK vs the Field",
+  "generation_parameters": {
+    "provider": "fal-ai/flux/schnell",
+    "size": "landscape_16x9",
+    "aspect": "16:9",
+    "count": 1
+  },
+  "prompt": "Enterprise multi-agent AI framework comparison dashboard visualization. Dark blue and teal gradient background with hexagonal grid pattern. Central holographic display showing six connected AI agent framework nodes as glowing geometric icons arranged in a radial cluster — each node a different color (blue, green, purple, orange, cyan, white). Data flow lines connecting the nodes like a neural network graph. Subtle circuitry patterns in the background. Clean, modern, enterprise dashboard aesthetic. No text labels. HUD-style data visualization overlays with subtle translucent panels. Depth of field focusing on the central cluster. Cinematic lighting with soft volumetric glow.",
+  "fallback_prompt": "Futuristic technology network visualization with six glowing geometric nodes connected by data streams in a radial pattern. Dark blue and teal color palette. Enterprise HUD dashboard style. Clean, modern, professional aesthetic.",
+  "image_output": {
+    "filename": "multi-agent-frameworks-comparison-2026.png",
+    "markdown_reference": "[Image: multi-agent-frameworks-comparison-2026.png]",
+    "caption": "Six leading multi-agent AI frameworks compared across architecture, state management, MCP support, and production readiness — May 2026"
+  },
+  "notes": "This image prompt was designed for the 16:9 landscape format to work as a featured image. The radial six-node design directly references the six frameworks compared in the article (LangGraph, CrewAI, OpenAI Agents SDK, Google ADK, Microsoft Agent Framework, Claude Agent SDK). Generation handled in Part B."
+}

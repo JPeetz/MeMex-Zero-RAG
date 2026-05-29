@@ -1,0 +1,20 @@
+{
+  "artifact_id": "d0h5g7e1-f206-8c2h-f93g-5j1k9l0m3n4o",
+  "type": "content.image-prompt",
+  "created": "2026-05-29T08:50:00+01:00",
+  "pipeline_run": 6,
+  "parent_article_artifact": "c9g4f6d0-e105-7b1g-e82f-4i0j8k9l2m3n",
+  "image_prompt": {
+    "primary": "Enterprise AI agent security shield visualization. Dark blue technological defense architecture with five concentric security layers rendered as translucent glowing rings around a central AI agent core. The core pulses with data streams connecting to symbols of CRM, code repositories, cloud infrastructure, email, and financial systems. Attack vectors shown as red energy tendrils being blocked at each layer. Blue and teal gradients on deep navy background. Cinematic volumetric lighting. HUD-style overlay panels showing security metrics. 16:9 landscape. Professional enterprise cybersecurity aesthetic.",
+    "style": "Photorealistic 3D render with HUD overlay. Dark mode enterprise security dashboard aesthetic.",
+    "dimensions": "16:9 landscape (1792x1024 or equivalent)",
+    "color_palette": "Deep navy (#0a0e27), electric blue (#0066ff), teal (#00d4aa), red attack indicators (#ff3333), white HUD text",
+    "concept_rationale": "The 5-layer defense architecture is the article's core framework. Visualizing it as concentric shields around a vulnerable but protected agent core communicates both the threat reality and the defense model in a single image. Each ring represents a layer: discovery, identity, input validation, runtime enforcement, multi-agent trust. The red tendrils being blocked communicate active defense rather than passive posture.",
+    "placement": "Below the Executive Summary, before 'Why AI Agent Security Is Fundamentally Different'",
+    "alt_text": "Enterprise AI agent security defense architecture with five concentric protection layers shielding an AI agent core from external attack vectors"
+  },
+  "generation_status": "completed",
+  "image_path": "images/2026/05/ai-agent-security-enterprise-2026-05-29.jpg",
+  "image_dimensions": "1536x1024",
+  "generated_at": "2026-05-29T12:55:00+01:00"
+}

@@ -1,0 +1,101 @@
+{
+  "artifact_id": "b8f3e5c9-d904-6a0f-d71e-3h9i7j8k1l2m",
+  "type": "content.keyword",
+  "created": "2026-05-29T08:30:00+01:00",
+  "pipeline_run": 6,
+  "keyword": {
+    "primary": "AI Agent Security Enterprise 2026",
+    "cluster": "AI agent security enterprise OWASP top 10 agentic prompt injection NHI identity 2026",
+    "search_volume_estimate": "high (8,000–14,000/mo combined cluster, growing rapidly)",
+    "competition": "medium-high — emerging category, not yet saturated",
+    "commercial_intent": "very high — security budgets being allocated, vendor evaluation underway",
+    "trend_momentum": "explosive. 97% of security leaders expect a material AI-agent-driven security incident in 2026. OWASP released first-ever Top 10 for Agentic Applications in Dec 2025 — ASI01-ASI10 now industry standard. Prompt injection attacks surged 340% in 2026. Non-human identities now outnumber human identities 144:1 in enterprises. Gartner flagged AI agent identity/governance as top cybersecurity trend for 2026. NHIs growing 44% yearly. Only 6% of security budgets allocated to agent security despite near-universal expectation of breach. Palo Alto Networks launched Prisma AIRS. Lasso Security, AGAT Software, and Obsidian Security all building dedicated agent security platforms.",
+    "secondary": [
+      "OWASP top 10 agentic AI applications 2026",
+      "AI agent prompt injection defense",
+      "non-human identity security AI agents",
+      "enterprise AI agent access control",
+      "agentic AI security framework best practices",
+      "MCP server security vulnerabilities",
+      "AI agent runtime security monitoring",
+      "LLM jailbreak prevention enterprise",
+      "AI agent governance compliance NIST"
+    ]
+  },
+  "selection_rationale": {
+    "why_this_keyword": "AI Agent Security is the inevitable next cluster after the lifecycle series (orchestration → governance → evaluation → deployment → frameworks). Every piece in that series touched on security concerns but none addressed them head-on. Security is the #1 blocker to production deployment — enterprises won't ship agents at scale until they can secure them. The OWASP ASI Top 10 (Dec 2025) gives the article a definitive framework to anchor on, and the 97% breach-expectation stat creates urgency. This is the article CISOs and security VPs are searching for right now.",
+    "timeliness_factors": [
+      "OWASP Top 10 for Agentic Applications released Dec 2025 — the first industry-standard taxonomy, now referenced by NIST, Palo Alto Networks, and enterprise security teams",
+      "97% of security leaders expect a major AI-agent-driven incident in 2026 (Security Boulevard, Apr 2026)",
+      "Prompt injection attacks surged 340% in 2026 (AI Magicx)",
+      "Non-human identities outnumber humans 144:1, growing 44% yearly (IDSA, 2026)",
+      "Gartner: 40% of enterprise apps will feature AI agents by end of 2026, up from <5% in 2025",
+      "Simon Willison's 'Lethal Trifecta' framework gaining traction — private data access + untrusted content exposure + exfiltration capability",
+      "Palo Alto Networks launched Prisma AIRS 2.0 for AI agent security",
+      "EchoLeak (CVE-2025-32711): CVSS 9.3 zero-click exploit against Microsoft 365 Copilot",
+      "Natural complement to prior series — governance (Run #2) covered control frameworks conceptually; this is the security implementation guide"
+    ],
+    "domain_alignment": "Perfect — AgentForge builds and deploys AI agents. Security is the domain where knowledge becomes trust. A CISO evaluating whether to allow agentic AI in their enterprise is the highest-value reader we can acquire.",
+    "differentiation_from_prior_runs": "New cluster pivot after 5-part lifecycle series completion. Runs #1–5: how to build, govern, evaluate, deploy, and choose frameworks. Run #6: how to SECURE. This is the article that turns architecture readers into implementation readers — and security readers are the ones who hold budget authority."
+  },
+  "research_sources": [
+    {"title": "OWASP Top 10 for Agentic Applications (2026)", "publisher": "OWASP GenAI Security Project", "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/", "date": "2025-12"},
+    {"title": "How to Secure Agentic AI in the Enterprise: Best Practices for 2026", "publisher": "Lasso Security", "url": "https://lasso.security/blog/agentic-ai-best-practices", "date": "2026"},
+    {"title": "AI Agent Security in 2026: What Enterprises Are Getting Wrong", "publisher": "AGAT Software", "url": "https://agatsoftware.com/blog/ai-agent-security-enterprise-2026/", "date": "2026"},
+    {"title": "Agentic AI Risks: OWASP Top 10 & Real-World Incidents", "publisher": "Lumenova AI", "url": "https://www.lumenova.ai/blog/agentic-ai-risks-owasp-nist/", "date": "2026"},
+    {"title": "AI Agents Are Creating an Identity Security Crisis in 2026", "publisher": "IANS Research", "url": "https://www.iansresearch.com/resources/all-blogs/post/security-blog/2026/04/19/ai-agents-are-creating-an-identity-security-crisis-in-2026", "date": "2026-04-19"},
+    {"title": "Prompt Injection Attacks: The Hidden Security Crisis", "publisher": "AI Magicx", "url": "https://www.aimagicx.com/blog/prompt-injection-attacks-ai-agent-security-guide-2026", "date": "2026"},
+    {"title": "OWASP Top 10 Agents & AI Vulnerabilities (2026 Cheat Sheet)", "publisher": "Alex Ewerlöf", "url": "https://blog.alexewerlof.com/p/owasp-top-10-ai-llm-agents", "date": "2026"},
+    {"title": "97% of Enterprises Expect Major AI Agent Security Incident", "publisher": "Security Boulevard", "url": "https://securityboulevard.com/2026/04/97-of-enterprises-expect-a-major-ai-agent-security-incident-within-the-year/", "date": "2026-04"},
+    {"title": "Non-Human Identities Outnumber Humans 144:1", "publisher": "Identity Defined Security Alliance", "url": "https://www.idsalliance.org/online-show/securing-the-ai-era-privileged-access-management-for-non-human-identities", "date": "2026"}
+  ],
+  "article_plan": {
+    "target_word_count": "2,800–3,200",
+    "sections": [
+      "Executive Summary / TL;DR — the 97% stat, OWASP ASI Top 10, and why this matters NOW",
+      "Why AI Agent Security Is Fundamentally Different (GEO definition block)",
+      "The OWASP Top 10 for Agentic Applications — Full Breakdown",
+      "The 5 Real-World Attacks That Changed Everything (EchoLeak, ForcedLeak, etc.)",
+      "The Non-Human Identity Crisis — 144:1 and Growing",
+      "The Execution Layer: Where Attacks Actually Happen",
+      "Defense Architecture: A 5-Layer Security Model",
+      "Prompt Injection: The #1 Threat and How to Defend",
+      "Runtime Monitoring: Why Logging Isn't Enough",
+      "Multi-Agent Security: Trust Boundaries Between Agents",
+      "Compliance & Governance: NIST AI RMF, EU AI Act, ISO 42001",
+      "Frequently Asked Questions (GEO FAQ block)",
+      "Conclusion: Ship Secure or Don't Ship"
+    ],
+    "tone": "Enterprise B2B security — authoritative, urgent but not alarmist, practical. Target Flesch 35+ with plain-language interludes. Title ≤60 chars. Meta description 150-160 chars with keyword + CTA. 10+ H2s, 2+ tables, 15+ hyperlinks.",
+    "geo_requirements": {
+      "definition_block": "45-55 words in 'Why AI Agent Security Is Fundamentally Different' section",
+      "faq_block": "5-6 questions with ## Frequently Asked Questions heading",
+      "featured_image": "Image marker required — Part B generates and inserts",
+      "quotable_summary": "60-80 word blockquote at end"
+    }
+  },
+  "new_cluster_start": {
+    "cluster_name": "AI Agent Security",
+    "series_plan": [
+      {"position": 1, "topic": "AI Agent Security — The Complete Enterprise Guide (OWASP ASI Top 10)", "date": "2026-05-29"},
+      {"position": 2, "topic": "Prompt Injection Defense — Architecture and Techniques", "planned": true},
+      {"position": 3, "topic": "Non-Human Identity Management for AI Agents", "planned": true},
+      {"position": 4, "topic": "AI Agent Runtime Monitoring and Threat Detection", "planned": true},
+      {"position": 5, "topic": "Security Vendor Landscape — Agent Security Platforms Compared", "planned": true}
+    ],
+    "previous_cluster": {
+      "name": "Enterprise AI Agent Lifecycle",
+      "runs": [1, 2, 3, 4, 5],
+      "topics": ["Orchestration", "Governance", "Evaluation", "Deployment", "Frameworks"]
+    }
+  },
+  "article_status": "pending_draft",
+  "next_steps": [
+    "Write SEO-optimized article → content.article-2026-05-29.json",
+    "Generate image prompt from article concept",
+    "Generate featured image via image_generate (Part B)",
+    "Insert image markdown into article, update status to draft_with_image (Part B)",
+    "Copy to pipeline dir, generate PDF (Part B)",
+    "SEO audit (Part B)"
+  ]
+}

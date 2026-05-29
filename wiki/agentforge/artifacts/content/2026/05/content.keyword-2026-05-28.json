@@ -1,0 +1,89 @@
+{
+  "artifact_id": "a7e2d4b8-c903-5f9e-c60d-2g8h6i7j0k1l",
+  "type": "content.keyword",
+  "created": "2026-05-28T08:30:00+01:00",
+  "pipeline_run": 5,
+  "keyword": {
+    "primary": "Multi-Agent AI Frameworks",
+    "cluster": "multi-agent frameworks comparison LangGraph CrewAI OpenAI SDK 2026",
+    "search_volume_estimate": "very high (15,000–22,000/mo combined cluster)",
+    "competition": "high",
+    "commercial_intent": "very high — framework selection drives purchasing decisions",
+    "trend_momentum": "explosive — multi-agent systems declared '2026's defining AI paradigm' across analyst consensus. Gartner: multi-agent generative systems (MAGS) require specialized software engineering with event-driven architecture. LangGraph at 39.2M PyPI downloads/month, CrewAI at 46.3K GitHub stars, OpenAI Agents SDK now supports 100+ models via LiteLLM. AAAI 2026 Bridge Program dedicated to LLM-based multi-agent collaboration. Microsoft merged AutoGen + Semantic Kernel into unified Microsoft Agent Framework (Oct 2025). AWS published enterprise swarm intelligence architecture. Google ADK launched 2026. 8+ major frameworks now compete for production workloads.",
+    "secondary": [
+      "LangGraph vs CrewAI 2026",
+      "OpenAI Agents SDK comparison",
+      "Google ADK multi-agent framework",
+      "Microsoft Agent Framework enterprise",
+      "AutoGen AG2 production guide",
+      "best AI agent frameworks 2026",
+      "multi-agent system architecture enterprise",
+      "LangGraph production deployment",
+      "CrewAI team-based AI agents",
+      "agentic AI framework selection guide"
+    ]
+  },
+  "selection_rationale": {
+    "why_this_keyword": "Multi-Agent AI Frameworks comparison is the practical capstone to AgentForge's enterprise AI lifecycle series. Runs #1–4 covered what to build (orchestration, governance, evaluation, deployment) — Run #5 covers which tools to do it with. This is the article every engineering lead searches for after absorbing the conceptual pieces. Framework selection drives real purchasing decisions: a CTO evaluating LangGraph vs CrewAI vs OpenAI SDK is 2–4 weeks from committing budget.",
+    "timeliness_factors": [
+      "2026 declared 'Year of Multi-Agent Systems' by multiple analyst reports — AI Agents Directory, arXiv/AAAI, and numerous framework vendors",
+      "LangGraph hitting 39.2M monthly PyPI downloads — production adoption benchmark reached",
+      "OpenAI Agents SDK now model-agnostic via LiteLLM (100+ models) — vendor lock-in concern dissolving",
+      "Google ADK launched as new entrant — reshuffling the competitive landscape",
+      "Microsoft merged AutoGen + Semantic Kernel into unified Microsoft Agent Framework — Azure-native play",
+      "AAAI 2026 Bridge Program on LLM-Based Multi-Agent Collaboration — academic legitimacy achieved",
+      "AWS published Enterprise Swarm Intelligence architecture guide — cloud vendor endorsement",
+      "Perfect practical capstone to series: after orchestration (how to design), governance (how to control), evaluation (how to measure), deployment (how to scale) — now: which framework to actually build with"
+    ],
+    "domain_alignment": "Perfect — AgentForge's core domain is AI agents and enterprise automation. A framework comparison piece has the highest commercial intent in the series because it directly influences tool procurement. This is the article where readers move from education to action.",
+    "differentiation_from_prior_runs": "Run #1 (May 23): AI Agent Orchestration — architectural patterns. Run #2 (May 25): Agentic AI Governance — control frameworks. Run #3 (May 26): AI Agent Evaluation — testing/metrics. Run #4 (May 27): Enterprise AI Agent Deployment — scaling to production. Run #5 (today): Multi-Agent AI Frameworks — hands-on tool comparison. Unique angle: practical procurement guide, not conceptual."
+  },
+  "research_sources": [
+    {"title": "LangGraph vs CrewAI vs OpenAI Agents SDK (Ship Test 2026)", "publisher": "Techsy", "url": "https://techsy.io/en/blog/langgraph-vs-crewai-vs-openai-agents-sdk", "date": "2026"},
+    {"title": "Best Multi-Agent Frameworks in 2026", "publisher": "GuruSup", "url": "https://gurusup.com/blog/best-multi-agent-frameworks-2026", "date": "2026"},
+    {"title": "Top 12 Multi-Agent AI Frameworks for Developers in 2026", "publisher": "IS4.ai", "url": "https://is4.ai/blog/our-blog-1/top-12-multi-agent-ai-frameworks-2026-335", "date": "2026"},
+    {"title": "Agentic AI Frameworks 2026: LangGraph vs CrewAI vs OpenAI SDK", "publisher": "Uvik", "url": "https://uvik.net/blog/agentic-ai-frameworks", "date": "2026"},
+    {"title": "AI Agent Frameworks Compared: Which Ones Ship?", "publisher": "Chanl", "url": "https://www.channel.tel/blog/ai-agent-frameworks-compared-2026-what-ships", "date": "2026"},
+    {"title": "AutoGen vs CrewAI vs LangGraph vs PydanticAI vs Google ADK vs OpenAI Agents SDK", "publisher": "Victor Dibia", "url": "https://newsletter.victordibia.com/p/autogen-vs-crewai-vs-langgraph-vs", "date": "2026"},
+    {"title": "Enterprise Swarm Intelligence: Building Resilient Multi-Agent AI Systems", "publisher": "AWS Builder", "url": "https://builder.aws.com/content/2z6EP3GKsOBO7cuo8i1WdbriRDt/enterprise-swarm-intelligence-building-resilient-multi-agent-ai-systems", "date": "2026"},
+    {"title": "Top Analysts: Multi-Agent Systems Need Real-Time Context and EDA", "publisher": "Solace/Gartner", "url": "https://solace.com/blog/analysts-say-mas-needs-real-time-context-eda", "date": "2026"}
+  ],
+  "article_plan": {
+    "target_word_count": "2,800–3,200",
+    "sections": [
+      "Executive Summary / TL;DR",
+      "What Are Multi-Agent AI Frameworks? (GEO definition block)",
+      "Why 2026 Is the Multi-Agent Tipping Point",
+      "Framework Deep Dives: LangGraph, CrewAI, OpenAI Agents SDK, Google ADK, AutoGen/AG2, Claude Agent SDK",
+      "Comparison Matrix: State Management, Async, MCP Support, Learning Curve (table)",
+      "Decision Framework: Which Framework for Which Team?",
+      "Production Readiness: What Ships vs What Demos",
+      "The Infrastructure Layer: Testing, Monitoring, Memory, Tools",
+      "MCP and Interoperability: The Protocol That Changes Everything",
+      "Frequently Asked Questions (GEO FAQ block)",
+      "Conclusion: Framework Is Strategy"
+    ],
+    "tone": "Enterprise B2B, practical and opinionated — learnings from Runs #1–4: target Flesch 35+, include 3+ plain-language interludes, embed hyperlinks from the start, meta description filled, title ≤60 chars, write article and meta description simultaneously",
+    "geo_requirements": {
+      "definition_block": "45-55 words in 'What Are Multi-Agent AI Frameworks?' section",
+      "faq_block": "5-6 questions with ## Frequently Asked Questions heading",
+      "featured_image": "Image marker required — generate and insert",
+      "quotable_summary": "60-80 word blockquote at end"
+    }
+  },
+  "pipeline_series_position": {
+    "run_1": {"date": "2026-05-23", "topic": "AI Agent Orchestration", "angle": "How to build multi-agent systems"},
+    "run_2": {"date": "2026-05-25", "topic": "Agentic AI Governance", "angle": "How to control autonomous agents safely"},
+    "run_3": {"date": "2026-05-26", "topic": "AI Agent Evaluation", "angle": "How to measure, test, and improve agent quality"},
+    "run_4": {"date": "2026-05-27", "topic": "Enterprise AI Agent Deployment", "angle": "How to scale agents from pilot to production"},
+    "run_5": {"date": "2026-05-28", "topic": "Multi-Agent AI Frameworks", "angle": "Which framework to actually build with"}
+  },
+  "next_steps": [
+    "Write SEO-optimized article → content.article-2026-05-28.json",
+    "Generate image prompt from article concept",
+    "Generate featured image via image_generate (Part B)",
+    "Insert image markdown into article, update status to draft_with_image (Part B)",
+    "Copy to pipeline dir, generate PDF (Part B)",
+    "SEO audit (Part B)"
+  ]
+}
