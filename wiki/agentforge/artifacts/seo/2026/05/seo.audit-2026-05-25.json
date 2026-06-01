@@ -1,0 +1,289 @@
+{
+  "article": "Agentic AI Governance in 2026",
+  "file": "agentic-ai-governance-2026-05-25.md",
+  "date": "2026-05-25",
+  "audit_timestamp": "2026-06-01T08:48:57Z",
+  "content_length_chars": 24308,
+  "title": "Agentic AI Governance in 2026: How to Run Autonomous AI Without Getting Burned",
+  "meta_description": "Complete guide to agentic AI governance in 2026. NIST AI Agent Standards, OWASP security framework, EU AI Act compliance, and the 6 pillars for running autonomous agents safely in production.",
+  "api_results": {
+    "seo_keyword_density": {
+      "success": true,
+      "data": {
+        "keyword": "",
+        "count": 0,
+        "totalWords": 2991,
+        "density": 0,
+        "rating": "low",
+        "topKeywords": [
+          {
+            "word": "governance",
+            "count": 61,
+            "density": 2.04
+          },
+          {
+            "word": "agent",
+            "count": 51,
+            "density": 1.71
+          },
+          {
+            "word": "agents",
+            "count": 37,
+            "density": 1.24
+          },
+          {
+            "word": "agentic",
+            "count": 28,
+            "density": 0.94
+          },
+          {
+            "word": "not",
+            "count": 22,
+            "density": 0.74
+          },
+          {
+            "word": "human",
+            "count": 19,
+            "density": 0.64
+          },
+          {
+            "word": "autonomous",
+            "count": 17,
+            "density": 0.57
+          },
+          {
+            "word": "data",
+            "count": 17,
+            "density": 0.57
+          },
+          {
+            "word": "2026",
+            "count": 16,
+            "density": 0.53
+          },
+          {
+            "word": "what",
+            "count": 15,
+            "density": 0.5
+          }
+        ]
+      }
+    },
+    "seo_readability": {
+      "success": true,
+      "data": {
+        "fleschScore": 19,
+        "fleschLabel": "Very Difficult",
+        "gradeLevel": 14.1,
+        "gradeLevelLabel": "College",
+        "avgSentenceLength": 14.2,
+        "avgSyllablesPerWord": 2.05,
+        "wordCount": 2991,
+        "sentenceCount": 211,
+        "syllableCount": 6126
+      }
+    },
+    "seo_meta_check": {
+      "success": true,
+      "data": {
+        "titleLength": 78,
+        "titleStatus": "long",
+        "descLength": 191,
+        "descStatus": "long",
+        "keywordInTitle": false,
+        "keywordInDesc": false,
+        "titleWidthPx": 562,
+        "score": 33,
+        "issues": [
+          "Title exceeds 60 characters \u2014 may be truncated in SERPs",
+          "Meta description exceeds 160 characters \u2014 will be cut off"
+        ],
+        "suggestions": []
+      }
+    },
+    "seo_serp_preview": {
+      "success": true,
+      "data": {
+        "domain": "agentforge.ai",
+        "displayTitle": "Agentic AI Governance in 2026: How to Run Autonomous AI W...",
+        "displayDescription": "Complete guide to agentic AI governance in 2026. NIST AI Agent Standards, OWASP security framework, EU AI Act compliance, and the 6 pillars for running auton...",
+        "titleLength": 78,
+        "descLength": 191,
+        "titleWidthPx": 562,
+        "titleTruncated": true,
+        "descTruncated": true,
+        "serpPreview": {
+          "breadcrumb": "agentforge.ai",
+          "title": "Agentic AI Governance in 2026: How to Run Autonomous AI W...",
+          "description": "Complete guide to agentic AI governance in 2026. NIST AI Agent Standards, OWASP security framework, EU AI Act compliance, and the 6 pillars for running auton..."
+        }
+      }
+    },
+    "geo_eeat_signals": {
+      "success": true,
+      "data": {
+        "experienceScore": 30,
+        "expertiseScore": 88,
+        "authorityScore": 60,
+        "trustScore": 20,
+        "compositeScore": 50,
+        "rating": "good",
+        "signals": {
+          "experience": [
+            "we have",
+            "i found"
+          ],
+          "expertise": [
+            "algorithm",
+            "implementation",
+            "framework",
+            "protocol",
+            "infrastructure"
+          ],
+          "authority": [
+            "published",
+            "institute",
+            "findings",
+            "based on",
+            "source"
+          ],
+          "trust": [
+            "limitations",
+            "updated"
+          ]
+        },
+        "gaps": [
+          "Add nuance and caveats (\"however\", \"it depends\", \"note that\") to build trust signals"
+        ]
+      }
+    },
+    "geo_answer_structure": {
+      "success": true,
+      "data": {
+        "questionCount": 14,
+        "definitionCount": 2,
+        "stepPatternCount": 6,
+        "conclusionMarkerCount": 1,
+        "directAnswerCount": 2,
+        "listDensity": 2.8,
+        "avgSentenceLength": 14.2,
+        "score": 82,
+        "rating": "excellent",
+        "strengths": [
+          "14 question(s) \u2014 helps match user queries",
+          "2 definition(s) \u2014 AI engines extract these directly",
+          "6 step/list pattern(s) \u2014 high citation value",
+          "Conclusion marker present \u2014 good for AI summarisation",
+          "2 direct answer pattern(s) \u2014 matches AI snippet extraction"
+        ],
+        "gaps": []
+      }
+    },
+    "geo_entity_density": {
+      "success": true,
+      "data": {
+        "totalWords": 2991,
+        "namedEntityCount": 483,
+        "statisticCount": 25,
+        "factMarkerCount": 62,
+        "citationMarkerCount": 0,
+        "dateReferenceCount": 27,
+        "entityDensityPer100": 16.15,
+        "statDensityPer100": 0.84,
+        "score": 62,
+        "rating": "good",
+        "topEntities": [
+          "Agentic",
+          "Governance",
+          "How",
+          "Run",
+          "Autonomous",
+          "Without",
+          "Getting",
+          "Burned",
+          "Published",
+          "Author"
+        ]
+      }
+    },
+    "geo_quotability": {
+      "success": true,
+      "data": {
+        "compositeScore": 73,
+        "rating": "strong",
+        "topSentences": [
+          {
+            "text": "com/artificial-intelligence/) that 25% of enterprise AI spend is being deferred specifically due to governance and compliance concerns\n\nThe root cause is structural",
+            "score": 75,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "clear subject opening",
+              "assertive"
+            ]
+          },
+          {
+            "text": "The company marketed a \"98% accurate\" AI detector that actually achieved coin-flip accuracy",
+            "score": 75,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "clear subject opening",
+              "assertive"
+            ]
+          },
+          {
+            "text": "**Governance fix:** Pillar 3 (escalation triggers) \u2014 humans see only the 3-5% of decisions that are edge cases",
+            "score": 75,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "clear subject opening",
+              "assertive"
+            ]
+          },
+          {
+            "text": "The average organization finds **3x more agents than leadership thought existed**, many with production access that was never formally approved",
+            "score": 75,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "clear subject opening",
+              "assertive"
+            ]
+          },
+          {
+            "text": "Proofpoint's 2026 research warns that *\"autonomous copilots may surpass humans as the primary source of data leaks\"* this year",
+            "score": 65,
+            "reasons": [
+              "optimal length",
+              "power words: primary, research",
+              "clear subject opening",
+              "assertive"
+            ]
+          }
+        ],
+        "totalSentencesAnalyzed": 166,
+        "avgQuotabilityScore": 36.9
+      }
+    },
+    "geo_evaluation_prompt": {
+      "error": "HTTP Error 400: Bad Request"
+    }
+  },
+  "scores": {
+    "keyword_density": 90,
+    "readability": 50,
+    "meta_quality": 40,
+    "serp_preview": 80,
+    "eeat": 55,
+    "geo_blocks": 82,
+    "quotability": 73,
+    "content_length": 85,
+    "entity_density": 55,
+    "structure": 75,
+    "overall": 69.2
+  },
+  "overall_score": 69.2,
+  "verdict": "FLAG"
+}

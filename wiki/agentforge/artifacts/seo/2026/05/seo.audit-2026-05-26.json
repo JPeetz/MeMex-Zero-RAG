@@ -1,0 +1,300 @@
+{
+  "article": "AI Agent Evaluation in 2026",
+  "file": "ai-agent-evaluation-2026-05-26.md",
+  "date": "2026-05-26",
+  "audit_timestamp": "2026-06-01T08:49:01Z",
+  "content_length_chars": 25057,
+  "title": "AI Agent Evaluation in 2026: How to Test, Measure, and Improve Autonomous Systems",
+  "meta_description": "**Published:** 2026-05-26  \n**Author:** AgentForge Content Department  \n**Category:** AI Engineering, Enterprise AI, Agent Quality  \n**Reading Time:** 16 minute",
+  "api_results": {
+    "seo_keyword_density": {
+      "success": true,
+      "data": {
+        "keyword": "",
+        "count": 0,
+        "totalWords": 3233,
+        "density": 0,
+        "rating": "low",
+        "topKeywords": [
+          {
+            "word": "evaluation",
+            "count": 84,
+            "density": 2.6
+          },
+          {
+            "word": "agent",
+            "count": 64,
+            "density": 1.98
+          },
+          {
+            "word": "production",
+            "count": 34,
+            "density": 1.05
+          },
+          {
+            "word": "teams",
+            "count": 25,
+            "density": 0.77
+          },
+          {
+            "word": "quality",
+            "count": 23,
+            "density": 0.71
+          },
+          {
+            "word": "agents",
+            "count": 23,
+            "density": 0.71
+          },
+          {
+            "word": "tool",
+            "count": 19,
+            "density": 0.59
+          },
+          {
+            "word": "what",
+            "count": 17,
+            "density": 0.53
+          },
+          {
+            "word": "2026",
+            "count": 14,
+            "density": 0.43
+          },
+          {
+            "word": "metrics",
+            "count": 14,
+            "density": 0.43
+          }
+        ]
+      }
+    },
+    "seo_readability": {
+      "success": true,
+      "data": {
+        "fleschScore": 32.4,
+        "fleschLabel": "Difficult",
+        "gradeLevel": 12.1,
+        "gradeLevelLabel": "College",
+        "avgSentenceLength": 13.5,
+        "avgSyllablesPerWord": 1.9,
+        "wordCount": 3233,
+        "sentenceCount": 240,
+        "syllableCount": 6133
+      }
+    },
+    "seo_meta_check": {
+      "success": true,
+      "data": {
+        "titleLength": 81,
+        "titleStatus": "long",
+        "descLength": 160,
+        "descStatus": "good",
+        "keywordInTitle": false,
+        "keywordInDesc": false,
+        "titleWidthPx": 583,
+        "score": 58,
+        "issues": [
+          "Title exceeds 60 characters \u2014 may be truncated in SERPs"
+        ],
+        "suggestions": [
+          "Description length is optimal"
+        ]
+      }
+    },
+    "seo_serp_preview": {
+      "success": true,
+      "data": {
+        "domain": "agentforge.ai",
+        "displayTitle": "AI Agent Evaluation in 2026: How to Test, Measure, and Im...",
+        "displayDescription": "**Published:** 2026-05-26  \n**Author:** AgentForge Content Department  \n**Category:** AI Engineering, Enterprise AI, Agent Quality  \n**Reading Time:** 16 minute",
+        "titleLength": 81,
+        "descLength": 160,
+        "titleWidthPx": 583,
+        "titleTruncated": true,
+        "descTruncated": false,
+        "serpPreview": {
+          "breadcrumb": "agentforge.ai",
+          "title": "AI Agent Evaluation in 2026: How to Test, Measure, and Im...",
+          "description": "**Published:** 2026-05-26  \n**Author:** AgentForge Content Department  \n**Category:** AI Engineering, Enterprise AI, Agent Quality  \n**Reading Time:** 16 minute"
+        }
+      }
+    },
+    "geo_eeat_signals": {
+      "success": true,
+      "data": {
+        "experienceScore": 75,
+        "expertiseScore": 100,
+        "authorityScore": 60,
+        "trustScore": 10,
+        "compositeScore": 61,
+        "rating": "good",
+        "signals": {
+          "experience": [
+            "i have",
+            "we've",
+            "we have",
+            "when i",
+            "we use"
+          ],
+          "expertise": [
+            "algorithm",
+            "architecture",
+            "framework",
+            "infrastructure",
+            "configuration"
+          ],
+          "authority": [
+            "research shows",
+            "published",
+            "analysis of",
+            "source",
+            "cite"
+          ],
+          "trust": [
+            "while"
+          ]
+        },
+        "gaps": [
+          "Add nuance and caveats (\"however\", \"it depends\", \"note that\") to build trust signals"
+        ]
+      }
+    },
+    "geo_answer_structure": {
+      "success": true,
+      "data": {
+        "questionCount": 23,
+        "definitionCount": 2,
+        "stepPatternCount": 9,
+        "conclusionMarkerCount": 1,
+        "directAnswerCount": 0,
+        "listDensity": 3.8,
+        "avgSentenceLength": 13.5,
+        "score": 66,
+        "rating": "good",
+        "strengths": [
+          "23 question(s) \u2014 helps match user queries",
+          "2 definition(s) \u2014 AI engines extract these directly",
+          "9 step/list pattern(s) \u2014 high citation value",
+          "Conclusion marker present \u2014 good for AI summarisation"
+        ],
+        "gaps": [
+          "No direct answer patterns \u2014 add \"The answer is...\" style sentences"
+        ]
+      }
+    },
+    "geo_entity_density": {
+      "success": true,
+      "data": {
+        "totalWords": 3233,
+        "namedEntityCount": 475,
+        "statisticCount": 68,
+        "factMarkerCount": 63,
+        "citationMarkerCount": 1,
+        "dateReferenceCount": 30,
+        "entityDensityPer100": 14.69,
+        "statDensityPer100": 2.1,
+        "score": 79,
+        "rating": "strong",
+        "topEntities": [
+          "Agent",
+          "Evaluation",
+          "How",
+          "Test",
+          "Measure",
+          "Improve",
+          "Autonomous",
+          "Systems",
+          "Published",
+          "Author"
+        ]
+      }
+    },
+    "geo_quotability": {
+      "success": true,
+      "data": {
+        "compositeScore": 92,
+        "rating": "strong",
+        "topSentences": [
+          {
+            "text": "---\n\n## The ROI of Evaluation: Why Best-in-Class Teams Spend 18-24%\n\nThe most striking finding in the 2026 data is the relationship between evaluation investment and agent reliability",
+            "score": 100,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "power words: data, finding",
+              "clear subject opening",
+              "assertive",
+              "definition pattern"
+            ]
+          },
+          {
+            "text": "2 hours | 31 hours |\n| Regressions caught pre-deployment | 84% | 27% |\n\nThe delta between best-in-class and average is enormous \u2014 and evaluation infrastructure is the primary differentiator",
+            "score": 98,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "power words: primary",
+              "clear subject opening",
+              "assertive",
+              "definition pattern"
+            ]
+          },
+          {
+            "text": "Evaluation is the dividing line between the 41% that achieve year-one positive ROI and the 19% that don't",
+            "score": 90,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "clear subject opening",
+              "assertive",
+              "definition pattern"
+            ]
+          },
+          {
+            "text": "The 18-24% range is the empirical sweet spot \u2014 enough to build automated evaluation pipelines without cannibalizing model and integration investment",
+            "score": 90,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "clear subject opening",
+              "assertive",
+              "definition pattern"
+            ]
+          },
+          {
+            "text": "MIT Sloan's analysis of 840 production agent deployments found that teams spending 18-24% of their AI budget on evaluation infrastructure achieved 2",
+            "score": 83,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "power words: analysis",
+              "clear subject opening",
+              "assertive"
+            ]
+          }
+        ],
+        "totalSentencesAnalyzed": 185,
+        "avgQuotabilityScore": 42.5
+      }
+    },
+    "geo_evaluation_prompt": {
+      "error": "HTTP Error 400: Bad Request"
+    }
+  },
+  "scores": {
+    "keyword_density": 90,
+    "readability": 70,
+    "meta_quality": 55,
+    "serp_preview": 80,
+    "eeat": 55,
+    "geo_blocks": 66,
+    "quotability": 92,
+    "content_length": 85,
+    "entity_density": 55,
+    "structure": 75,
+    "overall": 72.3
+  },
+  "overall_score": 72.3,
+  "verdict": "PASS"
+}

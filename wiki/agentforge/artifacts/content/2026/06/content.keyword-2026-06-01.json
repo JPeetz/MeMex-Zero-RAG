@@ -1,0 +1,80 @@
+{
+  "artifact_id": "d1a2b3c4-e506-7c1h-f92g-5j0k9l0m3n4o",
+  "type": "content.keyword",
+  "created": "2026-06-01T08:30:00+01:00",
+  "pipeline_run": 7,
+  "keyword": {
+    "primary": "Prompt Injection Defense AI Agent 2026",
+    "cluster": "prompt injection defense architecture semantic firewall structural isolation multi-layer prevention 2026",
+    "search_volume_estimate": "high (6,500–11,000/mo combined cluster, surging with agent adoption)",
+    "competition": "medium — category emerging fast, top-ranking pages are thin",
+    "commercial_intent": "very high — security teams actively procuring prompt injection defense tools (Lakera Guard, Azure Prompt Shields, LLM Guard)",
+    "trend_momentum": "explosive. Prompt injection attacks surged 340% YoY (OWASP 2026). OWASP ranks it #1 for LLMs (LLM01) and #1 for Agents (ASI01) two years running. 88% of organizations report AI agent security incidents. Lakera's November 2025 research demonstrated temporal dissociation — poisoned data corrupting agent memory that activates days or weeks later. 97% of security leaders expect a material AI agent breach in 2026. Cline npm incident (Feb 2026) proved prompt injection + shell access = CI/CD compromise. Microsoft OpenClaw guidance (Feb 2026) explicitly models identity/execution/persistence boundaries. Lakera Guard achieves 98%+ detection at sub-50ms latency.",
+    "secondary": [
+      "OWASP ASI01 agent goal hijack",
+      "semantic firewall AI security",
+      "indirect prompt injection defense",
+      "LLM guardrails prompt injection prevention",
+      "AI agent memory poisoning protection",
+      "multi-agent trust boundary security",
+      "temporal dissociation attack prevention",
+      "Lakera Guard vs Azure Prompt Shields 2026",
+      "structural isolation system prompt data"
+    ]
+  },
+  "selection_rationale": {
+    "why_this_keyword": "Prompt injection defense is the natural Part 2 of the AI Agent Security cluster. Part 1 (May 29) established the full threat landscape: OWASP ASI01–ASI10, real-world attacks, and the 5-layer architecture. But every enterprise reader who finished Part 1 has the same question: 'How do I actually defend against prompt injection?' This is the deep-dive that answers that question — the tactical companion to the strategic overview.",
+    "timeliness_factors": [
+      "Prompt injection attacks surged 340% YoY — fastest-growing attack category globally (OWASP 2026)",
+      "OWASP ranked prompt injection #1 for LLMs and #1 for Agents — two years running",
+      "Lakera's temporal dissociation research (Nov 2025) proved stored context poisoning activates days/weeks later — defense must extend beyond real-time",
+      "Cline npm incident (Feb 2026) demonstrated prompt injection + shell access in CI/CD = compromised publication pipeline",
+      "Microsoft OpenClaw security guidance (Feb 2026) formalized the identity/execution/persistence boundary model",
+      "Gravitee State of AI Agent Security 2026: 88% of orgs report incidents, only 21% have visibility into agent tool access",
+      "Lakera Guard (98%+ detection, sub-50ms), Azure Prompt Shields, and LLM Guard are maturing — but no vendor covers all layers",
+      "OWASP Q1 2026 Exploit Round-up confirmed transition from theoretical to real-world prompt injection exploitation"
+    ],
+    "domain_alignment": "Direct — AgentForge deploys autonomous AI agents. Prompt injection is our #1 operational risk. This article demonstrates deep domain expertise.",
+    "differentiation_from_prior_runs": "Part 2 of the Security cluster. Part 1 (Run #6) was the 30,000-foot strategic view. Part 2 is the 5,000-foot tactical implementation — specific defense techniques, code architecture patterns, vendor comparison, and a progressive breach model. Differentiated from competitor content by the Lakera Progressive Breach Model framing and real-world incident anchoring.",
+    "reader_funnel": "CISOs who read Part 1 → security architects who need implementation detail → developers building agent defenses"
+  },
+  "article_plan": {
+    "target_word_count": "2,800–3,200",
+    "sections": [
+      "Executive Summary — the 340% surge stat, why prompt injection is structural not incidental",
+      "The Architecture Problem — Why Prompt Injection Won't Be 'Fixed' (GEO definition block)",
+      "The Five Attack Patterns That Actually Matter in 2026",
+      "Direct vs Indirect Injection: The Taxonomy That Changes Your Defense",
+      "The Progressive Breach Model (Lakera framing — Phase 1: Compromise Mind → Phase 2: Convert Autonomy → Phase 3: Propagate → Phase 4: Lose Containment)",
+      "Seven-Layer Defense Architecture — input sanitization → privilege separation → structural isolation → semantic firewall → runtime enforcement → memory governance → multi-agent trust",
+      "Structural Isolation: The Only Defense That Addresses the Root Cause",
+      "Semantic Firewalls: Lakera Guard, Azure Prompt Shields, LLM Guard Compared",
+      "Memory Governance: Defending Against Temporal Dissociation",
+      "Implementation Patterns: Code Architecture for Defense (table: approach vs coverage)",
+      "Frequently Asked Questions (GEO FAQ block)",
+      "Quotable Summary + Series Link"
+    ],
+    "tone": "Enterprise B2B security — authoritative, technically precise, practical. Target Flesch 35+ with code architecture segments. Title ≤60 chars. Meta description 150-160 chars with keyword + CTA. 11+ H2s, 2+ tables, 15+ hyperlinks."
+  },
+  "research_sources": [
+    {"title": "Prompt Injection Attacks: The Hidden Security Crisis (2026)", "publisher": "AI Magicx", "url": "https://www.aimagicx.com/blog/prompt-injection-attacks-ai-agent-security-guide-2026", "date": "2026"},
+    {"title": "OWASP Top 10 Agents & AI Vulnerabilities (2026 Cheat Sheet)", "publisher": "Alex Ewerlöf", "url": "https://blog.alexewerlof.com/p/owasp-top-10-ai-llm-agents", "date": "2026"},
+    {"title": "AI Agents Hacking in 2026: Defending the New Execution Boundary", "publisher": "Penligent", "url": "https://www.penligent.ai/hackinglabs/ai-agents-hacking-in-2026-defending-the-new-execution-boundary", "date": "2026"},
+    {"title": "The Progressive Breach Model Behind the OWASP Top 10 for Agentic Applications", "publisher": "Lakera AI", "url": "https://www.lakera.ai/blog/the-progressive-breach-model-behind-the-owasp-top-10-for-agentic-applications", "date": "2026"},
+    {"title": "Running OpenClaw Safely: Identity, Isolation, Runtime Risk", "publisher": "Microsoft Security", "url": "https://www.microsoft.com/en-us/security/blog/2026/02/19/running-openclaw-safely-identity-isolation-runtime-risk/", "date": "2026-02-19"},
+    {"title": "Post-Mortem: Unauthorized Cline CLI npm Publish", "publisher": "Cline", "url": "https://cline.bot/blog/post-mortem-unauthorized-cline-cli-npm", "date": "2026-02"},
+    {"title": "OWASP GenAI Exploit Round-up Report Q1 2026", "publisher": "OWASP GenAI Security Project", "url": "https://genai.owasp.org/2026/04/14/owasp-genai-exploit-round-up-report-q1-2026", "date": "2026-04-14"},
+    {"title": "OWASP Top 10 for Agentic Applications 2026", "publisher": "OWASP", "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/", "date": "2025-12"},
+    {"title": "AI Agent Security in 2026: Prompt Injection Threat", "publisher": "BabyBots", "url": "https://www.babybots.ai/blog/ai-agent-security-prompt-injection-enterprise", "date": "2026"},
+    {"title": "Prompt Injection Is Still the #1 AI Vulnerability in 2026", "publisher": "Suleiman Tawil / Medium", "url": "https://medium.com/@stawils/prompt-injection-is-still-the-1-ai-vulnerability-in-2026-and-were-running-out-of-excuses-288e3e5cb303", "date": "2026-04"}
+  ],
+  "series_position": {"cluster": "AI Agent Security", "part": 2, "total": 5},
+  "previous_article": {"slug": "ai-agent-security-enterprise-2026", "title": "AI Agent Security in 2026: The Enterprise Guide"},
+  "article_status": "draft_pending_image",
+  "next_steps": [
+    "✅ Write SEO-optimized article → content.article-2026-06-01.json — DONE",
+    "✅ Generate image prompt from article concept — DONE",
+    "⏳ Generate featured image (Part B)",
+    "⏳ Insert image, copy to pipeline, PDF, SEO audit (Part B)"
+  ]
+}

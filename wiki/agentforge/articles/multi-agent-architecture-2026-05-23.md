@@ -2,6 +2,8 @@
 
 **By the AgentForge Content Team** · May 23, 2026 · 15 min read
 
+![From Single-Agent to Multi-Agent Architecture](images/multi-agent-architecture-2026-05-23.jpg)
+
 ---
 
 If you deployed an AI agent in 2024, you probably wired up a prompt to a model, gave it a few tools, and called it done. It handled simple queries well enough. Then the requirements grew. Marketing wanted the agent to pull data from Salesforce. Engineering needed it to query Jira. Support wanted it to escalate to a human when confidence dropped below 80%.

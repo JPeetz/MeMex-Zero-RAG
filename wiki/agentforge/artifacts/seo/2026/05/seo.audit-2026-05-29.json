@@ -8,8 +8,8 @@
     "total_score": 89,
     "grade": "PASS",
     "thresholds": {
-      "PASS": "≥70",
-      "FLAG": "50–69",
+      "PASS": "\u226570",
+      "FLAG": "50\u201369",
       "FAIL": "<50"
     }
   },
@@ -38,7 +38,7 @@
             "in_120_160_range": false,
             "keyword_present": true,
             "compelling": true,
-            "notes": "Meta description exceeds the ideal 120–160 character range (184 chars). However, it is compelling — leading with a striking 97% statistic — and contains the primary keyword ('AI agent'). Penalty: −3 for length overrun.",
+            "notes": "Meta description exceeds the ideal 120\u2013160 character range (184 chars). However, it is compelling \u2014 leading with a striking 97% statistic \u2014 and contains the primary keyword ('AI agent'). Penalty: \u22123 for length overrun.",
             "line_reference": "Line 3"
           }
         },
@@ -79,12 +79,12 @@
             "h2s": [
               "## Executive Summary",
               "## Why AI Agent Security Is Fundamentally Different",
-              "## The OWASP Top 10 for Agentic Applications (ASI01–ASI10)",
+              "## The OWASP Top 10 for Agentic Applications (ASI01\u2013ASI10)",
               "## The Attacks That Changed the Conversation",
               "## The Non-Human Identity Crisis",
               "## The Execution Layer: Where Attacks Actually Happen",
               "## A 5-Layer Defense Architecture",
-              "## Prompt Injection: The #1 Threat — And Why It Is So Hard",
+              "## Prompt Injection: The #1 Threat \u2014 And Why It Is So Hard",
               "## Runtime Monitoring: Why Logging Is Not Enough",
               "## Compliance & Governance: NIST, EU AI Act, ISO 42001",
               "## Frequently Asked Questions",
@@ -93,10 +93,10 @@
             "h2s_with_keyword_variants": 2,
             "keyword_variant_h2s": [
               "## Why AI Agent Security Is Fundamentally Different",
-              "## The OWASP Top 10 for Agentic Applications (ASI01–ASI10)"
+              "## The OWASP Top 10 for Agentic Applications (ASI01\u2013ASI10)"
             ],
             "logical_hierarchy": true,
-            "notes": "H2 hierarchy is logically sound (Executive Summary → Why Different → OWASP → Attacks → NHIs → Execution Layer → Defense → Injection → Monitoring → Compliance → FAQ → Conclusion). However, only 2 of 12 H2s contain keyword variants ('AI agent security', 'agentic'). Penalty: −4 for sparse keyword distribution in headings."
+            "notes": "H2 hierarchy is logically sound (Executive Summary \u2192 Why Different \u2192 OWASP \u2192 Attacks \u2192 NHIs \u2192 Execution Layer \u2192 Defense \u2192 Injection \u2192 Monitoring \u2192 Compliance \u2192 FAQ \u2192 Conclusion). However, only 2 of 12 H2s contain keyword variants ('AI agent security', 'agentic'). Penalty: \u22124 for sparse keyword distribution in headings."
           }
         },
         "readability": {
@@ -106,7 +106,7 @@
             "bullet_lists_count": 33,
             "tables_count": 3,
             "short_paragraphs": true,
-            "notes": "Excellent readability. Content uses 33 bullet points, 3 tables, and consistently short paragraphs. The ASI01–ASI10 table, traditional-vs-agent comparison table, and IAM comparison table effectively break up dense text. No walls of text."
+            "notes": "Excellent readability. Content uses 33 bullet points, 3 tables, and consistently short paragraphs. The ASI01\u2013ASI10 table, traditional-vs-agent comparison table, and IAM comparison table effectively break up dense text. No walls of text."
           }
         },
         "depth_vs_competitors": {
@@ -114,7 +114,7 @@
           "max": 5,
           "evidence": {
             "unique_coverage": [
-              "OWASP ASI Top 10 (ASI01–ASI10) with full ranked table and real-world signals",
+              "OWASP ASI Top 10 (ASI01\u2013ASI10) with full ranked table and real-world signals",
               "CVE-2025-32711 (EchoLeak) with CVSS 9.3 score and attack chain description",
               "ForcedLeak Salesforce AgentForce case study",
               "Drift-Salesloft OAuth breach (700+ organizations)",
@@ -140,7 +140,7 @@
               "../agentic-ai-governance-2026-05-25.md"
             ],
             "contextual_in_body": false,
-            "notes": "Meets the minimum of 3 internal links, but all 3 are clustered in a 'Read next in this series' section at the bottom (lines 230–232). None are contextual inline links within the body paragraphs where they would carry more SEO weight. Penalty: −2 for lack of contextual anchoring."
+            "notes": "Meets the minimum of 3 internal links, but all 3 are clustered in a 'Read next in this series' section at the bottom (lines 230\u2013232). None are contextual inline links within the body paragraphs where they would carry more SEO weight. Penalty: \u22122 for lack of contextual anchoring."
           }
         }
       }
@@ -156,11 +156,11 @@
             "keyword_in_h1": true,
             "h1_match": "AI Agent Security in 2026: The Enterprise Guide (line 1)",
             "keyword_in_first_100_body_words": "partial",
-            "first_100_words_match": "Keyword variants 'AI agents' and 'AI-agent-driven security incident' appear in the first 100 words of body copy, but the exact phrase 'AI agent security' does not appear until the first H2 heading. The semantic intent is present — the body immediately discusses AI agent security — but the exact-match keyword density could be stronger in the opening paragraph.",
+            "first_100_words_match": "Keyword variants 'AI agents' and 'AI-agent-driven security incident' appear in the first 100 words of body copy, but the exact phrase 'AI agent security' does not appear until the first H2 heading. The semantic intent is present \u2014 the body immediately discusses AI agent security \u2014 but the exact-match keyword density could be stronger in the opening paragraph.",
             "keyword_in_2_plus_h2s": true,
             "h2_matches": [
               "Why AI Agent Security Is Fundamentally Different",
-              "The OWASP Top 10 for Agentic Applications (ASI01–ASI10)"
+              "The OWASP Top 10 for Agentic Applications (ASI01\u2013ASI10)"
             ],
             "exactly_2_h2s": true,
             "keyword_in_conclusion": true,
@@ -168,7 +168,7 @@
               "AI agents (line 225)",
               "AI agent security (line 225)"
             ],
-            "notes": "Primary keyword appears in H1 and conclusion. Exactly 2 H2s contain keyword variants (barely meeting the ≥2 threshold). In the first 100 words of body: 'AI agents' appears but not the exact phrase 'AI agent security'. Penalty: −2 for suboptimal first-100-word placement and only borderline H2 coverage."
+            "notes": "Primary keyword appears in H1 and conclusion. Exactly 2 H2s contain keyword variants (barely meeting the \u22652 threshold). In the first 100 words of body: 'AI agents' appears but not the exact phrase 'AI agent security'. Penalty: \u22122 for suboptimal first-100-word placement and only borderline H2 coverage."
           }
         },
         "secondary_keywords": {
@@ -202,7 +202,7 @@
           "evidence": {
             "word_count": 2977,
             "threshold_met": true,
-            "notes": "2,977 words — exceeds 2,000-word threshold by 48.9%. Substantial, in-depth coverage with room for all required elements."
+            "notes": "2,977 words \u2014 exceeds 2,000-word threshold by 48.9%. Substantial, in-depth coverage with room for all required elements."
           }
         },
         "external_links": {
@@ -234,13 +234,13 @@
             "tables_count": 3,
             "tables": [
               "Traditional Application vs AI Agent comparison (5-row)",
-              "OWASP ASI01–ASI10 risk taxonomy (10-row ranked table)",
+              "OWASP ASI01\u2013ASI10 risk taxonomy (10-row ranked table)",
               "IAM Dimension: Traditional vs Agent-Aware comparison (5-row)"
             ],
             "faq_section": true,
             "faq_items": 6,
             "schema_potential": [
-              "FAQPage schema (6 Q&A pairs, lines 195–221)",
+              "FAQPage schema (6 Q&A pairs, lines 195\u2013221)",
               "Article schema with author, datePublished, articleBody",
               "Table structured data"
             ],
@@ -258,7 +258,11 @@
           "max": 5,
           "evidence": {
             "clear_heading_hierarchy": true,
-            "heading_levels": ["H1", "H2", "H3"],
+            "heading_levels": [
+              "H1",
+              "H2",
+              "H3"
+            ],
             "h3s": [
               "Layer 1: Agent Discovery & Inventory",
               "Layer 2: Identity & Access Governance",
@@ -268,7 +272,7 @@
             ],
             "parseable_tables": true,
             "parseable_lists": true,
-            "notes": "Clean H1 → H2 → H3 hierarchy. The 5-layer defense architecture uses H3s for each layer, creating a parseable subsection structure. All 3 tables use standard markdown pipe syntax. Bullet lists are consistently formatted with hyphens. Optimal for AI/LLM chunking and extraction."
+            "notes": "Clean H1 \u2192 H2 \u2192 H3 hierarchy. The 5-layer defense architecture uses H3s for each layer, creating a parseable subsection structure. All 3 tables use standard markdown pipe syntax. Bullet lists are consistently formatted with hyphens. Optimal for AI/LLM chunking and extraction."
           }
         },
         "question_answer_pairs": {
@@ -292,21 +296,33 @@
           "score": 5,
           "max": 5,
           "evidence": {
-            "named_figures": ["Simon Willison"],
+            "named_figures": [
+              "Simon Willison"
+            ],
             "organizations_cited": [
-              "OWASP", "NIST", "ISO", "EU AI Act", "Executive Order 14110",
-              "Palo Alto Networks", "IANS Research", "Gravitee", "AGAT Software",
-              "Lasso Security", "Obsidian Security", "Aim Security", "Salesforce"
+              "OWASP",
+              "NIST",
+              "ISO",
+              "EU AI Act",
+              "Executive Order 14110",
+              "Palo Alto Networks",
+              "IANS Research",
+              "Gravitee",
+              "AGAT Software",
+              "Lasso Security",
+              "Obsidian Security",
+              "Aim Security",
+              "Salesforce"
             ],
             "statistics_cited": [
               "97% of security leaders expect AI agent breach (line 9)",
               "6% of security budgets allocated to agent security (line 10)",
               "NHIs outnumber humans 144:1 (line 87)",
               "44% year-over-year NHI growth (line 88)",
-              "40% of enterprise apps will feature AI agents by end 2026 — Gartner (line 90)",
-              "14% of AI agents go live with full security approval — Gravitee (line 101)",
+              "40% of enterprise apps will feature AI agents by end 2026 \u2014 Gartner (line 90)",
+              "14% of AI agents go live with full security approval \u2014 Gravitee (line 101)",
               "86% shadow agents (line 102)",
-              "Prompt injection attacks surged 340% in 2026 — aiMAgicX (line 162)"
+              "Prompt injection attacks surged 340% in 2026 \u2014 aiMAgicX (line 162)"
             ],
             "cve_reference": "CVE-2025-32711, CVSS 9.3 (line 47, 64)",
             "notes": "Highly authoritative tone with named researchers, specific CVEs with CVSS scores, precise statistics with sources attributed inline, and citations to formal governance frameworks (NIST, ISO, EU AI Act). The article reads as expert technical guidance, not marketing content."
@@ -320,56 +336,71 @@
       "priority": 1,
       "category": "Keyword Optimization",
       "issue": "Primary keyword 'AI agent security' lacks strong presence in body opening (first 100 words)",
-      "recommendation": "Rephrase the opening sentence of the Executive Summary to include the exact phrase 'AI agent security'. Currently the body opens with 'AI agents' and 'AI-agent-driven security incident'. Adding 'AI agent security is no longer optional — it's existential' or similar early in the first paragraph would improve keyword density.",
-      "impact": "Medium — improves SERP relevance signals for the primary keyword"
+      "recommendation": "Rephrase the opening sentence of the Executive Summary to include the exact phrase 'AI agent security'. Currently the body opens with 'AI agents' and 'AI-agent-driven security incident'. Adding 'AI agent security is no longer optional \u2014 it's existential' or similar early in the first paragraph would improve keyword density.",
+      "impact": "Medium \u2014 improves SERP relevance signals for the primary keyword"
     },
     {
       "priority": 2,
       "category": "Content Quality",
       "issue": "Only 2 of 12 H2s contain keyword variants, and the 2 that do barely meet the threshold",
-      "recommendation": "Add keyword variants to at least 2–3 more H2s. Suggestions: 'The Attacks That Changed AI Agent Security' (current: 'The Attacks That Changed the Conversation'), 'The AI Agent Non-Human Identity Crisis' (current: 'The Non-Human Identity Crisis'), 'AI Agent Security Defense: A 5-Layer Architecture' (current: 'A 5-Layer Defense Architecture').",
-      "impact": "High — H2 keyword distribution directly affects content relevance scoring by search engines"
+      "recommendation": "Add keyword variants to at least 2\u20133 more H2s. Suggestions: 'The Attacks That Changed AI Agent Security' (current: 'The Attacks That Changed the Conversation'), 'The AI Agent Non-Human Identity Crisis' (current: 'The Non-Human Identity Crisis'), 'AI Agent Security Defense: A 5-Layer Architecture' (current: 'A 5-Layer Defense Architecture').",
+      "impact": "High \u2014 H2 keyword distribution directly affects content relevance scoring by search engines"
     },
     {
       "priority": 3,
       "category": "On-Page SEO",
-      "issue": "Meta description exceeds the 120–160 character ideal range at 184 characters",
-      "recommendation": "Trim the meta description to ≤160 characters. Suggested: '97% of security leaders expect an AI agent breach this year. Master the OWASP Top 10 for Agentic AI, real attack patterns, and a proven 5-layer defense architecture.' (156 chars). Keep the hook statistic, the OWASP reference, and the 5-layer callout.",
-      "impact": "Medium — ensures full meta description renders in SERPs without truncation; improves CTR"
+      "issue": "Meta description exceeds the 120\u2013160 character ideal range at 184 characters",
+      "recommendation": "Trim the meta description to \u2264160 characters. Suggested: '97% of security leaders expect an AI agent breach this year. Master the OWASP Top 10 for Agentic AI, real attack patterns, and a proven 5-layer defense architecture.' (156 chars). Keep the hook statistic, the OWASP reference, and the 5-layer callout.",
+      "impact": "Medium \u2014 ensures full meta description renders in SERPs without truncation; improves CTR"
     },
     {
       "priority": 4,
       "category": "Content Quality",
       "issue": "All 3 internal links are clustered in a 'Read next' footer section rather than contextually embedded in body content",
       "recommendation": "Move at least 2 internal links into the body text as contextual references. Example: when discussing OWASP ASI07 (Insecure Inter-Agent Communication), link to the multi-agent frameworks article. When discussing compliance, link to the AI governance article. Contextual inline links carry significantly more SEO value than footer navigation links.",
-      "impact": "High — contextual internal links pass PageRank more effectively and improve crawl depth"
+      "impact": "High \u2014 contextual internal links pass PageRank more effectively and improve crawl depth"
     },
     {
       "priority": 5,
       "category": "Technical SEO",
       "issue": "FAQ section uses **Q:** markup rather than schema-ready HTML or structured data",
-      "recommendation": "Add JSON-LD FAQPage schema markup for the 6 Q&A pairs, and Article schema for the entire piece. This is ready-to-go content for rich results in Google. The structured data potential score is 5/5 — implement it.",
-      "impact": "High — FAQPage schema can earn rich-result placement in SERPs, increasing visibility and CTR"
+      "recommendation": "Add JSON-LD FAQPage schema markup for the 6 Q&A pairs, and Article schema for the entire piece. This is ready-to-go content for rich results in Google. The structured data potential score is 5/5 \u2014 implement it.",
+      "impact": "High \u2014 FAQPage schema can earn rich-result placement in SERPs, increasing visibility and CTR"
     }
   ],
   "summary": {
     "strengths": [
-      "Exceptional technical depth covering OWASP ASI01–ASI10 taxonomy comprehensively",
+      "Exceptional technical depth covering OWASP ASI01\u2013ASI10 taxonomy comprehensively",
       "Real-world incident citations with CVEs and CVSS scores (EchoLeak, ForcedLeak, Drift-Salesloft)",
       "Data-backed claims with specific statistics from authoritative sources",
-      "Excellent structured content potential — 3 tables, 6 FAQ pairs, clean H1→H2→H3 hierarchy",
+      "Excellent structured content potential \u2014 3 tables, 6 FAQ pairs, clean H1\u2192H2\u2192H3 hierarchy",
       "Strong external linking to 11 unique authority domains",
-      "Full GEO/AI-readiness — clean structure, FAQ section, authoritative citations",
+      "Full GEO/AI-readiness \u2014 clean structure, FAQ section, authoritative citations",
       "5-layer defense architecture provides actionable operational guidance",
       "H1 is well-optimized: keyword-rich, 50 chars, under threshold"
     ],
     "weaknesses": [
       "Meta description overruns 160-char ideal by 24 characters",
-      "Only 2 of 12 H2s contain keyword variants — sparse semantic signal in headings",
+      "Only 2 of 12 H2s contain keyword variants \u2014 sparse semantic signal in headings",
       "Primary keyword exact-match absent from opening 100 words of body copy",
       "3 internal links are footer-only 'Read next' navigation, not contextual inline links",
       "No JSON-LD structured data markup implemented despite excellent schema potential"
     ],
-    "verdict": "PASS (89/100). This is a high-quality, authoritative article that exceeds thresholds in depth, technical SEO, and AI-readiness. Remediation of the 5 prioritized recommendations — particularly H2 keyword distribution and contextual internal linking — would push the score into the 93–96 range. The article is publication-ready; the recommendations are optimizations, not defects."
-  }
+    "verdict": "PASS (89/100). This is a high-quality, authoritative article that exceeds thresholds in depth, technical SEO, and AI-readiness. Remediation of the 5 prioritized recommendations \u2014 particularly H2 keyword distribution and contextual internal linking \u2014 would push the score into the 93\u201396 range. The article is publication-ready; the recommendations are optimizations, not defects."
+  },
+  "scores": {
+    "keyword_density": 50,
+    "readability": 80,
+    "meta_quality": 0,
+    "serp_preview": 50,
+    "eeat": 60,
+    "geo_blocks": 70,
+    "quotability": 65,
+    "content_length": 40,
+    "entity_density": 55,
+    "structure": 75,
+    "overall": 54.9
+  },
+  "overall_score": 54.9,
+  "verdict": "FLAG"
 }

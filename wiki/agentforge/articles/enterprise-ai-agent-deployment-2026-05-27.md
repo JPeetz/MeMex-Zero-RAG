@@ -5,7 +5,7 @@
 **Category:** Enterprise AI, AI Agents, Production Engineering
 **Reading Time:** 15 minutes
 
-![Enterprise AI agent deployment dashboard showing production metrics, infrastructure layers, and scaling roadmap](images/enterprise-ai-agent-deployment-2026-05-27.jpg)
+![Enterprise AI Agent Deployment](images/enterprise-ai-agent-deployment-2026-05-27.jpg)
 
 ---
 

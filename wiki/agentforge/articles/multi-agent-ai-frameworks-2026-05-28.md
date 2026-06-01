@@ -8,6 +8,8 @@
 **Series:** AgentForge Enterprise AI Lifecycle — Part 5 of 5
 **Status:** draft_pending_image
 
+![Multi-Agent AI Frameworks 2026 Comparison](images/multi-agent-ai-frameworks-2026-05-28.jpg)
+
 ---
 
 ## Executive Summary

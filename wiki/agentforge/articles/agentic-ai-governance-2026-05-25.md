@@ -1,4 +1,5 @@
 ---
+featured_image: "images/agentic-ai-governance-2026-05-25.jpg"
 description: "Complete guide to agentic AI governance in 2026. NIST AI Agent Standards, OWASP security framework, EU AI Act compliance, and the 6 pillars for running autonomous agents safely in production."
 artifact_id: "b2d4f71c-e593-4c8a-b039-2f6e9d3a5f20"
 type: "content.article"
@@ -21,6 +22,8 @@ next_steps: ["seo_quality_gate", "geo_audit", "social_distribution", "pdf_lead_m
 **Category:** AI Governance, Enterprise Security  
 **Reading Time:** 16 minutes  
 **SEO Score:** Pending audit
+
+![Agentic AI Governance in 2026](images/agentic-ai-governance-2026-05-25.jpg)
 
 ---
 

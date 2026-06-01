@@ -48,9 +48,24 @@
 
 ---
 
-## BiteSaver — Recipe Saver & Meal Planner _(PREVIOUS: ReciMe Niche)_
+## BiteSaver — Recipe Saver & Meal Planner
 - **Date Discovered:** 2026-05-24
 - **Status:** BUILT — scaffold delivered 2026-05-24
 - **Score:** 7.30 (MS=8.0, CG=5.5, SO=7.0, M=8.0, U=6.5, MF=9.0)
 - **Note:** Won the 2026-05-24 pipeline. Full scaffold at `artifacts/2026/05/BiteSaver-scaffold-2026-05-24.md`
-- **Revisit Trigger:** Post-launch metrics (D30 retention, conversion rate). Competitive response from ReciMe.
+- **Key competitors scrutinized:** ReciMe (May 26), Preplo (May 27)
+- **Revisit Trigger:** Post-launch metrics (D30 retention, conversion rate). Competitive response from ReciMe. Preplo Android launch.
+
+---
+
+## Preplo — AI Recipe Extraction ⚠️ ACTIVE THREAT
+- **Date Discovered:** 2026-05-27 (CEO-triggered scrutiny)
+- **Scrutiny:** `artifacts/2026/05/Preplo-scrutiny-2026-05-27.md`
+- **Category:** Recipe Manager / Food
+- **Platform:** iOS only (Android TBA)
+- **Status:** LIVE — RevenueCat Shipyard 2026 Winner. iOS App Store since Mar 2026.
+- **Why Active Threat:** Only 3 serious players in social recipe extraction (Preplo, ReciMe, CookBook). Preplo has best AI features (adaptation, costs, guided cook) + influencer backing. iOS-only is their weakness — Android launch would make them formidable.
+- **Threat Level:** HIGH to BiteSaver — if Preplo adds meal planning + Android within 90 days, BiteSaver's window narrows critically.
+- **Opportunity:** Best acquisition target — Preplo's extraction tech + BiteSaver's meal planning/community/social = dominant feature set at $4.99/mo.
+- **Signal to watch:** App Store review count (currently insufficient for display). 100+ reviews = scaling. Android launch = game changer.
+- **Revisit Trigger:** Android launch. App Store reviews cross 100. Meal planning ships. Funding round. Acquisition signal.

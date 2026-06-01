@@ -1,27 +1,292 @@
 {
-  "artifact_id": "seo-audit-2026-05-27-enterprise-deployment",
-  "type": "seo.audit",
-  "created": "2026-05-27T09:15:00+01:00",
-  "article_ref": "a1c2d3e4-f506-4b7c-b80d-2f6g7h8i9j0k",
-  "seo_score": 78,
-  "geo_checks": {
-    "definition_block": {"status": "PASS", "words": 50, "target": "45-55"},
-    "faq_block": {"status": "PASS", "questions": 6, "min_required": 4},
-    "featured_image": {"status": "PASS", "generated": true},
-    "quotable_summary": {"status": "PASS", "words": 76, "target": "60-80"}
+  "article": "Enterprise AI Agent Deployment in 2026",
+  "file": "enterprise-ai-agent-deployment-2026-05-27.md",
+  "date": "2026-05-27",
+  "audit_timestamp": "2026-06-01T08:49:06Z",
+  "content_length_chars": 25700,
+  "title": "Enterprise AI Agent Deployment in 2026: The Scaling Playbook",
+  "meta_description": "**Published:** 2026-05-27\n**Author:** AgentForge Content Department\n**Category:** Enterprise AI, AI Agents, Production Engineering\n**Reading Time:** 15 minutes",
+  "api_results": {
+    "seo_keyword_density": {
+      "success": true,
+      "data": {
+        "keyword": "",
+        "count": 0,
+        "totalWords": 3216,
+        "density": 0,
+        "rating": "low",
+        "topKeywords": [
+          {
+            "word": "agent",
+            "count": 84,
+            "density": 2.61
+          },
+          {
+            "word": "agents",
+            "count": 63,
+            "density": 1.96
+          },
+          {
+            "word": "deployment",
+            "count": 38,
+            "density": 1.18
+          },
+          {
+            "word": "infrastructure",
+            "count": 31,
+            "density": 0.96
+          },
+          {
+            "word": "model",
+            "count": 31,
+            "density": 0.96
+          },
+          {
+            "word": "production",
+            "count": 27,
+            "density": 0.84
+          },
+          {
+            "word": "cost",
+            "count": 25,
+            "density": 0.78
+          },
+          {
+            "word": "enterprise",
+            "count": 21,
+            "density": 0.65
+          },
+          {
+            "word": "identity",
+            "count": 20,
+            "density": 0.62
+          },
+          {
+            "word": "not",
+            "count": 19,
+            "density": 0.59
+          }
+        ]
+      }
+    },
+    "seo_readability": {
+      "success": true,
+      "data": {
+        "fleschScore": 24.5,
+        "fleschLabel": "Very Difficult",
+        "gradeLevel": 12.7,
+        "gradeLevelLabel": "College",
+        "avgSentenceLength": 11.3,
+        "avgSyllablesPerWord": 2.02,
+        "wordCount": 3216,
+        "sentenceCount": 284,
+        "syllableCount": 6482
+      }
+    },
+    "seo_meta_check": {
+      "success": true,
+      "data": {
+        "titleLength": 60,
+        "titleStatus": "good",
+        "descLength": 159,
+        "descStatus": "good",
+        "keywordInTitle": false,
+        "keywordInDesc": false,
+        "titleWidthPx": 432,
+        "score": 83,
+        "issues": [],
+        "suggestions": [
+          "Title length is optimal",
+          "Description length is optimal"
+        ]
+      }
+    },
+    "seo_serp_preview": {
+      "success": true,
+      "data": {
+        "domain": "agentforge.ai",
+        "displayTitle": "Enterprise AI Agent Deployment in 2026: The Scaling Playbook",
+        "displayDescription": "**Published:** 2026-05-27\n**Author:** AgentForge Content Department\n**Category:** Enterprise AI, AI Agents, Production Engineering\n**Reading Time:** 15 minutes",
+        "titleLength": 60,
+        "descLength": 159,
+        "titleWidthPx": 432,
+        "titleTruncated": false,
+        "descTruncated": false,
+        "serpPreview": {
+          "breadcrumb": "agentforge.ai",
+          "title": "Enterprise AI Agent Deployment in 2026: The Scaling Playbook",
+          "description": "**Published:** 2026-05-27\n**Author:** AgentForge Content Department\n**Category:** Enterprise AI, AI Agents, Production Engineering\n**Reading Time:** 15 minutes"
+        }
+      }
+    },
+    "geo_eeat_signals": {
+      "success": true,
+      "data": {
+        "experienceScore": 30,
+        "expertiseScore": 100,
+        "authorityScore": 36,
+        "trustScore": 10,
+        "compositeScore": 44,
+        "rating": "moderate",
+        "signals": {
+          "experience": [
+            "we've",
+            "we use"
+          ],
+          "expertise": [
+            "architecture",
+            "framework",
+            "infrastructure",
+            "configuration",
+            "optimization"
+          ],
+          "authority": [
+            "published",
+            "institute",
+            "source"
+          ],
+          "trust": [
+            "while"
+          ]
+        },
+        "gaps": [
+          "Add nuance and caveats (\"however\", \"it depends\", \"note that\") to build trust signals"
+        ]
+      }
+    },
+    "geo_answer_structure": {
+      "success": true,
+      "data": {
+        "questionCount": 17,
+        "definitionCount": 2,
+        "stepPatternCount": 5,
+        "conclusionMarkerCount": 3,
+        "directAnswerCount": 0,
+        "listDensity": 1.8,
+        "avgSentenceLength": 11.3,
+        "score": 76,
+        "rating": "good",
+        "strengths": [
+          "17 question(s) \u2014 helps match user queries",
+          "2 definition(s) \u2014 AI engines extract these directly",
+          "5 step/list pattern(s) \u2014 high citation value",
+          "Conclusion marker present \u2014 good for AI summarisation"
+        ],
+        "gaps": [
+          "No direct answer patterns \u2014 add \"The answer is...\" style sentences"
+        ]
+      }
+    },
+    "geo_entity_density": {
+      "success": true,
+      "data": {
+        "totalWords": 3216,
+        "namedEntityCount": 451,
+        "statisticCount": 52,
+        "factMarkerCount": 65,
+        "citationMarkerCount": 0,
+        "dateReferenceCount": 40,
+        "entityDensityPer100": 14.02,
+        "statDensityPer100": 1.62,
+        "score": 68,
+        "rating": "good",
+        "topEntities": [
+          "Enterprise",
+          "Agent",
+          "Deployment",
+          "Scaling",
+          "Playbook",
+          "Published",
+          "Author",
+          "AgentForge",
+          "Content",
+          "Department"
+        ]
+      }
+    },
+    "geo_quotability": {
+      "success": true,
+      "data": {
+        "compositeScore": 84,
+        "rating": "strong",
+        "topSentences": [
+          {
+            "text": "---\n\n## The ROI Case: 80% of Enterprises Report Measurable Returns\n\nThe deployment investment is substantial \u2014 but so is the return",
+            "score": 90,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "clear subject opening",
+              "assertive",
+              "definition pattern"
+            ]
+          },
+          {
+            "text": "\"\n\n**Data from the field:** Nearly [90% of organizations use AI for development](https://beamsec",
+            "score": 83,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "power words: data",
+              "clear subject opening",
+              "assertive"
+            ]
+          },
+          {
+            "text": "The most comprehensive enterprise data available in 2026:\n\n**Overall adoption:** [80% of enterprises report measurable economic returns](https://beamsec",
+            "score": 83,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "power words: data",
+              "clear subject opening",
+              "assertive"
+            ]
+          },
+          {
+            "text": "The 80% ROI figure, the NVIDIA Toolkit launch, the NIST standards process, the 86% adoption in software development \u2014 these are not signals of a technology still finding its footing",
+            "score": 83,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "power words: finding",
+              "clear subject opening",
+              "assertive"
+            ]
+          },
+          {
+            "text": "The enterprises that master all four dimensions \u2014 not just one \u2014 will be the ones that capture the 80% ROI the data promises",
+            "score": 83,
+            "reasons": [
+              "optimal length",
+              "contains statistic",
+              "power words: data",
+              "clear subject opening",
+              "assertive"
+            ]
+          }
+        ],
+        "totalSentencesAnalyzed": 214,
+        "avgQuotabilityScore": 38.4
+      }
+    },
+    "geo_evaluation_prompt": {
+      "error": "HTTP Error 400: Bad Request"
+    }
   },
-  "serp_check": {
-    "title_length": 57,
-    "title_status": "PASS (≤60 chars)",
-    "meta_description_length": 243,
-    "meta_description_status": "PASS",
-    "url_slug": "enterprise-ai-agent-deployment-2026-05-27"
+  "scores": {
+    "keyword_density": 90,
+    "readability": 60,
+    "meta_quality": 70,
+    "serp_preview": 80,
+    "eeat": 75,
+    "geo_blocks": 76,
+    "quotability": 84,
+    "content_length": 85,
+    "entity_density": 55,
+    "structure": 75,
+    "overall": 76.3
   },
-  "keyword_target": "Enterprise AI Agent Deployment",
-  "cluster": "AI agent production deployment scaling enterprise",
-  "flesch": 24.3,
-  "notes": "Standard B2B enterprise difficulty — Flesch 24 is typical for infrastructure/CTO audience. 11 H2s, 15+ hyperlinks, 2 tables, series crosslinks. All 4 GEO blocks pass.",
-  "decision": "PASS (≥70)",
-  "routing": "route to PDF finalization",
-  "pipeline_status": "completed_with_ceo_intervention"
+  "overall_score": 76.3,
+  "verdict": "PASS"
 }

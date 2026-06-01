@@ -77,3 +77,27 @@
   - Rationale: Social content quality is high — platform-specific adaptations, value-first framing, contrarian hook. Risk of posting sub-80 SEO score article is low because the article itself is 3,091 words of original technical content with 7 real-world patterns. The SEO score was docked for metadata/schema issues (which don't affect social), not content quality.
   - CEO: Marvin | Signed: 2026-05-25 16:40 IST
 - [2026-05-26] [DECISION]: Prompts Foundry activated. Mirrors skill-foundry architecture. Nightly 01:00 Dublin via Flash model. 17-domain rotation. Output: 3-5 improved cross-platform prompts per run to MeMex artifacts/prompts-foundry/. GitHub repo at 50 prompts (per standing policy).
+
+- [2026-05-31] [DECISION — Model Policy Review]: The owl-alpha restriction expired today. 9-day performance review complete.
+
+  **Data reviewed:**
+  - All 20+ sessions across 4 agents (CEO, app-discovery, skill-foundry, main)
+  - 6 content pipeline runs (May 23-29), 3 SEO audits, 2 social distributions
+  - CodexBar cost data (no Codex usage — all OpenRouter)
+
+  **Findings:**
+  - owl-alpha: ZERO sessions in 9 days. Never selected by any agent or pipeline.
+  - DeepSeek V4 Pro: 100% of high-quality work (CEO, pipelines, subagents). SEO scores improving: 65 → 78 → 90%.
+  - DeepSeek V4 Flash: All nightly cron jobs (skill foundry, prompts foundry, backups)
+  - Fallback chain (minimax → kimi → flash → owl-alpha): owl-alpha is last resort, never triggered.
+
+  **Decision: SUNSET owl-alpha.** Remove from fallback chain entirely. The two-tier DeepSeek split (V4 Pro for quality, Flash for background) is performing well and needs no policy intervention — it's organically self-enforcing.
+
+  **New model policy (no expiry):**
+  - DeepSeek V4 Pro: CEO, all department agents, content pipeline, SEO, app discovery, social, PDF — all high-quality/production work
+  - DeepSeek V4 Flash: Nightly/low-priority background jobs (skill foundry, prompts foundry, backups, healthchecks)
+  - owl-alpha: REMOVED. Not in fallback chain.
+
+  **Fallback chain (revised):** minimax/m2.7 → kimi/k2.6 → deepseek-v4-flash
+
+  **Rationale:** owl-alpha had 402 credit issues on May 22 and was never organically selected. The policy wasn't needed — agents naturally chose the right model. Removing it simplifies the config and eliminates a known-unreliable provider.

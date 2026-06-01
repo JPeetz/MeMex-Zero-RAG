@@ -64,3 +64,81 @@
 | **Dual-write sync** | MeMex → Obsidian mirror completed (Run #2 content, SEO, social artifacts were missing in Obsidian) |
 | **Social approval** | Run #1 social distribution approved (sd-f3a9b4c2, score 79 → CEO review passed) |
 | **Status** | ✅ Posts published as drafts, awaiting featured images + schema + SEO metadata injection |
+
+## 2026-05-27 — Content Pipeline Run #4
+
+| Field | Value |
+|-------|-------|
+| **Pipeline Run** | #4 |
+| **Trigger** | Cron (daily, 08:30) |
+| **Keyword** | Enterprise AI Agent Deployment |
+| **Cluster** | deployment production scaling enterprise infrastructure |
+| **Article** | "Enterprise AI Agent Deployment in 2026: From Pilot to Production at Scale" |
+| **Word Count** | ~2,600 |
+| **Sections** | 9 (Executive Summary, Deployment Patterns, Kubernetes Integration, Scaling Strategies, Monitoring, Security, Cost Analysis, FAQ, Conclusion) |
+| **Artifact** | `articles/enterprise-ai-agent-deployment-2026-05-27.md` |
+| **SEO Score** | Pending audit |
+| **Status** | ⏳ Draft — Part B FAILED (image gen + SEO + PDF + git all skipped). Root cause: single cron exhausted after article writing. FIX: Split into Part A (08:30) + Part B (09:15). Content playbook updated. |
+| **Notes** | Lifecycle part 4/5. Pre-SEO self-check applied: meta description, 20+ hyperlinks, 4 plain-language interludes. Part B failure pattern: image_generate + article writing don't coexist in a single cron — model considers text output "complete" and stops. |
+
+## 2026-05-28 — Content Pipeline Run #5
+
+| Field | Value |
+|-------|-------|
+| **Pipeline Run** | #5 |
+| **Trigger** | Cron (daily, 08:30) |
+| **Keyword** | Multi-Agent AI Frameworks |
+| **Cluster** | AI frameworks comparison agent orchestration |
+| **Article** | "Multi-Agent AI Frameworks Compared: LangGraph, CrewAI, Claude SDK, AutoGen, and More in 2026" |
+| **Word Count** | ~2,350 |
+| **Sections** | Decision matrix, 6-framework deep dives, MCP interoperability section, series recap with internal links |
+| **Artifact** | `articles/multi-agent-ai-frameworks-2026-05-28.md` |
+| **SEO Score** | Pending audit |
+| **Status** | ⏳ Draft — Part B (09:15) not executed. Lifecycle series complete (5/5). |
+| **Notes** | Lifecycle finale. Series recap with links to all 4 prior articles. MCP adoption by CrewAI, MS Agent Framework, Vercel AI SDK positioned as differentiator from pre-2026 comparisons. |
+
+## 2026-05-29 — Content Pipeline Run #6
+
+| Field | Value |
+|-------|-------|
+| **Pipeline Run** | #6 |
+| **Trigger** | Cron (daily, 08:30) |
+| **Keyword** | AI Agent Security |
+| **Cluster** | enterprise AI security OWASP agent threats |
+| **Article** | "AI Agent Security in 2026: The Enterprise Guide to Protecting Autonomous Systems" |
+| **Word Count** | ~2,100 |
+| **Sections** | 9 threat categories, OWASP ASI Top 10 backbone, vendor landscape, regulatory context |
+| **Artifact** | `articles/ai-agent-security-enterprise-2026-05-29.md` |
+| **SEO Score** | Pending audit |
+| **SEO API** | ⚠️ DOWN — seo-api-nu.vercel.app returned 404 on ALL endpoints. Fallback: Tavily web search for keyword research + source material. |
+| **Status** | ⏳ Draft — Part B not run. SEO API outage means no audit possible. |
+| **Notes** | New cluster start after lifecycle series completion. Natural pivot: "how do I secure all of this?" OWASP ASI framework as backbone. 21,069 chars — longest article in pipeline. |
+
+## 2026-06-01 — Content Pipeline Run #7
+
+| Field | Value |
+|-------|-------|
+| **Pipeline Run** | #7 |
+| **Trigger** | Cron (daily, 08:30) |
+| **Keyword** | Prompt Injection Defense |
+| **Cluster** | AI security prompt injection defense architecture |
+| **Article** | "Prompt Injection Defense: Architecture and Techniques for AI Agents in 2026" |
+| **Word Count** | ~2,200 |
+| **Sections** | 7 defense layers, Progressive Breach Model (Lakera 4-phase), structural isolation, semantic firewalls, memory governance |
+| **Artifact** | `articles/prompt-injection-defense-ai-agents-2026.md` |
+| **SEO Score** | Pending audit |
+| **SEO API** | ⚠️ STILL DOWN — 3 days of outage. All 6 un-audited articles accumulating. |
+| **Status** | ⏳ Draft — Part B not run. Security cluster part 2/5. |
+| **Notes** | Tactical deep-dive on OWASP #1 LLM vulnerability. Lakera's Progressive Breach Model as narrative arc. 3 parallel Tavily searches for research. CEO analytics weekly report also executed this morning. |
+
+## 2026-06-01 — Analytics Weekly Report #2
+
+| Field | Value |
+|-------|-------|
+| **Report** | weekly-report-2026-06-01 |
+| **Period** | May 26 – May 31, 2026 |
+| **Pipeline Runs** | 5 (Runs #3–#7) |
+| **Articles** | 5 produced, 0 audited |
+| **Key Findings** | SEO API outage is pipeline-breaking. Part B fragmentation. Content agent self-improvement positive. 1/10 prior recommendations executed. |
+| **Critical Actions** | Fix SEO API, batch Part B for 6 backlogged articles, apply AGENTS.md patches from Week 1. |
+| **Artifact** | MeMex: artifacts/analytics/2026/06/weekly-report-2026-06-01.md · Obsidian: weekly-reports/weekly-report-2026-06-01.md |

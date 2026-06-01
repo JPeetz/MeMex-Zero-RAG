@@ -6,7 +6,7 @@
 **Reading Time:** 16 minutes  
 **SEO Score:** Pending audit
 
-![AI Agent Evaluation Dashboard - Performance metrics and quality assessment visualization](images/ai-agent-evaluation-2026-05-26.jpg)
+![AI Agent Evaluation Dashboard](images/ai-agent-evaluation-2026-05-26.jpg)
 
 ---
 

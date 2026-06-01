@@ -1,0 +1,15 @@
+{
+  "artifact_id": "f3c4d5e6-g708-9e3j-h14i-7l2m3n4o5p6q",
+  "type": "content.image-prompt",
+  "created": "2026-06-01T08:55:00+01:00",
+  "pipeline_run": 7,
+  "parent_article_artifact": "e2b3c4d5-f607-8d2i-g03h-6k1l0m1n4o5p",
+  "image_prompt": {
+    "design_concept": "Seven concentric defense rings/layers protecting a central AI agent core from external injection attacks. The visual metaphor: a fortified AI system with layered shields.",
+    "prompt": "A cinematic 3D visualization of a seven-layer AI agent defense architecture. At the center: a glowing blue crystalline AI core representing the agent's reasoning engine. Surrounding it: seven concentric transparent defense rings radiating outward, each labeled with subtle HUD-style glyphs. The outer layer shows fragmented red arrow attacks (representing prompt injection) being deflected, absorbed, and filtered as they pass through each layer. Dark blue and teal gradient background with hexagonal grid. Cinematic volumetric lighting, ultra-detailed, 16:9 aspect ratio, science visualization style. No text labels, purely visual metaphor.",
+    "target_format": "16:9 landscape",
+    "style_notes": "Dark technical aesthetic matching prior series images (blue/teal gradient, hexagonal grid, HUD overlays). Seven concentric rings must be visually distinct—different opacity/color between layers to show the defense-in-depth concept. The 'attacks' (red fragments) penetrating some layers but stopped by deeper ones conveys the layered defense message.",
+    "alt_text": "Seven-layer AI agent prompt injection defense architecture with concentric security rings",
+    "image_destination": "~/workspace/MeMex-Zero-RAG/wiki/agentforge/articles/images/2026/06/prompt-injection-defense-2026-06-01.jpg"
+  }
+}

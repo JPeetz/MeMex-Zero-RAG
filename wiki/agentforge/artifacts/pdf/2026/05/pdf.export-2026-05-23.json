@@ -1,75 +1,13 @@
 {
-  "schema_version": "1.0",
-  "artifact_id": "pe-8d4c2f81-e6a7-4b9c-1a3f-5d6e7f8a9b0c",
-  "agent": "pdf",
-  "mission_id": "dailypipeline-2026-05-23",
-  "pipeline": "pdf",
-  "stage": "export",
-  "status": "complete",
-  "timestamp": "2026-05-23T02:33:00+01:00",
-  "input_received": {
-    "mission_id": "dailypipeline-2026-05-23",
-    "prior_artifact_id": "sd-f3a9b4c2-d6f7-4a8e-b10c-4e7f3d5a6103",
-    "article_artifact_id": "ca-d5e8c3f2-a1b4-4d9e-9c7f-6e5d4f3a2b1c",
-    "seo_audit_id": "sa-9f2b7c41-d5e8-4a3f-b9c1-3d6e7f8a2b4c"
-  },
-  "output": {
-    "article": {
-      "slug": "ai-agent-orchestration-2026",
-      "title": "AI Agent Orchestration in 2026: The Enterprise Guide",
-      "source_file": "~/workspace/MeMex-Zero-RAG/wiki/agentforge/artifacts/content/2026/05/article-ai-agent-orchestration-2026.md"
-    },
-    "pdf": {
-      "file_path": "~/Documents/AgentForge/2026-05-23-ai-agent-orchestration-2026.pdf",
-      "file_size_bytes": 541575,
-      "file_size_mb": 0.52,
-      "pages": 8,
-      "method": "fallback",
-      "method_detail": "Python markdown→HTML → Chrome headless --print-to-pdf (primary npx md-to-pdf unavailable — Puppeteer install timeout)",
-      "includes": [
-        "styled cover page with fal.ai FLUX cover image",
-        "table of contents page",
-        "full article content with A4 formatting",
-        "page numbers and headers",
-        "professional typography (Helvetica/Times hybrid)",
-        "styled tables, code blocks, and lists"
-      ]
-    },
-    "cover_image": {
-      "file_path": "~/Documents/AgentForge/2026-05-23-ai-agent-orchestration-cover.jpg",
-      "file_size_bytes": 151508,
-      "generator": "fal.ai FLUX Schnell",
-      "aspect_ratio": "portrait_4_3"
-    }
-  },
-  "quality": {
-    "confidence": 0.95,
-    "checks_passed": [
-      "pdf_generated_successfully",
-      "pdf_under_5mb",
-      "cover_image_generated",
-      "content_fidelity_verified",
-      "artifact_written_to_memex"
-    ],
-    "checks_failed": []
-  },
-  "escalation": {
-    "triggered": false,
-    "reason": null,
-    "detail": "PDF generated successfully via fallback method. Primary method (md-to-pdf) unavailable due to Puppeteer install timeout."
-  },
-  "next_steps": [
-    {
-      "agent": "design",
-      "action": "Publish PDF as downloadable lead magnet on WordPress (attach to article at /ai-agent-orchestration-2026/)",
-      "input_artifact_id": "pe-8d4c2f81-e6a7-4b9c-1a3f-5d6e7f8a9b0c",
-      "priority": 1,
-      "blocked": false
-    }
-  ],
-  "hive_mind_signal": {
-    "type": "PDF_EXPORT_COMPLETE",
-    "content": "PDF Agent generated lead magnet for 'AI Agent Orchestration in 2026: The Enterprise Guide'. 8 pages, 0.52 MB, A4 format with cover image and TOC. Output: ~/Documents/AgentForge/2026-05-23-ai-agent-orchestration-2026.pdf. Used fallback method (Chrome headless — md-to-pdf unavailable). Next: Design Agent for WordPress attachment.",
-    "confidence": 0.95
-  }
+  "article": "From Single-Agent to Multi-Agent Architecture: A Practical Guide to Building Production-Grade AI Systems in 2026",
+  "file": "multi-agent-architecture-2026-05-23.md",
+  "date": "2026-05-23",
+  "pdf_filename": "multi-agent-architecture-2026-05-23.pdf",
+  "html_ready": true,
+  "pdf_status": "pending_render",
+  "note": "HTML generated successfully. PDF renderer (weasyprint/wkhtmltopdf/chromium) not available on this machine.",
+  "html_path": "/Users/joergpeetz/workspace/MeMex-Zero-RAG/wiki/agentforge/artifacts/pdf/2026/05/multi-agent-architecture-2026-05-23.html",
+  "export_timestamp": "2026-06-01T08:53:01Z",
+  "word_count": 3096,
+  "char_count": 21950
 }
