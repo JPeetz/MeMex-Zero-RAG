@@ -142,3 +142,55 @@
 | **Key Findings** | SEO API outage is pipeline-breaking. Part B fragmentation. Content agent self-improvement positive. 1/10 prior recommendations executed. |
 | **Critical Actions** | Fix SEO API, batch Part B for 6 backlogged articles, apply AGENTS.md patches from Week 1. |
 | **Artifact** | MeMex: artifacts/analytics/2026/06/weekly-report-2026-06-01.md · Obsidian: weekly-reports/weekly-report-2026-06-01.md |
+
+---
+
+## 2026-06-01 — Part B Batch Processing (Images, SEO, PDFs)
+
+| Field | Value |
+|-------|-------|
+| **Trigger** | Subagent batch — backlog clearing |
+| **Scope** | 6 backlogged articles (May 23 – Jun 1) |
+| **Status** | ✅ Complete |
+
+### Featured Images (fal.ai FLUX)
+
+| # | Article | Image File |
+|---|---------|------------|
+| 1 | Multi-Agent Architecture (May 23) | `images/multi-agent-architecture-2026-05-23.jpg` |
+| 2 | Agentic AI Governance (May 25) | `images/agentic-ai-governance-2026-05-25.jpg` |
+| 3 | AI Agent Evaluation (May 26) | `images/ai-agent-evaluation-2026-05-26.jpg` |
+| 4 | Enterprise AI Agent Deployment (May 27) | `images/enterprise-ai-agent-deployment-2026-05-27.jpg` |
+| 5 | Multi-Agent AI Frameworks (May 28) | `images/multi-agent-ai-frameworks-2026-05-28.jpg` |
+| 6 | Prompt Injection Defense (Jun 1) | `images/prompt-injection-defense-ai-agents-2026.jpg` |
+
+### SEO Audits (7 SEO + 5 GEO endpoints)
+
+| # | Article | Score | Verdict | Artifact |
+|---|---------|-------|---------|----------|
+| 1 | Multi-Agent Architecture (May 23) | 71.9 | ✅ PASS | `seo.audit-2026-05-23.json` |
+| 2 | Agentic AI Governance (May 25) | 69.2 | ⚠️ FLAG | `seo.audit-2026-05-25.json` |
+| 3 | AI Agent Evaluation (May 26) | 72.3 | ✅ PASS | `seo.audit-2026-05-26.json` |
+| 4 | Enterprise AI Agent Deployment (May 27) | 76.3 | ✅ PASS | `seo.audit-2026-05-27.json` |
+| 5 | Multi-Agent AI Frameworks (May 28) | 69.5 | ⚠️ FLAG | `seo.audit-2026-05-28.json` |
+| 6 | Prompt Injection Defense (Jun 1) | 72.7 | ✅ PASS | `seo.audit-2026-06-01.json` |
+
+### PDF Lead Magnets
+
+| # | Article | HTML | PDF Status |
+|---|---------|------|------------|
+| 1 | Multi-Agent Architecture (May 23) | ✅ HTML generated | ⚠️ Pending render (no renderer) |
+| 2 | Agentic AI Governance (May 25) | ✅ HTML generated | ⚠️ Pending render |
+| 3 | AI Agent Evaluation (May 26) | ✅ HTML generated | ⚠️ Pending render |
+| 4 | Enterprise AI Agent Deployment (May 27) | ✅ HTML generated | ⚠️ Pending render |
+| 5 | Multi-Agent AI Frameworks (May 28) | ✅ HTML generated | ⚠️ Pending render |
+| 6 | Prompt Injection Defense (Jun 1) | ✅ HTML generated | ⚠️ Pending render |
+
+**PDF Note:** HTML lead magnets generated successfully. PDF renderer (weasyprint/wkhtmltopdf/chromium) not available on this machine. Install `weasyprint` via `pip install weasyprint` to complete PDF export.
+
+### Summary
+- **Images:** 6/6 generated and embedded ✅
+- **SEO Audits:** 6/6 completed — 4 PASS, 2 FLAG, 0 FAIL ⚠️
+- **PDFs:** 6/6 HTML lead magnets generated — pending PDF render
+- **Git:** Committed and pushed to MeMex main
+- **FLAG items:** Agentic AI Governance (69.2) and Multi-Agent AI Frameworks (69.5) need minor fixes to reach PASS threshold (70+)
