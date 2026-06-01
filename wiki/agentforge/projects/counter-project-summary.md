@@ -15,9 +15,9 @@ The agent framework market has three dominant players — OpenClaw (376K ★, Ty
 
 | Competitor | Key Weakness | Our Attack |
 |---|---|---|
-| **OpenClaw** | Full host access (security nightmare), TypeScript runtime bloat, npm supply chain | Capability-based security, Go static binary (6MB vs. 200MB+), WASM-sandboxed plugins |
-| **Hermes Agent** | Python monolith (synchronicity ceiling), CVEs already, single-agent loop | Goroutine-native concurrency (true parallelism), <30K lines Go vs. 30K+ Python |
-| **OpenHuman** | Desktop-only (no headless/CI), OAuth attack surface, Tauri webview dependency | Server-first, headless-native, no OAuth sprawl |
+| **OpenClaw** | Full host access (security nightmare), TypeScript runtime bloat (200MB+ node_modules), npm supply chain, macOS-only desktop app | Capability-based security, Go static binary (6MB), WASM-sandboxed plugins, native desktop app for Windows + macOS + Linux |
+| **Hermes Agent** | Python monolith (synchronicity ceiling), CVEs already, single-agent loop, no native desktop | Goroutine-native concurrency (true parallelism), <30K lines Go, desktop app with system tray |
+| **OpenHuman** | Desktop-only (no headless/CI), OAuth attack surface, Tauri webview dependency, closed-source managed backend | Server-first + desktop-optional, no OAuth sprawl, fully open, headless-native |
 
 ## Architecture Decision: **Go**
 
@@ -33,13 +33,18 @@ Goroutines + channels map 1:1 to our agent orchestration model. Go's concurrency
 
 4. **WASM Plugin Sandbox** — Plugins run in WASI preview 2 sandboxes. Content-addressed (SHA-256). Manifest-declared capabilities. SBOM-verified. No npm/pip supply chain attacks.
 
-5. **Enterprise-Grade Deployment** — Single 6MB binary. Docker, K8s, Raspberry Pi, air-gapped. SQLite (no external DB). RBAC, SSO, audit logging, SLA contracts.
+5. **Enterprise-Grade Deployment** — Single 6MB binary. Linux, macOS, Windows, Docker, K8s, Raspberry Pi, air-gapped. SQLite (no external DB). RBAC, SSO, audit logging, SLA contracts. Native desktop app for Windows/macOS via Wails (Go + web frontend).
 
-## Recommended Name: **Crucible** ⭐
+## Recommended Name: Crucible ⭐ → BOARD REJECTED. New proposals below.
 
-"The forge creates. The crucible refines." Bridges our AgentForge origin story to the new product. Unique in tech, logo-friendly (flame/vessel), evokes testing and quality. Tagline: "Where agents are forged, tested, and hardened."
-
-Backups: Forge, Sentinel, Legion.
+| Rank | Name | Tagline | Vibe | Domain |
+|---|---|---|---|---|
+| 1 | **Apex** ⭐ | "Apex: The peak of agent intelligence." | Dominant, unbeatable, short | apexagents.dev |
+| 2 | **Vanguard** | "Vanguard: Leading the agent revolution." | Military, forward position, competitive | vanguardagents.dev |
+| 3 | **Gauntlet** | "Gauntlet: Test. Harden. Deploy." | Challenge, security, pressure | gauntlet.dev |
+| 4 | **Foundry** | "Foundry: Where intelligent agents are cast." | Industrial, professional, bridges AgentForge | foundryagents.dev |
+| 5 | **Axiom** | "Axiom: Self-evident agent intelligence." | Foundational, mathematical, trust | axiomagents.dev |
+| 6 | **Arsenal** | "Arsenal: The complete agent weapons platform." | Military, comprehensive, no-compromise | arsenalagents.dev |
 
 ## Monetization: $696K ARR Target (Year 1)
 
