@@ -136,3 +136,5 @@
 - [2026-06-09] [DECISION]: App Discovery pipeline rescheduled from daily (Mon-Fri 06:00) to weekly (Monday 06:00 Dublin). Board directive: 'stop App Discovery Daily and reschedule for weekly on Monday at the same time.' Job renamed app_discovery_daily → app_discovery_weekly. First run: 2026-06-15 06:00 IST.
 
 - [2026-06-09] [DECISION]: Switched to offline-first native local sheets for legal documents (EULA/Privacy) in BetterLife iOS App views to bypass Apple's restricted review sandbox networks, and compiled the new OpenRouter API key directly in Config.swift fallback to fix the complete API connection and resolve Guideline 2.1(a) and 3.1.2(c) rejections. Logged by: Antigravity.
+
+- [2026-06-10] [DECISION]: Resolved HTTP 402 (Payment Required / Depleted Credits) connection error reported by the App Review team by topping up the OpenRouter developer account credit balance. No codebase changes needed. Logged by: Antigravity.
