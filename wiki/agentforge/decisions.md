@@ -138,3 +138,5 @@
 - [2026-06-09] [DECISION]: Switched to offline-first native local sheets for legal documents (EULA/Privacy) in BetterLife iOS App views to bypass Apple's restricted review sandbox networks, and compiled the new OpenRouter API key directly in Config.swift fallback to fix the complete API connection and resolve Guideline 2.1(a) and 3.1.2(c) rejections. Logged by: Antigravity.
 
 - [2026-06-10] [DECISION]: Resolved HTTP 402 (Payment Required / Depleted Credits) connection error reported by the App Review team by topping up the OpenRouter developer account credit balance. No codebase changes needed. Logged by: Antigravity.
+
+- [2026-06-10] [DECISION]: Prompt balance and wearables roadmap strategy established. Deferred direct prompt updates to avoid sounding too harsh in Assertive Mode. Placed Apple Watch / biometric data integration on the roadmap for a future upgrade to enable closed-loop schedule adaptations. Logged by: Antigravity.
