@@ -1,7 +1,7 @@
 ---
 title: BetterLife.care Infrastructure Credentials
 type: entity
-tags: ["betterlife", "infrastructure", "credentials", "email", "hostinger"]
+tags: ["betterlife", "infrastructure", "credentials", "email", "hostinger", "ftp"]
 created: 2026-06-22
 author: marvin
 ---
@@ -21,8 +21,16 @@ author: marvin
 - social@betterlife.care — Social media notifications
 - support@betterlife.care — Customer support
 
+## FTP Access
+- **FTP IP:** ftp://145.14.152.32
+- **FTP Hostname:** ftp://betterlife.care
+- **FTP Username:** u689536553
+- **Upload Path:** public_html
+- **FTP Password:** ⚠️ pending
+
 ## Use Cases
 - Transactional email (account verification, password reset, notifications)
 - App-to-user communication
 - Support ticketing
 - Social media integration notifications
+- File uploads to web hosting via FTP
