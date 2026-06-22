@@ -1,7 +1,7 @@
 ---
 title: BetterLife.care Infrastructure Credentials
 type: entity
-tags: ["betterlife", "infrastructure", "credentials", "email", "hostinger", "ftp", "instagram", "social-media"]
+tags: ["betterlife", "infrastructure", "credentials", "email", "hostinger", "ftp", "instagram", "facebook", "social-media"]
 created: 2026-06-22
 author: marvin
 ---
@@ -22,9 +22,8 @@ author: marvin
 - support@betterlife.care — Customer support
 
 ## Social Media Accounts
-- **Instagram:** @better_life_ai_coaching
-  - Login: social@betterlife.care
-  - Password: Buddy-2019
+- **Instagram:** @better_life_ai_coaching — login social@betterlife.care / Buddy-2019
+- **Facebook:** login social@betterlife.care / Buddy-2019
 
 ## FTP Access
 - **FTP IP:** ftp://145.14.152.32
@@ -39,4 +38,4 @@ author: marvin
 - Support ticketing
 - Social media integration notifications
 - File uploads to web hosting via FTP
-- Instagram content publishing and engagement
+- Instagram & Facebook content publishing and engagement
