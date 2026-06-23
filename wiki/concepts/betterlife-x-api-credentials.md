@@ -1,7 +1,7 @@
 ---
 title: BetterLife.care — X (Twitter) API Credentials
 type: concept
-tags: ["betterlife", "x-api", "twitter", "credentials", "social-media", "oauth2"]
+tags: ["betterlife", "x-api", "twitter", "credentials", "social-media", "verified"]
 created: 2026-06-23
 author: marvin
 ---
@@ -9,7 +9,7 @@ author: marvin
 # BetterLife.care — X (Twitter) API Credentials
 
 **Created:** 2026-06-23 by Marvin (Board: Joerg)  
-**Updated:** 2026-06-23 — recreated with OAuth 2.0 credentials  
+**Updated:** 2026-06-23 — access tokens generated, test tweet posted ✅  
 **Visibility:** AgentForge internal — all agents
 
 ---
@@ -17,20 +17,23 @@ author: marvin
 ## X Developer Application
 
 - **App name:** BetterLifeAI
+- **X Handle:** @BetterLifeatjl
 - **Platform:** X (Twitter) API v2
-- **Created:** 2026-06-23 (recreated same day with new keys)
+- **Status:** ✅ Live — test tweet posted 2026-06-23
 
-## Credentials
+## Credentials (Full Set)
 
-### OAuth 1.0a (App-level)
+### OAuth 1.0a (Posting & Full Access)
 
 | Key | Value |
 |---|---|
 | Consumer Key (API Key) | `TBYzLVILUmbT8DnU4sCkT6EjN` |
 | Secret Key (API Secret) | `ytT8SdJwYd0fQvUEVXNfNUbtaJY2oFoCc8Gf3a0UlySNJZSOTR` |
+| Access Token | `2069423281115910144-7pRk1gMfbRGHdxFjfVn5xXjMZ0xVvG` |
+| Access Token Secret | `wbCAICBfH4cVcFcZa6PxRd2Ksp4A0VPZXCh6W4ZL5HmJy` |
 | Bearer Token | `AAAAAAAAAAAAAAAAAAAAACQu%2BQEAAAAAfnmZK%2BDon9G%2B347ZCRhGImN7sGY%3DHqh0M6vDhaWIUBkcruhoZzikPOa84lhG0MzzycGpfqtosmVxQw` |
 
-### OAuth 2.0 (User-level)
+### OAuth 2.0
 
 | Key | Value |
 |---|---|
@@ -39,20 +42,22 @@ author: marvin
 
 ## Authentication Methods
 
-- **OAuth 1.0a User Context:** Consumer Key + Secret + Access Token + Access Token Secret → posting tweets, media upload, account actions. Access tokens must be generated from the X Developer Portal.
-- **OAuth 2.0 (Authorization Code with PKCE):** Client ID + Client Secret → v2 API endpoints. Requires user authorization flow.
-- **Bearer Token (App-only):** Read-only access — search, user lookup. Limited on free tier (no credits).
+- **OAuth 1.0a User Context:** ✅ Full access — posting tweets, media upload, account management
+- **OAuth 2.0:** Client ID + Secret for v2 endpoints
+- **Bearer Token:** Read-only (requires credits on paid tier)
 
-## Blockers for Posting
+## Test Results (2026-06-23)
 
-- [ ] **Access Token + Access Token Secret** — Must generate from X Developer Portal → App → Keys and Tokens → "Generate Access Token and Secret" with Read+Write permissions
-- [ ] **API tier credits** — Free tier posts 1,500 tweets/month; read/search needs Basic tier ($100/mo)
+- ✅ Auth verified — @BetterLifeatjl recognized
+- ✅ Tweet posted — ID: 2069438277480780276
+- 🔗 https://x.com/BetterLifeatjl/status/2069438277480780276
 
 ## Use Cases
 
 - Social media posting automation (n8n workflows)
+- Image/media tweets (v1.1 upload + v2 tweet with media_ids)
 - Engagement tracking and analytics
-- X Bot automation
+- X Bot automation (reply filtering, auto-engagement)
 - Cross-platform content distribution
 
 ## See Also
