@@ -1,58 +1,35 @@
 ---
-title: BiteSaver PRD — Full Prompt (Board Directive 2026-06-24)
+title: BiteSaver PRD — Full Prompt (Board Directive 2026-06-24, Final)
 type: synthesis
-tags: ["bitesaver", "prd", "product", "board-directive", "recipe-app", "ui-ux", "mockups"]
+tags: ["bitesaver", "prd", "board-directive", "final"]
 created: 2026-06-24
 author: marvin
 ---
 
-# BiteSaver PRD — Full Prompt
+# BiteSaver PRD — Complete Board Directive
 
-## Board Directive — 2026-06-24
+**Date:** 2026-06-24 | **Status:** PRD In Progress (Sub-agent: Claude Sonnet 4.6, ultra thinking)
 
-### Role
-You are a world-class Senior Product Manager, Full-Stack Architect, Behavioral Designer, and Award-Winning UI/UX Expert (ex-Notion, ex-Figma, ex-Head of Product at a top recipe app).
+## Role
+World-class Senior Product Manager + Full-Stack Architect + Behavioral Designer + Award-Winning UI/UX Expert
 
-### Mission
-Create the definitive, production-ready Technical Specification and Product Requirements Document (PRD) for **BiteSaver** — the ultimate AI Recipe Vault & Social Cooking Companion.
+## Output Structure
+1. Executive Summary & Vision
+2. Competitor Alignment & Differentiation Matrix
+3. Full User Flows & Journeys
+4. Detailed Feature Spec (prioritized P0/P1/P2)
+5. Technical Architecture & Schema (Firebase/Postgres/SQLite)
+6. UI/UX Guidelines + All Flux Prompts (8 mockups)
+7. MVP Backlog (30-day) vs. Phase 2
+8. Monetization, Analytics, Risks, Success Metrics (>50% Day 30 retention)
+9. Next Steps for Development
 
----
+## Core Specs
+- Vision: Social media capture → organization → auto meal plan → grocery lists → CookStreak
+- Differentiators: (1) One-tap auto meal plan from saved library, (2) CookStreak social challenges
+- Pricing: Free (25 recipes) / Pro $4.99/mo / Family $7.99/mo, 8-15% conversion
+- Stack: React Native + SQLite + Firebase + Postgres, RevenueCat
+- MVP: 30 days — link extraction, vault, grocery list, rule-based planner, simple streaks
+- UI: Earthy tones, glassmorphism, thumb-friendly, swipe gestures, dark mode default
 
-## Core Vision
-BiteSaver solves "recipe graveyards" and nightly "what's for dinner?" panic by owning the full pipeline: social media capture → intelligent organization → one-tap auto meal planning → smart grocery lists → gamified social cooking via CookStreak.
-
-## Full Feature Spec
-See detailed sections in original messages. Includes: Capture & Extraction, Vault/Organization, Auto Meal Planner, Smart Grocery Lists, CookStreak Social Layer, Cooking Mode, Pro Features, Family Plan, Monetization (RevenueCat), Tech Stack (React Native + SQLite + Firebase + Postgres), Hooked Model Integration, 30-Day MVP Scope.
-
-## UI/UX Design System
-
-### Aesthetic
-- Warm, appetizing food photography with clean minimalism
-- Earthy tones: sage green, warm terracotta, soft beige, deep charcoal accents
-- Glassmorphism cards on photo backgrounds
-- High contrast for kitchen use (large fonts, thumb-friendly buttons)
-- Dark mode default for evening cooking
-- Gesture-heavy: swipe to archive, pull-to-refresh plans
-
-### Key Screens
-1. Home/Dashboard — personalized daily suggestion + quick capture bar + streak overview
-2. Recipe Vault — grid/card view with powerful filters
-3. Meal Planner — calendar view + one-tap generate + drag-and-drop
-4. Grocery List — aisle-grouped, checkable, shareable
-5. CookStreak Social — feed of friends' cooks + leaderboards + challenge creation
-6. Cooking View — full-screen step-by-step with timers
-7. Onboarding — quick social link demo
-
-### Flux Mockup Prompts (Appendix)
-Base style: "Ultra-high resolution iPhone 16 Pro mockup in realistic device frame, 2026 modern mobile app UI, warm earthy color palette with sage green accents and terracotta highlights, glassmorphic cards, soft shadows, appetizing food photography backgrounds, minimalist elegant typography (Inter + serif headings), thumb-friendly large buttons, high usability, Apple Design Award quality, clean kitchen-cooking context, professional product design mockup, 8k detail --ar 9:19 --stylize 250 --v 6"
-
-1. Home/Dashboard Screen
-2. Recipe Vault Screen
-3. Auto Meal Planner Screen
-4. Grocery List Screen
-5. CookStreak Social Feed
-6. Cooking Mode Screen
-7. Onboarding Flow
-8. Hero Marketing Visual
-
-(Full prompts in original Board messages #9143–9145)
+Full prompts preserved in source messages #9143–9146.
