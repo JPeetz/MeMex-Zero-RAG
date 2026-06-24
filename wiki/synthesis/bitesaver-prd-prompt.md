@@ -1,7 +1,7 @@
 ---
 title: BiteSaver PRD — Full Prompt (Board Directive 2026-06-24)
 type: synthesis
-tags: ["bitesaver", "prd", "product", "board-directive", "recipe-app"]
+tags: ["bitesaver", "prd", "product", "board-directive", "recipe-app", "ui-ux", "mockups"]
 created: 2026-06-24
 author: marvin
 ---
@@ -19,125 +19,40 @@ Create the definitive, production-ready Technical Specification and Product Requ
 ---
 
 ## Core Vision
+BiteSaver solves "recipe graveyards" and nightly "what's for dinner?" panic by owning the full pipeline: social media capture → intelligent organization → one-tap auto meal planning → smart grocery lists → gamified social cooking via CookStreak.
 
-BiteSaver solves "recipe graveyards" and nightly "what's for dinner?" panic by owning the full pipeline:
+## Full Feature Spec
+See detailed sections in original messages. Includes: Capture & Extraction, Vault/Organization, Auto Meal Planner, Smart Grocery Lists, CookStreak Social Layer, Cooking Mode, Pro Features, Family Plan, Monetization (RevenueCat), Tech Stack (React Native + SQLite + Firebase + Postgres), Hooked Model Integration, 30-Day MVP Scope.
 
-1. Seamless social media capture
-2. Intelligent organization
-3. One-tap auto meal planning from the user's own library
-4. Smart grocery lists
-5. Gamified social cooking via CookStreak
+## UI/UX Design System
 
----
+### Aesthetic
+- Warm, appetizing food photography with clean minimalism
+- Earthy tones: sage green, warm terracotta, soft beige, deep charcoal accents
+- Glassmorphism cards on photo backgrounds
+- High contrast for kitchen use (large fonts, thumb-friendly buttons)
+- Dark mode default for evening cooking
+- Gesture-heavy: swipe to archive, pull-to-refresh plans
 
-## Market Context (Brutal Realism)
+### Key Screens
+1. Home/Dashboard — personalized daily suggestion + quick capture bar + streak overview
+2. Recipe Vault — grid/card view with powerful filters
+3. Meal Planner — calendar view + one-tap generate + drag-and-drop
+4. Grocery List — aisle-grouped, checkable, shareable
+5. CookStreak Social — feed of friends' cooks + leaderboards + challenge creation
+6. Cooking View — full-screen step-by-step with timers
+7. Onboarding — quick social link demo
 
-### Top Competitors
-ReciMe, Paprika, AnyList, Mealime, Whisk
+### Flux Mockup Prompts (Appendix)
+Base style: "Ultra-high resolution iPhone 16 Pro mockup in realistic device frame, 2026 modern mobile app UI, warm earthy color palette with sage green accents and terracotta highlights, glassmorphic cards, soft shadows, appetizing food photography backgrounds, minimalist elegant typography (Inter + serif headings), thumb-friendly large buttons, high usability, Apple Design Award quality, clean kitchen-cooking context, professional product design mockup, 8k detail --ar 9:19 --stylize 250 --v 6"
 
-### What They Excel At
-Basic import, lists, and scaling
+1. Home/Dashboard Screen
+2. Recipe Vault Screen
+3. Auto Meal Planner Screen
+4. Grocery List Screen
+5. CookStreak Social Feed
+6. Cooking Mode Screen
+7. Onboarding Flow
+8. Hero Marketing Visual
 
-### What They Fail At
-True auto-planning from personal saves and compelling social accountability
-
-### Table Stakes (Must Match or Exceed for Retention)
-- Flawless TikTok/Instagram/YouTube link paste → auto-extract (ingredients, steps, time, video thumbnails)
-- Aisle-organized grocery lists
-- Recipe scaling
-- Basic nutritional tagging
-
-### Blue Ocean Differentiators (Defend Aggressively)
-1. **One-tap Auto Weekly Meal Plan** — Generated exclusively from user's saved library with nutritional balance scoring and smart substitutions
-2. **CookStreak** — Strava-like social challenges where friends compete on "recipes cooked" with photo proof, shared streaks, leaderboards, FOMO notifications
-
-### Pricing
-| Tier | Price |
-|------|-------|
-| Free | 25 recipes, basic features |
-| Pro | $4.99/mo or $39.99/yr |
-| Family | $7.99/mo or $69.99/yr |
-
-- 7-day no-card Pro trial
-- Target: 8-15% free-to-paid conversion
-
-### Goal
-Beat ReciMe on price/value while creating network effects that Paprika/AnyList cannot match quickly.
-
----
-
-## Full App Features & Requirements (Implement All)
-
-### Capture & Extraction
-- Paste any TikTok/IG/YouTube/Reel link → AI-powered extraction of title, ingredients (with quantities), step-by-step instructions, cook time, servings, difficulty, cuisine tags, thumbnail
-- Support manual add/edit with photo upload or voice dictation
-- Offline-first saving
-
-### Vault/Organization
-- Beautiful personal library with folders, tags (e.g., "Weeknight", "High-Protein", "Family Favorites")
-- Smart search/filter (by time, ingredients on hand, dietary)
-- AI-suggested tagging
-
-### Auto Meal Planner
-- One-tap "Generate My Week" button — creates balanced 7-day plan (breakfast/lunch/dinner + snacks) using only user's saved recipes
-- Nutritional scoring (calories, macros, balance)
-- Substitutions for dietary restrictions (vegan, keto, allergies)
-- "Use What I Have" pantry integration
-
-### Smart Grocery Lists
-- Auto-generated from meal plan or selected recipes
-- Organized by supermarket aisle (produce, dairy, pantry, etc.)
-- Sync to Instacart/Walmart (affiliate tracking)
-- Shared Family lists with real-time updates
-
-### CookStreak Social Layer
-- Invite friends/families to challenges
-- Monthly "Most Recipes Cooked" leaderboards
-- Post "I Made This" photos with before/after, ratings, notes
-- Shared streaks, comments, likes
-- Viral invite system
-
-### Cooking Mode
-- Hands-free view with large text
-- Built-in timers per step
-- Progress checklist
-- Voice-guided instructions
-- Adjustable font/size for kitchen use
-
-### Pro Features (Additional)
-- Unlimited saves
-- Advanced analytics (recipes tried vs. saved, cost tracking)
-- Recipe scaling for parties
-- Export/share
-- Nutritional deep insights
-- Priority AI extraction
-
-### Family Plan Extras
-- Shared vault
-- Synced lists ("Mom added milk")
-- Family challenges
-- Profile-based dietary filters
-
-### Monetization & Paywall
-- RevenueCat integration
-- Free tier generous for reviews
-- Paywall after 25 saves or first full auto meal plan attempt
-- Pause mode on cancellation
-
-### Tech Stack & Architecture
-- **Cross-platform:** React Native (iOS/Android) + responsive Web PWA
-- **Database:** Local SQLite (offline-first priority) + Firebase (auth, social sync, real-time challenges) + Postgres (analytics)
-- **AI:** On-device/edge for basic extraction + cloud (Groq/Claude/Gemini) for advanced planning. Stub advanced AI in MVP
-- **Subscriptions:** RevenueCat with Small Business Program (15% Apple / 10-15% Google fees)
-- **Other:** HealthKit/Apple Health optional for calorie tracking, deep links, push notifications, widgets (quick grocery view, daily dinner idea)
-
-### Hooked Model Integration
-- **External Triggers:** Friend challenge notifications, daily "What's for Dinner?" push, widget reminders
-- **Internal Triggers:** Meal-time panic relief, streak dopamine, social FOMO
-- **Variable Rewards:** Beautiful meal plan reveals, challenge wins, new recipe discoveries
-- **Investment:** Building personal vault, friend connections, photo history, streaks
-
-### First 30-Day MVP Scope
-**Build:** Link import/extraction (parser + stub AI), vault organization, basic grocery list, rule-based meal planner, simple streaks, onboarding
-**Fake:** Full social (local stubs), advanced AI
-**Prioritize:** Offline functionality, kitchen-friendly cooking view, import accuracy
+(Full prompts in original Board messages #9143–9145)
