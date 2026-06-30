@@ -9,6 +9,7 @@ author: marvin
 # Hermes Agent Transition Architecture
 
 **Source:** Board directive, 2026-06-09
+**Visual reference:** @shannholmberg — "An Agent Company Inside the Agency" diagram (screenshot saved 2026-06-09)
 **Status:** Future reference — applies when transitioning departments from OpenClaw to Hermes Agent
 
 ---
@@ -49,10 +50,15 @@ Top-level coordination across all department verticals.
 Each vertical has its own specialist agents.
 
 ### Specialist Agents
-Narrow, domain-specific agents. Examples:
+Narrow, domain-specific agents, each with own tools, voice rules, and gates. Examples from the content vertical:
+- Blog writer agent
+- Content research agent
+- Content repurposing agent
+
+Other verticals:
 - Lifecycle email agent (campaigns, voice rules, approval gates, examples)
-- Technical SEO agent (tools, checklists, source standards)
-- Content research agent (narrow inputs, clear definition of done)
+- Technical SEO agent (own tools, checklists, source standards)
+- Paid ads agent
 
 ### Scoped Sub-Agents
 Even narrower agents under specialists.
@@ -126,9 +132,28 @@ This changes the agency model — one or two strong marketing engineers can run 
 
 ---
 
+## Sections from Visual Diagram (@shannholmberg)
+
+### Inputs That Feed the Brain
+transcripts · chats · past campaigns · client learnings · strategy docs · internal workflows · examples of what good looks like
+
+### Why Scope Wins
+> a general "marketing agent" is too vague. vague agents just make vague output faster.
+
+- Lifecycle email agent → right campaigns, voice rules, approval gates, examples → gets very good
+- Technical SEO agent → own tools, checklists, source standards → gets very good
+- Content research agent → narrow inputs, a clear definition of done → gets very good
+
+### Client Pods (Downstream, Isolated)
+Each client is its own agent company. Isolated brain, can still talk to agency agents when needed. Two pods shown with bidirectional communication channel.
+
+### Footer
+"build one vertical well, fork it to the next client. you start at ~75%, not from zero"
+
 ## TLDR
 
 1. Turn the agency's knowledge into a brain
 2. Turn repeated work into scoped agents
 3. Turn each client into an isolated pod
 4. Let skilled operators run the system
+5. Build one vertical well, fork it — start at ~75%, not from zero
