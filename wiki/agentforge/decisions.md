@@ -140,3 +140,5 @@
 - [2026-06-10] [DECISION]: Resolved HTTP 402 (Payment Required / Depleted Credits) connection error reported by the App Review team by topping up the OpenRouter developer account credit balance. No codebase changes needed. Logged by: Antigravity.
 
 - [2026-06-10] [DECISION]: Prompt balance and wearables roadmap strategy established. Deferred direct prompt updates to avoid sounding too harsh in Assertive Mode. Placed Apple Watch / biometric data integration on the roadmap for a future upgrade to enable closed-loop schedule adaptations. Logged by: Antigravity.
+- [2026-06-16] [BOARD DIRECTIVE]: Skill Foundry repo has NO skill cap — unbounded growth. GitHub topics are metadata only, do not rotate. Report language must not imply limits. Category-directory structure at 20+ skills.
+- [2026-06-16] [DECISION — App Discovery Consolidation]: Killed duplicate app_discovery_weekly cron (main agent, $0.60/Monday, thinking:high). Switched app_discovery_daily to DeepSeek V4 Flash (5x cheaper). Single Telegram delivery — scaffold goes file-only. Total: ~$0.81/week → ~$0.20/week.

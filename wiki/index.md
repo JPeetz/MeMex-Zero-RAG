@@ -1,40 +1,63 @@
 # Wiki Index
 
-> Master catalog of all wiki pages.
+> Master catalog of all wiki pages. Maintained by Marvin.
 
-**Last updated**: 2026-04-09  
-**Total pages**: 10
-
----
-
-## Sources (3)
-
-- [[karpathy-llm-wiki-gist]] — Andrej Karpathy's original LLM Wiki pattern from April 2026
-- [[ai-agents-overview]] — Survey of AI agent landscape, frameworks, and challenges
-- [[memex-history]] — Vannevar Bush's 1945 Memex concept and its relevance today
+**Last updated**: 2026-06-12
+**Total pages**: 2
 
 ---
 
-## Entities (3)
+## Sources (1)
 
-- [[andrej-karpathy]] — AI researcher, OpenAI co-founder, author of LLM Wiki pattern
-- [[vannevar-bush]] — Engineer who conceived the Memex in 1945
-- [[claude-code]] — Anthropic's coding-focused AI agent
-
----
-
-## Concepts (3)
-
-- [[zero-rag]] — Approach where LLMs compile knowledge instead of retrieving chunks
-- [[associative-trails]] — User-defined links between related information (Bush, 1945)
-- [[human-in-the-loop]] — Pattern where agents propose actions, humans approve
+| File | Topic | Date |
+|------|-------|------|
+| [raw/helix/architecture-2026-06-12.md](../raw/helix/architecture-2026-06-12.md) | Helix AI research engine — full architecture, auth, infra, schema | 2026-06-12 |
 
 ---
 
-## Synthesis (1)
+## Entities (0)
 
-- [[memex-to-llm-wiki]] — How Bush's 1945 vision connects to Karpathy's 2026 implementation
+*No entity pages created yet.*
 
 ---
 
-*This index is maintained by the LLM. See SCHEMA.md for conventions.*
+## Concepts (0)
+
+*No concepts created yet.*
+
+---
+
+## Projects (1)
+
+| Page | Description |
+|------|-------------|
+| [wiki/projects/helix.md](projects/helix.md) | Helix — SaaS AI research engine. NextAuth v5, Stripe, Supabase, OpenRouter. |
+
+---
+
+## Synthesis (0)
+
+*No synthesis pages yet.*
+
+---
+
+## Marvin's Knowledge Domains
+
+This wiki is the deep knowledge base for Marvin (OWL). It compounds over time.
+
+### Primary Domains
+- Software Engineering & Architecture
+- AI/ML Systems & Agent Design
+- Research & Analysis
+- Monetisation & Business Strategy
+- DevOps & Infrastructure
+
+### Ingestion Criteria
+- Sources that help Marvin do its job better
+- Technical deep-dives, architecture patterns, best practices
+- Research papers, articles, documentation
+- Lessons learned from projects
+
+---
+
+*This index is maintained by Marvin. See SCHEMA.md for conventions.*
