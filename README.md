@@ -297,4 +297,8 @@ MIT — Use it, fork it, adapt it, share it.
 
 ---
 
+---
+
+*Part of the [AgentForge Ecosystem](https://github.com/JPeetz/agentforge)*
+
 Copyright (c) 2026 Joerg Peetz. All rights reserved.
