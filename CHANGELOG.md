@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **`KNOWLEDGE-DECAY.md`** — restored schema-design draft for knowledge decay & permanence tier (originally landed via #6; lost from `main` during the `docs/superpowers/` credential-scrub history rewrite in `45fcc13` / `61b5046`).
+- **Cascade-clear worker spec** — new section in `KNOWLEDGE-DECAY.md` defining an orphaned-taint sweep. Closes #7. Covers tombstone check on `taint_origin_id`, auto-clear on retired/deleted parents, structured audit log, telemetry hook (`orphan_taints_cleared_last_run`), idempotency, and depth-1 scope inheritance.
+
+---
+
 ## [1.0.0] - 2026-04-09
 
 ### Added
