@@ -121,6 +121,92 @@ Full cascading taint (depth > 1) is deferred to v2 — blast radius is uncontrol
 
 ---
 
+## Cascade-Clear Worker — Orphaned Taint Sweep
+
+*Closes #7. Complements the auto-clear behaviour described above, which only fires when a parent's `revalidation_status` returns to `current`. This section covers the case where the parent never returns to `current` because it has been deleted or retired.*
+
+### Problem
+
+The auto-clear logic assumes the parent node still exists and can be transitioned back to `current`. It does not handle the case where the parent is deleted outright, or retired (`revalidation_status: retired`) with no successor. In either case:
+
+- Dependents keep `dependency_taint: true`
+- `taint_origin_id` points at a node that no longer exists or is no longer active
+- No trigger will ever fire to clear the taint
+
+Result: orphaned taints accumulate indefinitely, degrading retrieval metadata quality and creating false-positive review load in the revalidation queue.
+
+### Scope boundary (inherited from depth-1 taint)
+
+The sweep only clears taints on **direct dependents** of a deleted/retired parent (the same depth-1 boundary as the taint propagation itself). Transitive taints are out of scope and remain deferred to v2 along with the cascading-taint work.
+
+### Required behaviour
+
+The cascade-clear worker performs, on each pass:
+
+1. **Enumerate tainted nodes.** Scan for all nodes where `dependency_taint: true` and `taint_origin_id` is set.
+2. **Resolve `taint_origin_id`.** For each such node, look up the referenced parent.
+3. **Tombstone check.** Classify the parent as one of:
+   - **Live** — parent exists and `revalidation_status ∈ {current, flagged, revalidating, contested}`. No action; standard auto-clear (or continued propagation) applies.
+   - **Retired** — parent exists and `revalidation_status: retired`. **Auto-clear the taint on this dependent.**
+   - **Deleted** — parent node cannot be resolved by id (hard delete or tombstone). **Auto-clear the taint on this dependent.**
+4. **Clear operation.** On dependents scheduled for clearing:
+   - Set `dependency_taint: false`
+   - Clear `taint_origin_id` (set to `null`)
+   - Do **not** touch `revalidation_status` — the dependent's own status is independent of taint state
+5. **Audit log.** For every cleared orphan taint, append a structured log entry:
+   ```json
+   {
+     "event": "orphan_taint_cleared",
+     "node_id": "<dependent_id>",
+     "prior_taint_origin_id": "<parent_id>",
+     "parent_state": "retired" | "deleted",
+     "cleared_at": "<ISO-8601>",
+     "worker_run_id": "<sweep_run_id>"
+   }
+   ```
+   Log to the same audit stream as revalidation events. This is the durable evidence trail for after-the-fact review.
+
+### Implementation options
+
+Two acceptable shapes — implementer's choice, both satisfy the spec:
+
+- **Separate sweep pass.** A dedicated worker running on the same tick interval as revalidation, iterating only over `dependency_taint: true` nodes. Simpler to reason about; adds one iteration per tick.
+- **Folded into the existing cascade-clear worker.** The revalidation worker's existing taint-clearing pass extends its parent-resolution step: if the parent is missing or retired, treat it as a resolved-negative and clear. Zero extra iteration; slightly more branching in one hot path.
+
+The audit-log requirement applies identically in either shape.
+
+### Interaction with the retire lifecycle
+
+Retired nodes are retained indefinitely per zero-rag philosophy (see *Resolved Design Decisions*). "Retired parent" therefore means the parent record is still readable but its `revalidation_status` is `retired` — the tombstone check must inspect status, not just node existence.
+
+Deleted parents (hard delete, never expected under normal operation) are handled defensively to prevent a broken delete path from silently leaving orphans behind.
+
+### Idempotency
+
+The sweep must be safe to run repeatedly. Once a taint is cleared, the affected node's `dependency_taint` is `false` and it drops out of the enumeration in step 1. Re-running the worker produces no additional writes and no duplicate audit entries.
+
+### Bounded work
+
+Because the depth-1 boundary caps the taint fan-out and the sweep only touches already-flagged nodes, the worst-case work per tick is bounded by the count of currently-tainted nodes — not by the size of the wiki. No pagination or backpressure is required at v1 scale.
+
+### Telemetry
+
+Surface orphan-sweep results in the existing `/revalidation/queue/depth` payload as an additive field:
+
+```json
+{
+  "queue_depth": 4,
+  "by_status": { "flagged": 2, "revalidating": 1, "contested": 1 },
+  "contested_count": 1,
+  "oldest_flagged_at": "2026-04-22T14:00:00Z",
+  "orphan_taints_cleared_last_run": 0
+}
+```
+
+`orphan_taints_cleared_last_run` reports the count from the most recent sweep. Sustained non-zero values indicate either a burst of parent retirements/deletions (expected, transient) or a broken delete/retire path upstream that is producing orphans faster than they are being surfaced through auto-clear (a real signal). Alert threshold is deployment config.
+
+---
+
 ## Revalidation Queue
 
 ### Entry
@@ -201,6 +287,7 @@ Hermes never has visibility into raw PII or private-tier nodes. This is enforced
 | Revalidation executor | Any agent with wiki access; first-come-first-served |
 | `source_reliability_index` assignment | Manual seed at creation, tiered by source type |
 | Retired node retention | Keep forever; zero-rag philosophy |
+| Orphan taint handling | Cascade-clear worker sweeps depth-1 dependents when parent is `retired` or deleted; audit-logged |
 
 ---
 
