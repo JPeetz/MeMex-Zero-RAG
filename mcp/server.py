@@ -43,11 +43,12 @@ except ImportError:
 class MemexServer:
     """MCP server for Memex wiki operations."""
     
-    def __init__(self, wiki_path: str = "wiki", enable_graph: bool = False):
+    def __init__(self, wiki_path: str = "wiki", enable_graph: bool = False, search_backend: str = "sqlite"):
         self.wiki_path = Path(wiki_path)
         self.raw_path = Path("raw")
         self.db_path = Path(".memex/search.db")
         self.enable_graph = enable_graph
+        self.search_backend = search_backend
         self.server = Server("memex")
         self._setup_tools()
     
@@ -828,9 +829,16 @@ def main():
     parser.add_argument("--wiki", type=str, default="wiki", help="Path to wiki directory")
     parser.add_argument("--enable-graph", action="store_true", default=False,
                         help="Enable the wiki_graph MCP tool (builds knowledge graph from [[wikilinks]])")
+    parser.add_argument("--search-backend", choices=["sqlite", "supabase"], default="sqlite",
+                        help="Search backend: sqlite (local FTS5) or supabase (remote, requires --supabase-url and --supabase-key)")
+    parser.add_argument("--supabase-url", type=str, default="",
+                        help="Supabase project URL (required when --search-backend supabase)")
+    parser.add_argument("--supabase-key", type=str, default="",
+                        help="Supabase service role key (required when --search-backend supabase)")
     args = parser.parse_args()
     
-    server = MemexServer(wiki_path=args.wiki, enable_graph=args.enable_graph)
+    server = MemexServer(wiki_path=args.wiki, enable_graph=args.enable_graph,
+                         search_backend=args.search_backend)
     asyncio.run(server.run(transport=args.transport, port=args.port))
 
 
