@@ -173,6 +173,19 @@ class MemexServer:
                     }
                 ),
                 Tool(
+                    name="wiki_confidence",
+                    description="Analyze wiki confidence: distribution, stale pages, contradictions.",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "page": {
+                                "type": "string",
+                                "description": "Optional: specific page slug to analyze"
+                            }
+                        }
+                    }
+                ),
+                Tool(
                     name="wiki_write",
                     description="Write a new wiki page (or overwrite existing). Creates file at wiki/{type}/{slug}.md and commits with agent attribution.",
                     inputSchema={
@@ -236,6 +249,8 @@ class MemexServer:
                     result = await self._graph(arguments.get("format", "json"))
                 elif name == "wiki_stats":
                     result = await self._stats()
+                elif name == "wiki_confidence":
+                    result = await self._confidence(arguments.get("page", None))
                 elif name == "wiki_write":
                     result = await self._write(
                         page_type=arguments.get("type", "concepts"),
@@ -253,36 +268,87 @@ class MemexServer:
             except Exception as e:
                 return [TextContent(type="text", text=f"Error: {str(e)}")]
     
-    async def _search(self, query: str, limit: int = 10) -> str:
-        """Search wiki pages using keyword matching."""
+    async def _search(self, query: str, limit: int = 10, min_confidence: str = "low") -> str:
+        """Search wiki pages. Uses hybrid BM25+dense search if available, falls back to substring."""
         results = []
         query_lower = query.lower()
-        
-        for md_file in self.wiki_path.rglob("*.md"):
-            if md_file.name.startswith("."):
-                continue
-            
-            content = md_file.read_text(encoding="utf-8")
-            if query_lower in content.lower():
-                # Extract snippet around match
-                idx = content.lower().find(query_lower)
-                start = max(0, idx - 100)
-                end = min(len(content), idx + len(query) + 100)
-                snippet = content[start:end].replace("\n", " ").strip()
-                if start > 0:
-                    snippet = "..." + snippet
-                if end < len(content):
-                    snippet = snippet + "..."
-                
-                rel_path = md_file.relative_to(self.wiki_path)
-                results.append({
-                    "path": str(rel_path).replace(".md", ""),
-                    "snippet": snippet
-                })
-                
-                if len(results) >= limit:
-                    break
-        
+        hybrid_available = False
+
+        # Tier 1: Try hybrid BM25 + dense embedding search
+        if not hasattr(self, '_hybrid_searcher'):
+            try:
+                from mcp.search import HybridSearcher
+                self._hybrid_searcher = HybridSearcher(wiki_dir=str(self.wiki_path))
+                self._hybrid_available = True
+            except (ImportError, Exception):
+                self._hybrid_available = False
+
+        if getattr(self, '_hybrid_available', False):
+            try:
+                hybrid_results = self._hybrid_searcher.search(query, limit=limit * 2)
+                if hybrid_results:
+                    hybrid_available = True
+                    for path, score in hybrid_results[:limit * 2]:
+                        try:
+                            full_path = self.wiki_path / path
+                            if not full_path.exists():
+                                continue
+                            content_raw = full_path.read_text(encoding="utf-8")
+                            # Confidence filter
+                            if min_confidence and min_confidence != "none":
+                                conf_match = __import__('re').search(
+                                    r'\[confidence:\s*(high|medium|low|uncertain)\]', content_raw)
+                                conf_levels = {"high": 4, "medium": 3, "low": 2, "uncertain": 1}
+                                page_conf = conf_levels.get(conf_match.group(1) if conf_match else "medium", 3)
+                                min_conf_val = conf_levels.get(min_confidence, 2)
+                                if page_conf < min_conf_val:
+                                    continue
+                            snippet = content_raw[:300] + ("..." if len(content_raw) > 300 else "")
+                            results.append(
+                                f"## {path}\n**Score:** {score:.3f}\n\n{snippet}\n")
+                        except Exception:
+                            continue
+                    results = results[:limit]
+            except Exception:
+                pass  # fall through to substring
+
+        # Tier 2: Substring search (always available as fallback)
+        if not hybrid_available:
+            for md_file in self.wiki_path.rglob("*.md"):
+                if md_file.name.startswith("."):
+                    continue
+
+                import re as _re
+                content = md_file.read_text(encoding="utf-8")
+                if query_lower in content.lower():
+                    # Confidence filter
+                    if min_confidence and min_confidence != "none":
+                        conf_match = _re.search(
+                            r'\[confidence:\s*(high|medium|low|uncertain)\]', content)
+                        conf_levels = {"high": 4, "medium": 3, "low": 2, "uncertain": 1}
+                        page_conf = conf_levels.get(conf_match.group(1) if conf_match else "medium", 3)
+                        min_conf_val = conf_levels.get(min_confidence, 2)
+                        if page_conf < min_conf_val:
+                            continue
+                    # Extract snippet around match
+                    idx = content.lower().find(query_lower)
+                    start = max(0, idx - 100)
+                    end = min(len(content), idx + len(query) + 100)
+                    snippet = content[start:end].replace("\n", " ").strip()
+                    if start > 0:
+                        snippet = "..." + snippet
+                    if end < len(content):
+                        snippet = snippet + "..."
+
+                    rel_path = md_file.relative_to(self.wiki_path)
+                    results.append({
+                        "path": str(rel_path).replace(".md", ""),
+                        "snippet": snippet
+                    })
+
+                    if len(results) >= limit:
+                        break
+
         if not results:
             return f"No results found for: {query}"
         
@@ -548,6 +614,40 @@ See SCHEMA.md for detailed conventions.
 Run `wiki_lint` for detailed health check.
 """
     
+    async def _confidence(self, page: str = None) -> str:
+        """Analyze wiki confidence: distribution, stale pages, contradictions."""
+        try:
+            from mcp.confidence import ConfidenceAnalyzer
+            analyzer = ConfidenceAnalyzer(str(self.wiki_path))
+            stats = analyzer.analyze()
+
+            output = "# Wiki Confidence Report\n\n"
+            output += f"**Total pages analyzed:** {stats.get('total_pages', 0)}\n\n"
+            output += "## Confidence Distribution\n"
+            output += "| Level | Count |\n|-------|-------|\n"
+            for level in ["high", "medium", "low", "uncertain"]:
+                output += f"| {level} | {stats.get(level, 0)} |\n"
+            output += f"\n**Stale pages (>90 days unverified):** {stats.get('stale', 0)}\n"
+            output += f"**With contradictions:** {stats.get('with_contradictions', 0)}\n"
+
+            if page:
+                pages = stats.get('pages', {})
+                if page in pages:
+                    p = pages[page]
+                    output += f"\n## Page: {page}\n"
+                    output += f"- Confidence: {p.get('confidence', 'unknown')}\n"
+                    output += f"- Verified: {p.get('verified', 'never')}\n"
+                    output += f"- Contradictions: {p.get('has_contradictions', False)}\n"
+                else:
+                    output += f"\nPage '{page}' not found in wiki.\n"
+
+            return output
+        except ImportError:
+            return "Confidence analysis requires mcp.confidence module (install dependencies)."
+        except Exception as e:
+            return f"Confidence analysis error: {e}"
+
+    
     async def _write(self, page_type: str, slug: str, title: str, content: str,
                        tags: list = None, agent: str = "unknown", overwrite: bool = False) -> str:
         """Write a new wiki page and git commit with agent attribution."""
@@ -574,6 +674,13 @@ Run `wiki_lint` for detailed health check.
 
         if dest.exists() and not overwrite:
             return f"Error: {page_type}/{slug}.md already exists. Pass overwrite=true to replace."
+
+        # Citation enforcement: derived pages must cite at least one source
+        EXEMPT_PAGES = {"index", "log", "contradictions"}
+        EXEMPT_TYPES = {"sources"}
+        if slug not in EXEMPT_PAGES and page_type not in EXEMPT_TYPES:
+            if "[Source:" not in content_str:
+                return "❌ Rejected: page has no [Source: ...] citation. Every wiki page must cite at least one source (e.g., [Source: raw/article.md])."
 
         # Bug fix: use explicit type map instead of naive trailing-s strip
         TYPE_SINGULAR = {
@@ -610,9 +717,19 @@ author: {agent}
                     cwd=str(self.wiki_path.parent), capture_output=True, text=True
                 )
                 sha = sha_result.stdout.strip()[:12] if sha_result.returncode == 0 else "unknown"
+                # Operation log: append entry to wiki/log.md
+                try:
+                    from datetime import datetime as _dt
+                    entry = f"- {_dt.now().strftime('%Y-%m-%d %H:%M')}: {action} {page_type}/{slug}.md (agent: {agent})\n"
+                    log_path = self.wiki_path / "log.md"
+                    log_path.parent.mkdir(parents=True, exist_ok=True)
+                    with open(log_path, "a", encoding="utf-8") as lf:
+                        lf.write(entry)
+                except Exception:
+                    pass  # logging failure is non-fatal
                 return f"✅ Written: {page_type}/{slug}.md\nCommit: {sha}\nAgent: {agent}"
             else:
-                return f"✅ Written: {page_type}/{slug}.md (git commit failed: {result.stderr.strip()})"
+                return f"⚠️ Written to disk but git commit failed: {result.stderr.strip()}. Run 'git commit' manually."
         except Exception as e:
             return f"✅ Written: {page_type}/{slug}.md (git error: {e})"
 

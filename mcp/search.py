@@ -32,7 +32,12 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 
 try:
+    try:
     from sentence_transformers import SentenceTransformer
+    _sentence_transformers_available = True
+except ImportError:
+    SentenceTransformer = None
+    _sentence_transformers_available = False
     HAS_SENTENCE_TRANSFORMERS = True
 except ImportError:
     HAS_SENTENCE_TRANSFORMERS = False
