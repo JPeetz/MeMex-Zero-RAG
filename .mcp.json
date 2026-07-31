@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "memex": {
+      "command": "/Users/joergpeetz/workspace/MeMex-Zero-RAG/.venv/bin/python",
+      "args": ["mcp/server.py"],
+      "cwd": "/Users/joergpeetz/workspace/MeMex-Zero-RAG"
+    }
+  }
+}

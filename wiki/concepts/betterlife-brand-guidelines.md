@@ -19,6 +19,15 @@ author: marvin
 Eight-point compass star — faceted, crystalline, glowing neon magenta/violet on deep navy background.
 - **File:** `betterlife-app-icon.png`
 - **Rules:** Never modify, stretch, or place on light backgrounds. Always maintain clear space.
+- **Use:** App Store, hero images, premium surfaces, app UI — NOT social media
+
+## Social Media Watermark — UNIFIED (Board Mandate 2026-07-03)
+- **⛔ ALL social media images MUST use:** `~/workspace/brand/betterlife-watermark-unified.jpg`
+- **Source:** Board-supplied reference (msg #9931, 2026-07-03)
+- **Placement:** Bottom-right corner, 15-20% image width, 85-95% opacity, 4-6% margin
+- **NEVER substitute** with app icon, generated star, or any variation
+- **NEVER generate** a "similar" star — use THIS FILE only
+- **Logo vs Watermark:** App icon is for app surfaces. Watermark is for social media. They are NOT interchangeable.
 
 ## Color System
 

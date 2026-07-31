@@ -49,6 +49,16 @@ author: marvin
 - **Also available:** `fal-ai/flux/dev` (higher quality), `fal-ai/flux-pro/v1.1-ultra`
 - **Tested:** ✅ 2026-05-22
 
+
+## Supabase — TaskForge/RaceIntel (Added 2026-07-04)
+
+- **Project URL:** `https://oltlnbxchdnavocpqgyc.supabase.co`
+- **Project ref:** `oltlnbxchdnavocpqgyc`
+- **Anon (publishable) key:** `sb_publishable_vL7rS5xqsa2tyZcPimuzZw_2hPMSU39`
+- **Service role (secret) key:** `REDACTED_supabase_key`
+- **DB tables:** 19 tables, ~514K rows (RaceIntel: horses 494K, trainers 21K, jockeys 21K, etc.)
+- **Purpose:** Shared DB — RaceIntel + TaskForge waitlist
+
 ## Docker
 
 - **Docker daemon:** Running (started 2026-05-22)
@@ -113,6 +123,18 @@ These credentials are **shared institutional knowledge** for all agents:
 - Agents can use these to access infrastructure directly
 - No need to ask Joerg for credentials — this is the source of truth
 - Update this file when credentials rotate
+
+### LinkedIn API — BetterLife
+| Field | Value |
+|-------|-------|
+| App created | 2026-06-30 |
+| Client ID | `775zrppl9vp2nh` |
+| Client Secret | `REDACTED_linkedin_secret` |
+| Developer portal | https://developer.linkedin.com |
+| Scopes needed | w_organization_social (company page posting) |
+| Products needed | Share on LinkedIn, Sign In with LinkedIn |
+| API Endpoint | `POST https://api.linkedin.com/rest/posts` |
+| Company Page | BetterLife.care (TODO) |
 
 ## See Also
 
