@@ -362,3 +362,38 @@ It is git-ignored. To set up:
 
 **Never commit `L1/*.md` files.** The `.example` templates are tracked; your filled-in
 copies are not.
+
+## Optional Feature: Knowledge Graph (`--enable-graph`)
+
+MeMex can generate an interactive knowledge graph visualization from `[[wikilinks]]`
+in wiki pages. The graph is built as a standalone HTML file that opens in any browser.
+
+### Enabling
+
+```bash
+python3 mcp/server.py --enable-graph
+```
+
+The `wiki_graph` MCP tool is registered only when `--enable-graph` is passed.
+Without the flag, the tool is hidden.
+
+### Usage
+
+Call the `wiki_graph` tool — it rebuilds `graph/data.json` from all `[[wikilinks]]`
+in the wiki and returns the path to `graph/graph.html`.
+
+```
+Nodes: wiki pages as graph nodes
+Edges: [[wikilinks]] between pages
+Types: synthesis, concept, entity, source, department, infrastructure, project
+```
+
+The graph auto-rebuilds on every `wiki_write` when the graph is enabled.
+
+### Architecture
+
+```
+mcp/graph_builder.py   — Python graph builder (replaces scripts/build-graph.sh)
+graph/graph.html        — vis-network interactive visualization (dark theme)
+graph/data.json         — generated node/edge data
+```
