@@ -1,0 +1,12 @@
+{
+  "date": "2026-06-02",
+  "slug": "agentforge-security-gap-2026-06-02",
+  "article_title": "The AI Agent Security Gap — How AgentForge Closes It",
+  "status": "pending",
+  "image_prompt": "Split-panel security comparison visualization for AI agent frameworks. Left side: three glowing red warning shields labeled 'OpenClaw', 'Hermes Agent', 'OpenHuman' with exposed vulnerability icons — cracked locks, leaking data streams, crossed-out sandbox icons, CVE text badges, OAuth token scatter. Center: large blue padlock splitting the two sides. Right side: 'AgentForge' green shield with capability-based security diagram — a WASM sandbox hexagon containing a skill module, four locked capability gates (filesystem, network, process, memory) with checkmark icons, static Go binary code streams, zero-trust architecture diagram, no external connections leaking. Dark navy/black background with holographic grid overlay. Cinematic volumetric lighting, dark blue and teal gradients, HUD-style annotation panels, clean typography. 16:9 landscape format.",
+  "aspect_ratio": "16:9",
+  "resolution": "1K",
+  "keywords": ["AI agent security", "capability-based security", "zero trust AI", "OWASP ASI"],
+  "style_notes": "Designed for 16:9 landscape. The split-panel comparison format maps directly to the article's architecture. Dark cinematic aesthetic consistent with prior runs (Run #4 dashboard, Run #5 radial cluster).",
+  "fal_prompt_override": "Split-panel security comparison visualization for AI agent frameworks. Left side: three glowing red warning shields labeled 'OpenClaw', 'Hermes Agent', 'OpenHuman' with exposed vulnerability icons — cracked locks, leaking data streams, crossed-out sandbox icons, CVE text badges, OAuth token scatter. Center: large blue padlock splitting the two sides. Right side: 'AgentForge' green shield with capability-based security diagram — a WASM sandbox hexagon containing a skill module, four locked capability gates (filesystem, network, process, memory) with checkmark icons, static Go binary code streams, zero-trust architecture diagram, no external connections leaking. Dark navy/black background with holographic grid overlay. Cinematic volumetric lighting, dark blue and teal gradients, HUD-style annotation panels, clean typography. 16:9 landscape format."
+}

@@ -1,0 +1,46 @@
+{
+  "date": "2026-06-02",
+  "target_keyword": "AI agent access control",
+  "cluster": "security",
+  "series_position": "part_3b",
+  "series_note": "Continuation of security cluster after ai-agent-security-enterprise (Part 3a) and prompt-injection-defense (Part 3b). This piece covers access control as the architectural enforcement layer — how OCap/RBAC stops ASI01-ASI10 at the framework level.",
+  "search_volume_estimate": "3,600-5,400/mo (AI agent security + access control combined)",
+  "commercial_intent": "high",
+  "competitor_landscape": "Most content covers RBAC for AI agents (NeuralTrust, Delight.ai) but frames it as a management problem, not a security architecture problem. AgentForge's OCap advantage is the architectural framing — no competitor leads with Go/WASM/static binary.",
+  "keyword_variations": [
+    "AI agent access control",
+    "AI agent RBAC",
+    "capability-based security AI agents",
+    "AI agent least privilege",
+    "AI agent permission model",
+    "AI agent OCap security"
+  ],
+  "seo_api_status": "404_fallback_tavily",
+  "tavily_sources_used": [
+    "https://workos.com/blog/best-authorization-platforms-ai-agent-permissions-2026",
+    "https://elevateconsult.com/insights/agentic-ai-security-solutions-owasp-2026-guide",
+    "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026",
+    "https://neuraltrust.ai/blog/rbac-ai-agents",
+    "https://www.jdsupra.com/legalnews/ai-security-and-access-controls-best-6718869"
+  ],
+  "geo_signals": {
+    "primary_country": "US",
+    "secondary": ["UK", "DACH", "IE"],
+    "eeat_angles": ["100+ OWASP contributors", "IEEE USA policy involvement", "MITRE ATLAS mapping to NIST SP 800-53", "Cloud Security Alliance AI Controls Matrix"],
+    "regulatory_references": ["EU AI Act Aug 2026", "GDPR Art. 25", "ISO 27001 A.9.1.2", "NIST AI RMF"]
+  },
+  "owasp_asi_relevance": {
+    "ASI01": "Agent Goal Hijack — OCap prevents autonomy escalation by restricting capabilities at spawn",
+    "ASI02": "Tool Misuse — explicit capability grants prevent unauthorized tool invocation",
+    "ASI04": "Supply Chain Compromise — WASM hash verification + no runtime permission escalation",
+    "ASI07": "Insecure Inter-Agent Communication — typed Go channels, no shared ambient state",
+    "ASI10": "Rogue Agents — zero-by-default spawn + revocable capabilities"
+  },
+  "prior_articles_in_cluster": [
+    "ai-agent-security-enterprise-2026-05-29.md (Part 3a — architecture audit of 3 frameworks)",
+    "prompt-injection-defense-ai-agents-2026.md (Part 3b — defense layers, Lakera, semantic firewalls)"
+  ],
+  "cta_angle": "Request AgentForge security architecture assessment / schedule demo",
+  "created_by": "content_pipeline_part_a",
+  "created_at": "2026-06-02T07:35:00Z"
+}

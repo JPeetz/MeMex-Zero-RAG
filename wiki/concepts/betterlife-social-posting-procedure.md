@@ -8,12 +8,27 @@ author: marvin
 
 # BetterLife Social Media Posting Procedure
 
-**Owner:** Marketing Department | **Runtime:** Local MacBook | **Last verified:** 2026-06-29
+**Owner:** Marketing Department | **Runtime:** Local MacBook | **Last verified:** 2026-07-03
 
 ## ⛔ HARD RULE
 - **Post from local MacBook only.** Every API call — Meta Graph, X OAuth — goes direct from here.
 - **Never touch Vane.** Never touch 207.180.227.214. Never touch betterlife.care FTP.
 - **Credentials:** All in `~/workspace/TOOLS.md` — never hardcode in scripts.
+
+---
+
+## ⛔ WATERMARK — BOARD MANDATE (2026-07-03)
+
+**Every social media image MUST have the unified watermark composited before posting.**
+
+- **File:** `~/workspace/brand/betterlife-watermark-unified.jpg`
+- **Position:** Bottom-right corner
+- **Size:** 15-20% of image width
+- **Opacity:** 85-95%
+- **Margin:** 4-6% from bottom and right edges
+- **NEVER substitute** with the app icon, a generated star, or any variation
+
+Apply watermark BEFORE uploading to any platform. See Brand Guidelines §2.5 for full specification.
 
 ---
 

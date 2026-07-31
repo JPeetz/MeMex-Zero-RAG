@@ -1,0 +1,94 @@
+{
+  "date": "2026-06-02",
+  "slug": "agentforge-security-gap-2026-06-02",
+  "title": "The AI Agent Security Gap — How AgentForge Closes It",
+  "meta_description": "OpenClaw gives agents full host access. Hermes has CVEs. OpenHuman gets OAuth to 118 services. AgentForge uses capability-based security — zero by default.",
+  "target_keyword": "AI agent security",
+  "status": "draft_pending_image",
+  "word_count_target": 3000,
+  "series": "ai-agent-security",
+  "series_part": "3c",
+  "prior_parts": [
+    "ai-agent-security-enterprise-2026-05-29 (framework audit)",
+    "prompt-injection-defense-ai-agents-2026 (defense layers)"
+  ],
+  "h2_structure": [
+    "Executive Summary",
+    "The Three Frameworks, Audited",
+    "  OpenClaw: Full Host Access, Full Blast Radius",
+    "  Hermes Agent: One CVE, 35 Vulnerabilities, 18 Attack Chains",
+    "  OpenHuman: 118 OAuth Tokens, One Desktop Process",
+    "The Secret No One's Talking About: Agent Skills Are a Supply Chain Disaster",
+    "  The Numbers",
+    "  How the Attacks Work",
+    "  Reactive Patching Cannot Fix This",
+    "  How AgentForge Solves This",
+    "How AgentForge Thinks Differently",
+    "  Principle 1: Object-Capability (OCap) Security Model",
+    "  Principle 2: MeMex Memory — No Vector Black Boxes",
+    "  Principle 3: CSP Goroutine Concurrency",
+    "Capability-Based Security in Practice",
+    "  AgentForge",
+    "  OpenClaw (equivalent configuration)",
+    "  Hermes Agent (equivalent)",
+    "  The Compliance Angle",
+    "The MCP Agent Framework Advantage: Server and Client",
+    "The Series So Far",
+    "Frequently Asked Questions"
+  ],
+  "geo_blocks": {
+    "definition": {
+      "query": "what is AI agent access control",
+      "content": "AI agent access control is the enforcement layer that determines what resources an autonomous agent can read, write, connect to, and execute — at the architectural level, not the policy-document level. Unlike traditional RBAC for human users, AI agent access control must account for emergent autonomy: an agent given a high-level goal can pursue it in unexpected ways, making ambient authority (full host access) a structural failure rather than a configuration error."
+    },
+    "faq": [
+      {
+        "q": "What is capability-based security for AI agents?",
+        "a": "Capability-based security (OCap) is a model where an agent cannot perform any action unless it holds a cryptographic reference — a capability — to an object that can perform that action. There is no global filesystem, no global network, and no ambient process authority. Every permission is explicit, attenuable, non-forgeable, and revocable. AgentForge implements OCap as its core security primitive."
+      },
+      {
+        "q": "Why is full host access a security failure for agent frameworks?",
+        "a": "Full host access means the agent can do anything the user account can do — read any file, send any network request, execute any program, access any API key in the environment. A single malicious skill, a single CVE, or a single prompt injection payload gains the full blast radius of the user who installed the agent. The 2026 Claw Chain disclosure (CVE-2026-44112, CVSS 9.6) demonstrated this concretely: a single foothold in OpenClaw escalated to credential theft and persistent backdoor placement."
+      },
+      {
+        "q": "How does AgentForge's WASM sandbox work?",
+        "a": "AgentForge skills run as WebAssembly modules inside a WASM runtime with explicitly granted capabilities. Every skill is verified by SHA-256 hash before execution. A skill cannot request additional permissions at runtime — it receives them at spawn time, and the runtime enforces the restriction at the instruction level. A weather checker skill cannot escalate to filesystem access or arbitrary network connections."
+      },
+      {
+        "q": "What is the OWASP ASI Top 10?",
+        "a": "The OWASP Top 10 for Agentic Applications (ASI) is a peer-reviewed risk taxonomy published in 2026 that identifies the most critical security risks facing autonomous AI agents. Unlike the OWASP LLM Top 10 (which secures what AI says), the ASI Top 10 secures what AI does. It covers risks including Agent Goal Hijack (ASI01), Tool Misuse (ASI02), Supply Chain Compromise (ASI04), Insecure Inter-Agent Communication (ASI07), and Rogue Agents (ASI10)."
+      },
+      {
+        "q": "How does AgentForge compare to OpenClaw on security?",
+        "a": "OpenClaw runs as a Node.js application with full host privileges by default and an npm dependency tree that Cisco classified as a 'threat multiplier.' AgentForge compiles to a 6 MB static Go binary with no runtime dependencies, no Node.js, no Python venv, and no Tauri webview. AgentForge's OCap model means every agent spawns with zero permissions; OpenClaw's model means every agent inherits the user's full authority by default."
+      }
+    ],
+    "quotable_summary": "Only 21% of enterprises have visibility into what their AI agents can access, which tools they call, or what data they touch. The remaining 79% are running agent frameworks with ambient host authority, skill marketplaces with 13-26% vulnerability rates, and memory systems that are un-auditable vector black boxes. AgentForge was built to close every one of these gaps — not with policy documents, but with architecture."
+  },
+  "article_content": "See file: agentforge-security-gap-2026-06-02.md in artifacts/article/ or wiki/agentforge/articles/",
+  "key_statistics": [
+    "82:1 — machine-to-human identity ratio in modern enterprises (ElevateConsult / OWASP 2026)",
+    "26% — of 31,000 agent skills contain at least one vulnerability (Cisco AI Skill Scanner, Apr 2026)",
+    "13.4% — of agent skills had critical security issues; 36% had prompt injection payloads (Snyk ToxicSkills, Apr 2026)",
+    "10.9% — of skills exposed hardcoded secrets (Snyk credential report, Mar 2026)",
+    "9.6 — CVSS score of CVE-2026-44112, OpenClaw TOCTOU race condition in OpenShell sandbox",
+    "340% — year-over-year increase in prompt injection attacks (OWASP 2026 Security Report)",
+    "88% — of organizations with a confirmed or suspected AI agent security incident (Gravitee State of AI Agent Security 2026)",
+    "48% — of cybersecurity professionals identify agentic AI as the top attack vector heading into 2026 (Dark Reading poll)",
+    "6 MB — AgentForge static binary size vs. thousands of npm packages in OpenClaw"
+  ],
+  "external_links_planned": [
+    "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026",
+    "https://workos.com/blog/best-authorization-platforms-ai-agent-permissions-2026",
+    "https://neuraltrust.ai/blog/rbac-ai-agents",
+    "https://www.jdsupra.com/legalnews/ai-security-and-access-controls-best-6718869",
+    "https://elevateconsult.com/insights/agentic-ai-security-solutions-owasp-2026-guide"
+  ],
+  "internal_links_planned": [
+    "ai-agent-security-enterprise-2026-05-29.md",
+    "prompt-injection-defense-ai-agents-2026.md"
+  ],
+  "cta": "See AgentForge in action — request a security architecture assessment or schedule a demo at agentforge.ai",
+  "created_by": "content_pipeline_part_a",
+  "created_at": "2026-06-02T07:36:00Z"
+}
