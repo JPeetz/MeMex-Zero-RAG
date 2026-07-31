@@ -58,3 +58,4 @@ __pycache__/
 __pycache__/
 docs/superpowers/
 .superpowers/
+L1/*.md

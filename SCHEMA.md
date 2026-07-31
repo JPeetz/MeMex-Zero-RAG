@@ -338,3 +338,27 @@ The first version will be rough. That's fine. Let it grow with your wiki.
 ---
 
 Copyright (c) 2026 Joerg Peetz. All rights reserved.
+
+
+## L1/ — Private Context Setup
+
+The `L1/` directory holds per-install private context (credentials, identity, rules).
+It is git-ignored. To set up:
+
+1. Copy the example templates:
+   ```bash
+   cp L1/credentials.md.example L1/credentials.md
+   cp L1/identity.md.example L1/identity.md
+   cp L1/rules.md.example L1/rules.md
+   ```
+
+2. Fill in your values in each `.md` file.
+
+3. Verify the files are ignored by git:
+   ```bash
+   git status --short L1/
+   ```
+   (Should show nothing — the `.md` files are excluded by `.gitignore`.)
+
+**Never commit `L1/*.md` files.** The `.example` templates are tracked; your filled-in
+copies are not.
