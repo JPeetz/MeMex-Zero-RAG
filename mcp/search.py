@@ -32,14 +32,12 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 
 try:
-    try:
     from sentence_transformers import SentenceTransformer
     _sentence_transformers_available = True
+    HAS_SENTENCE_TRANSFORMERS = True
 except ImportError:
     SentenceTransformer = None
     _sentence_transformers_available = False
-    HAS_SENTENCE_TRANSFORMERS = True
-except ImportError:
     HAS_SENTENCE_TRANSFORMERS = False
 
 try:
@@ -246,10 +244,15 @@ class HybridSearch:
                 "mtime": mtime
             })
         
-        # Generate embeddings in batch
+        # Generate embeddings in batch (if ML available)
         if pages_to_index:
             texts = [f"{p['title']}\n\n{p['content']}" for p in pages_to_index]
-            embeddings = self._embed(texts)
+            if HAS_SENTENCE_TRANSFORMERS or HAS_FASTEMBED:
+                embeddings = self._embed(texts)
+            else:
+                # No ML — store zero vectors (BM25-only mode)
+                dim = 384  # default for MiniLM / bge-small
+                embeddings = [np.zeros(dim, dtype=np.float32) for _ in texts]
             
             for page, embedding in zip(pages_to_index, embeddings):
                 self.db.execute("""
@@ -321,23 +324,27 @@ class HybridSearch:
                 "bm25_score": -row["bm25_score"]  # BM25 returns negative
             }
         
-        # Semantic search
-        query_embedding = self._embed([query])[0]
-        
+        # Semantic search (only if embedding library available)
         semantic_results = {}
-        rows = self.db.execute("SELECT path, title, page_type, content, embedding FROM pages").fetchall()
-        
-        for row in rows:
-            embedding = np.frombuffer(row["embedding"], dtype=np.float32)
-            similarity = np.dot(query_embedding, embedding) / (
-                np.linalg.norm(query_embedding) * np.linalg.norm(embedding)
-            )
-            semantic_results[row["path"]] = {
-                "title": row["title"],
-                "page_type": row["page_type"],
-                "content": row["content"],
-                "semantic_score": float(similarity)
-            }
+        if HAS_SENTENCE_TRANSFORMERS or HAS_FASTEMBED:
+            try:
+                query_embedding = self._embed([query])[0]
+                
+                rows = self.db.execute("SELECT path, title, page_type, content, embedding FROM pages").fetchall()
+                
+                for row in rows:
+                    embedding = np.frombuffer(row["embedding"], dtype=np.float32)
+                    similarity = np.dot(query_embedding, embedding) / (
+                        np.linalg.norm(query_embedding) * np.linalg.norm(embedding)
+                    )
+                    semantic_results[row["path"]] = {
+                        "title": row["title"],
+                        "page_type": row["page_type"],
+                        "content": row["content"],
+                        "semantic_score": float(similarity)
+                    }
+            except Exception:
+                pass  # fall back to BM25-only
         
         # Combine scores
         all_paths = set(bm25_results.keys()) | set(semantic_results.keys())

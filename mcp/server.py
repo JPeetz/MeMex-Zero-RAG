@@ -277,8 +277,8 @@ class MemexServer:
         # Tier 1: Try hybrid BM25 + dense embedding search
         if not hasattr(self, '_hybrid_searcher'):
             try:
-                from mcp.search import HybridSearcher
-                self._hybrid_searcher = HybridSearcher(wiki_dir=str(self.wiki_path))
+                from mcp.search import HybridSearch
+                self._hybrid_searcher = HybridSearch(wiki_path=str(self.wiki_path))
                 self._hybrid_available = True
             except (ImportError, Exception):
                 self._hybrid_available = False
@@ -288,8 +288,10 @@ class MemexServer:
                 hybrid_results = self._hybrid_searcher.search(query, limit=limit * 2)
                 if hybrid_results:
                     hybrid_available = True
-                    for path, score in hybrid_results[:limit * 2]:
+                    for result in hybrid_results[:limit * 2]:
                         try:
+                            path = result.path
+                            score = result.score
                             full_path = self.wiki_path / path
                             if not full_path.exists():
                                 continue
@@ -617,17 +619,19 @@ Run `wiki_lint` for detailed health check.
     async def _confidence(self, page: str = None) -> str:
         """Analyze wiki confidence: distribution, stale pages, contradictions."""
         try:
-            from mcp.confidence import ConfidenceAnalyzer
-            analyzer = ConfidenceAnalyzer(str(self.wiki_path))
-            stats = analyzer.analyze()
+            from mcp.confidence import ConfidenceTracker
+            tracker = ConfidenceTracker(str(self.wiki_path))
+            stats = tracker.get_stats()
 
             output = "# Wiki Confidence Report\n\n"
-            output += f"**Total pages analyzed:** {stats.get('total_pages', 0)}\n\n"
+            output += f"**Total pages analyzed:** {stats.get('total_pages', 0)}\n"
+            output += f"**Avg confidence score:** {stats.get('avg_confidence', 0)}\n\n"
             output += "## Confidence Distribution\n"
             output += "| Level | Count |\n|-------|-------|\n"
-            for level in ["high", "medium", "low", "uncertain"]:
-                output += f"| {level} | {stats.get(level, 0)} |\n"
-            output += f"\n**Stale pages (>90 days unverified):** {stats.get('stale', 0)}\n"
+            output += f"| high | {stats.get('high_confidence', 0)} |\n"
+            output += f"| medium | {stats.get('medium_confidence', 0)} |\n"
+            output += f"| low | {stats.get('low_confidence', 0)} |\n"
+            output += f"\n**Stale pages:** {stats.get('stale_pages', 0)}\n"
             output += f"**With contradictions:** {stats.get('with_contradictions', 0)}\n"
 
             if page:
