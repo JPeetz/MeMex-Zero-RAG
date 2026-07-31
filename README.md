@@ -27,6 +27,7 @@ Based on [Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf5
 - 👥 Multi-agent support — multiple AI agents, one shared wiki, git handles conflicts
 - 🔒 Human-in-the-loop conflict resolution — LLM flags contradictions, you decide truth
 - 📊 Confidence tracking — per-claim certainty scores, quarantine mode for low-confidence pages
+- 🌐 Knowledge graph — interactive force-directed visualization of all [[wikilinks]] (optional)
 
 ## Why Not RAG?
 
@@ -231,7 +232,31 @@ When running `python mcp/server.py`, your agent gets these tools:
 }
 ```
 
-## Multi-Agent Support
+## Knowledge Graph Visualization
+
+MeMex includes an optional knowledge graph that visualizes every [[wikilink]]
+in your wiki as an interactive, searchable force-directed graph.
+
+```bash
+# Enable when starting the MCP server
+python3 mcp/server.py --enable-graph
+```
+
+The `wiki_graph` MCP tool builds `graph/graph.html` — open it in any browser.
+The graph auto-rebuilds on every `wiki_write` when enabled.
+
+| Feature | Detail |
+|---------|--------|
+| Nodes | Every wiki page |
+| Edges | [[wikilinks]] between pages |
+| Filters | By type (concept, entity, source, department…) |
+| Search | Live search with highlight |
+| Colors | Type-coded nodes with legend |
+| Rendering | vis-network force-directed (dark theme) |
+| Optional | Hidden unless `--enable-graph` is passed |
+
+**Does not require** `--enable-graph` to use the rest of MeMex — the graph is
+an entirely self-contained optional feature.
 
 Multiple AI agents can write to the same wiki simultaneously using git worktrees:
 
