@@ -26,6 +26,7 @@ import json
 import os
 import re
 import sqlite3
+import sys
 from pathlib import Path
 from typing import Optional
 
@@ -42,10 +43,11 @@ except ImportError:
 class MemexServer:
     """MCP server for Memex wiki operations."""
     
-    def __init__(self, wiki_path: str = "wiki"):
+    def __init__(self, wiki_path: str = "wiki", enable_graph: bool = False):
         self.wiki_path = Path(wiki_path)
         self.raw_path = Path("raw")
         self.db_path = Path(".memex/search.db")
+        self.enable_graph = enable_graph
         self.server = Server("memex")
         self._setup_tools()
     
@@ -54,7 +56,7 @@ class MemexServer:
         
         @self.server.list_tools()
         async def list_tools():
-            return [
+            tools = [
                 Tool(
                     name="wiki_search",
                     description="Search the Memex wiki using keywords. Returns matching pages with snippets.",
@@ -227,8 +229,17 @@ class MemexServer:
                         },
                         "required": ["type", "slug", "title", "content"]
                     }
-                )
+                ),
+                Tool(
+                    name="wiki_graph",
+                    description="Build and return path to the interactive knowledge graph visualization (graph/graph.html). Requires --enable-graph.",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {}
+                    }
+                ) if self.enable_graph else None
             ]
+            return [t for t in tools if t is not None]
         
         @self.server.call_tool()
         async def call_tool(name: str, arguments: dict):
@@ -246,7 +257,10 @@ class MemexServer:
                 elif name == "wiki_lint":
                     result = await self._lint(arguments.get("fix", False))
                 elif name == "wiki_graph":
-                    result = await self._graph(arguments.get("format", "json"))
+                    if not self.enable_graph:
+                        result = "Error: wiki_graph requires --enable-graph flag on server startup"
+                    else:
+                        result = await self._build_graph()
                 elif name == "wiki_stats":
                     result = await self._stats()
                 elif name == "wiki_confidence":
@@ -651,6 +665,26 @@ Run `wiki_lint` for detailed health check.
         except Exception as e:
             return f"Confidence analysis error: {e}"
 
+    async def _build_graph(self) -> str:
+        """Build knowledge graph from wiki pages."""
+        try:
+            import graph_builder as gb
+            stats = gb.build_graph(
+                wiki_dir=str(self.wiki_path),
+                output_dir=str(self.wiki_path.parent / "graph")
+            )
+            return (
+                f"# Knowledge Graph Built\n\n"
+                f"**Nodes:** {stats['nodes']}\n"
+                f"**Edges:** {stats['edges']}\n"
+                f"**Data:** `{stats['data_path']}`\n"
+                f"**Open in browser:** `{stats['graph_html']}`\n"
+            )
+        except ImportError:
+            return "Error: mcp.graph_builder module not found. Is --enable-graph set?"
+        except Exception as e:
+            return f"Graph build error: {e}"
+
     
     async def _write(self, page_type: str, slug: str, title: str, content: str,
                        tags: list = None, agent: str = "unknown", overwrite: bool = False) -> str:
@@ -731,7 +765,20 @@ author: {agent}
                         lf.write(entry)
                 except Exception:
                     pass  # logging failure is non-fatal
-                return f"✅ Written: {page_type}/{slug}.md\nCommit: {sha}\nAgent: {agent}"
+                # Auto-rebuild knowledge graph
+                if self.enable_graph:
+                    try:
+                        import graph_builder as gb
+                        gs = gb.build_graph(
+                            wiki_dir=str(self.wiki_path),
+                            output_dir=str(self.wiki_path.parent / "graph")
+                        )
+                        graph_note = f"\nGraph rebuilt: {gs['nodes']} nodes, {gs['edges']} edges"
+                    except Exception:
+                        graph_note = ""  # non-fatal
+                else:
+                    graph_note = ""
+                return f"✅ Written: {page_type}/{slug}.md\nCommit: {sha}\nAgent: {agent}{graph_note}"
             else:
                 return f"⚠️ Written to disk but git commit failed: {result.stderr.strip()}. Run 'git commit' manually."
         except Exception as e:
@@ -779,9 +826,11 @@ def main():
     parser.add_argument("--transport", choices=["stdio", "sse"], default="stdio")
     parser.add_argument("--port", type=int, default=3001)
     parser.add_argument("--wiki", type=str, default="wiki", help="Path to wiki directory")
+    parser.add_argument("--enable-graph", action="store_true", default=False,
+                        help="Enable the wiki_graph MCP tool (builds knowledge graph from [[wikilinks]])")
     args = parser.parse_args()
     
-    server = MemexServer(wiki_path=args.wiki)
+    server = MemexServer(wiki_path=args.wiki, enable_graph=args.enable_graph)
     asyncio.run(server.run(transport=args.transport, port=args.port))
 
 

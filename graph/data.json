@@ -1,108 +1,826 @@
 {
   "nodes": [
-    { "id": "BetterLife-Marketing-Department", "label": "BetterLife Marketing Department", "type": "other" },
-    { "id": "cashclaw", "label": "cashclaw", "type": "other" },
-    { "id": "skill-foundry-report-2026-06-03", "label": "skill foundry report 2026 06 03", "type": "other" },
-    { "id": "2026-06-15-pipeline-report", "label": "2026 06 15 pipeline report", "type": "other" },
-    { "id": "App-Discovery-Report-2026-06-02", "label": "App Discovery Report 2026 06 02", "type": "other" },
-    { "id": "BetterLife-PM-Analysis-2026-06-08", "label": "BetterLife PM Analysis 2026 06 08", "type": "other" },
-    { "id": "BiteSaver-PM-Analysis-2026-06-08", "label": "BiteSaver PM Analysis 2026 06 08", "type": "other" },
-    { "id": "Cozi-scrutiny-2026-06-09", "label": "Cozi scrutiny 2026 06 09", "type": "other" },
-    { "id": "Cupla-scrutiny-2026-06-09", "label": "Cupla scrutiny 2026 06 09", "type": "other" },
-    { "id": "DayOne-scrutiny-2026-06-02", "label": "DayOne scrutiny 2026 06 02", "type": "other" },
-    { "id": "EchoJournal-scaffold-2026-06-02", "label": "EchoJournal scaffold 2026 06 02", "type": "other" },
-    { "id": "Lifestack-scaffold-2026-06-15", "label": "Lifestack scaffold 2026 06 15", "type": "other" },
-    { "id": "ONE_SEC-scaffold-2026-06-10", "label": "ONE_SEC scaffold 2026 06 10", "type": "other" },
-    { "id": "Pairful-scaffold-2026-06-09", "label": "Pairful scaffold 2026 06 09", "type": "other" },
-    { "id": "RecipeSnap-scaffold-2026-06-03", "label": "RecipeSnap scaffold 2026 06 03", "type": "other" },
-    { "id": "RemindLink-scaffold-2026-06-16", "label": "RemindLink scaffold 2026 06 16", "type": "other" },
-    { "id": "RemindLink-scaffold-2026-06-17", "label": "RemindLink scaffold 2026 06 17", "type": "other" },
-    { "id": "Rosebud-scrutiny-2026-06-02", "label": "Rosebud scrutiny 2026 06 02", "type": "other" },
-    { "id": "SafeGuard-scaffold-2026-06-09", "label": "SafeGuard scaffold 2026 06 09", "type": "other" },
-    { "id": "Shiihaa-scaffold-2026-06-04", "label": "Shiihaa scaffold 2026 06 04", "type": "other" },
-    { "id": "Stoic-scrutiny-2026-06-02", "label": "Stoic scrutiny 2026 06 02", "type": "other" },
-    { "id": "TwoGether-scrutiny-2026-06-09", "label": "TwoGether scrutiny 2026 06 09", "type": "other" },
-    { "id": "app-discovery-daily-2026-06-05", "label": "app discovery daily 2026 06 05", "type": "other" },
-    { "id": "app-discovery-report-2026-06-03", "label": "app discovery report 2026 06 03", "type": "other" },
-    { "id": "daily-report-2026-06-02", "label": "daily report 2026 06 02", "type": "other" },
-    { "id": "daily-report-2026-06-04", "label": "daily report 2026 06 04", "type": "other" },
-    { "id": "daily-report-2026-06-08", "label": "daily report 2026 06 08", "type": "other" },
-    { "id": "daily-report-2026-06-09", "label": "daily report 2026 06 09", "type": "other" },
-    { "id": "daily-report-2026-06-10", "label": "daily report 2026 06 10", "type": "other" },
-    { "id": "daily-report-2026-06-16", "label": "daily report 2026 06 16", "type": "other" },
-    { "id": "daily-report-2026-06-17", "label": "daily report 2026 06 17", "type": "other" },
-    { "id": "eSIMDB-scaffold-2026-06-08", "label": "eSIMDB scaffold 2026 06 08", "type": "other" },
-    { "id": "eSIMDB-scaffold-2026-06-09", "label": "eSIMDB scaffold 2026 06 09", "type": "other" },
-    { "id": "eSIMDB-scrutiny-2026-06-08", "label": "eSIMDB scrutiny 2026 06 08", "type": "other" },
-    { "id": "awesome-ceo-evaluation", "label": "awesome ceo evaluation", "type": "other" },
-    { "id": "betterlife-image-quality-standard", "label": "betterlife image quality standard", "type": "other" },
-    { "id": "betterlife-learnings", "label": "betterlife learnings", "type": "other" },
-    { "id": "index", "label": "index", "type": "other" },
-    { "id": "board-directives", "label": "board directives", "type": "other" },
-    { "id": "architecture-philosophy", "label": "architecture philosophy", "type": "other" },
-    { "id": "openclaw-to-hermes-migration-plan", "label": "openclaw to hermes migration plan", "type": "other" },
-    { "id": "skillforge-proposal", "label": "skillforge proposal", "type": "other" },
-    { "id": "index", "label": "index", "type": "other" },
-    { "id": "creative-agency-lessons", "label": "creative agency lessons", "type": "other" },
-    { "id": "decisions", "label": "decisions", "type": "other" },
-    { "id": "index", "label": "index", "type": "other" },
-    { "id": "prompt-development", "label": "prompt development", "type": "other" },
-    { "id": "entities", "label": "entities", "type": "other" },
-    { "id": "nyk-builderz-oss-repos", "label": "nyk builderz oss repos", "type": "other" },
-    { "id": "index", "label": "index", "type": "other" },
-    { "id": "joerg-profile", "label": "joerg profile", "type": "other" },
-    { "id": "learning-loop", "label": "learning loop", "type": "other" },
-    { "id": "lessons-learned", "label": "lessons learned", "type": "other" },
-    { "id": "linkedin-oauth-integration", "label": "linkedin oauth integration", "type": "other" },
-    { "id": "marketing-image-review-protocol", "label": "marketing image review protocol", "type": "other" },
-    { "id": "north-star", "label": "north star", "type": "other" },
-    { "id": "operations", "label": "operations", "type": "other" },
-    { "id": "prime-directive-failure-autoresolution", "label": "prime directive failure autoresolution", "type": "other" },
-    { "id": "index", "label": "index", "type": "other" },
-    { "id": "research", "label": "research", "type": "other" },
-    { "id": "t3mp3st-dashboard", "label": "t3mp3st dashboard", "type": "other" },
-    { "id": "adforge-system-prompt-v2", "label": "adforge system prompt v2", "type": "concepts" },
-    { "id": "associative-trails", "label": "associative trails", "type": "concepts" },
-    { "id": "betterlife-brand-guidelines", "label": "betterlife brand guidelines", "type": "concepts" },
-    { "id": "betterlife-social-posting-procedure", "label": "betterlife social posting procedure", "type": "concepts" },
-    { "id": "betterlife-x-api-credentials", "label": "betterlife x api credentials", "type": "concepts" },
-    { "id": "github-department", "label": "github department", "type": "concepts" },
-    { "id": "hermes-agent-transition-architecture", "label": "hermes agent transition architecture", "type": "concepts" },
-    { "id": "human-in-the-loop", "label": "human in the loop", "type": "concepts" },
-    { "id": "infrastructure-credentials", "label": "infrastructure credentials", "type": "concepts" },
-    { "id": "premortem-skill", "label": "premortem skill", "type": "concepts" },
-    { "id": "skill-foundry-unbounded-growth-policy", "label": "skill foundry unbounded growth policy", "type": "concepts" },
-    { "id": "zero-rag", "label": "zero rag", "type": "concepts" },
-    { "id": "contradictions", "label": "contradictions", "type": "other" },
-    { "id": "andrej-karpathy", "label": "andrej karpathy", "type": "entities" },
-    { "id": "betterlife-care-infrastructure", "label": "betterlife care infrastructure", "type": "entities" },
-    { "id": "claude-code", "label": "claude code", "type": "entities" },
-    { "id": "marvin", "label": "marvin", "type": "entities" },
-    { "id": "vannevar-bush", "label": "vannevar bush", "type": "entities" },
-    { "id": "index", "label": "index", "type": "other" },
-    { "id": "log", "label": "log", "type": "other" },
-    { "id": "helix", "label": "helix", "type": "other" },
-    { "id": "semantica-analysis", "label": "semantica analysis", "type": "other" },
-    { "id": "ai-agents-overview", "label": "ai agents overview", "type": "sources" },
-    { "id": "awesome-generative-ai-apps", "label": "awesome generative ai apps", "type": "sources" },
-    { "id": "karpathy-llm-wiki-gist", "label": "karpathy llm wiki gist", "type": "sources" },
-    { "id": "memex-history", "label": "memex history", "type": "sources" },
-    { "id": "agent-marketplace-solana-feasibility", "label": "agent marketplace solana feasibility", "type": "synthesis" },
-    { "id": "awesome-generative-ai-apps-analysis", "label": "awesome generative ai apps analysis", "type": "synthesis" },
-    { "id": "betterlife-competitive-analysis", "label": "betterlife competitive analysis", "type": "synthesis" },
-    { "id": "betterlife-competitive-differentiators-v2", "label": "betterlife competitive differentiators v2", "type": "synthesis" },
-    { "id": "betterlife-social-launch-2026-06-25", "label": "betterlife social launch 2026 06 25", "type": "synthesis" },
-    { "id": "betterlife-social-launch", "label": "betterlife social launch", "type": "synthesis" },
-    { "id": "betterlife-social-media-research", "label": "betterlife social media research", "type": "synthesis" },
-    { "id": "bitesaver-prd-prompt", "label": "bitesaver prd prompt", "type": "synthesis" },
-    { "id": "bitesaver-prd", "label": "bitesaver prd", "type": "synthesis" },
-    { "id": "marketing-cost-analysis", "label": "marketing cost analysis", "type": "synthesis" },
-    { "id": "memex-to-llm-wiki", "label": "memex to llm wiki", "type": "synthesis" },
-    { "id": "run-004-2026-06-25", "label": "run 004 2026 06 25", "type": "synthesis" },
-    { "id": "run-report-2026-06-30", "label": "run report 2026 06 30", "type": "synthesis" },
-    { "id": "skill-foundry-run-003", "label": "skill foundry run 003", "type": "synthesis" }
+    {
+      "id": "BetterLife-Marketing-Department",
+      "label": "BetterLife Marketing Department",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "cashclaw",
+      "label": "cashclaw",
+      "type": "other",
+      "group": "agentforge agents"
+    },
+    {
+      "id": "skill-foundry-report-2026-06-03",
+      "label": "skill foundry report 2026 06 03",
+      "type": "other",
+      "group": "agentforge agents"
+    },
+    {
+      "id": "2026-06-15-pipeline-report",
+      "label": "2026 06 15 pipeline report",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "App-Discovery-Report-2026-06-02",
+      "label": "App Discovery Report 2026 06 02",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "BetterLife-PM-Analysis-2026-06-08",
+      "label": "BetterLife PM Analysis 2026 06 08",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "BiteSaver-PM-Analysis-2026-06-08",
+      "label": "BiteSaver PM Analysis 2026 06 08",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "Cozi-scrutiny-2026-06-09",
+      "label": "Cozi scrutiny 2026 06 09",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "Cupla-scrutiny-2026-06-09",
+      "label": "Cupla scrutiny 2026 06 09",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "DayOne-scrutiny-2026-06-02",
+      "label": "DayOne scrutiny 2026 06 02",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "EchoJournal-scaffold-2026-06-02",
+      "label": "EchoJournal scaffold 2026 06 02",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "Lifestack-scaffold-2026-06-15",
+      "label": "Lifestack scaffold 2026 06 15",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "ONE_SEC-scaffold-2026-06-10",
+      "label": "ONE SEC scaffold 2026 06 10",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "Pairful-scaffold-2026-06-09",
+      "label": "Pairful scaffold 2026 06 09",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "RecipeSnap-scaffold-2026-06-03",
+      "label": "RecipeSnap scaffold 2026 06 03",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "RemindLink-scaffold-2026-06-16",
+      "label": "RemindLink scaffold 2026 06 16",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "RemindLink-scaffold-2026-06-17",
+      "label": "RemindLink scaffold 2026 06 17",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "Rosebud-scrutiny-2026-06-02",
+      "label": "Rosebud scrutiny 2026 06 02",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "SafeGuard-scaffold-2026-06-09",
+      "label": "SafeGuard scaffold 2026 06 09",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "Shiihaa-scaffold-2026-06-04",
+      "label": "Shiihaa scaffold 2026 06 04",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "Stoic-scrutiny-2026-06-02",
+      "label": "Stoic scrutiny 2026 06 02",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "TwoGether-scrutiny-2026-06-09",
+      "label": "TwoGether scrutiny 2026 06 09",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "app-discovery-daily-2026-06-05",
+      "label": "app discovery daily 2026 06 05",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "app-discovery-report-2026-06-03",
+      "label": "app discovery report 2026 06 03",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "daily-report-2026-06-02",
+      "label": "daily report 2026 06 02",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "daily-report-2026-06-04",
+      "label": "daily report 2026 06 04",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "daily-report-2026-06-08",
+      "label": "daily report 2026 06 08",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "daily-report-2026-06-09",
+      "label": "daily report 2026 06 09",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "daily-report-2026-06-10",
+      "label": "daily report 2026 06 10",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "daily-report-2026-06-16",
+      "label": "daily report 2026 06 16",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "daily-report-2026-06-17",
+      "label": "daily report 2026 06 17",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "eSIMDB-scaffold-2026-06-08",
+      "label": "eSIMDB scaffold 2026 06 08",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "eSIMDB-scaffold-2026-06-09",
+      "label": "eSIMDB scaffold 2026 06 09",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "eSIMDB-scrutiny-2026-06-08",
+      "label": "eSIMDB scrutiny 2026 06 08",
+      "type": "other",
+      "group": "agentforge artifacts app-discovery 2026 06"
+    },
+    {
+      "id": "awesome-ceo-evaluation",
+      "label": "awesome ceo evaluation",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "index",
+      "label": "index",
+      "type": "other",
+      "group": "agentforge betterlife"
+    },
+    {
+      "id": "betterlife-image-quality-standard",
+      "label": "betterlife image quality standard",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "betterlife-learnings",
+      "label": "betterlife learnings",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "board-directives",
+      "label": "board directives",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "architecture-philosophy",
+      "label": "architecture philosophy",
+      "type": "concept",
+      "group": "agentforge concepts"
+    },
+    {
+      "id": "openclaw-to-hermes-migration-plan",
+      "label": "openclaw to hermes migration plan",
+      "type": "concept",
+      "group": "agentforge concepts"
+    },
+    {
+      "id": "skillforge-proposal",
+      "label": "skillforge proposal",
+      "type": "concept",
+      "group": "agentforge concepts"
+    },
+    {
+      "id": "creative-agency-lessons",
+      "label": "creative agency lessons",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "decisions",
+      "label": "decisions",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "prompt-development",
+      "label": "prompt development",
+      "type": "department",
+      "group": "agentforge departments"
+    },
+    {
+      "id": "entities",
+      "label": "entities",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "nyk-builderz-oss-repos",
+      "label": "nyk builderz oss repos",
+      "type": "project",
+      "group": "agentforge external-projects"
+    },
+    {
+      "id": "openclaw-knowledge-adoption",
+      "label": "openclaw knowledge adoption",
+      "type": "infrastructure",
+      "group": "agentforge infrastructure"
+    },
+    {
+      "id": "openclaw-skills-adoption",
+      "label": "openclaw skills adoption",
+      "type": "infrastructure",
+      "group": "agentforge infrastructure"
+    },
+    {
+      "id": "joerg-profile",
+      "label": "joerg profile",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "learning-loop",
+      "label": "learning loop",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "lessons-learned",
+      "label": "lessons learned",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "linkedin-oauth-integration",
+      "label": "linkedin oauth integration",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "marketing-image-review-protocol",
+      "label": "marketing image review protocol",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "north-star",
+      "label": "north star",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "operations",
+      "label": "operations",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "prime-directive-failure-autoresolution",
+      "label": "prime directive failure autoresolution",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "research",
+      "label": "research",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "t3mp3st-dashboard",
+      "label": "t3mp3st dashboard",
+      "type": "other",
+      "group": "agentforge"
+    },
+    {
+      "id": "adforge-system-prompt-v2",
+      "label": "adforge system prompt v2",
+      "type": "concept",
+      "group": "concepts"
+    },
+    {
+      "id": "associative-trails",
+      "label": "associative trails",
+      "type": "concept",
+      "group": "concepts"
+    },
+    {
+      "id": "betterlife-brand-guidelines",
+      "label": "betterlife brand guidelines",
+      "type": "concept",
+      "group": "concepts"
+    },
+    {
+      "id": "betterlife-social-posting-procedure",
+      "label": "betterlife social posting procedure",
+      "type": "concept",
+      "group": "concepts"
+    },
+    {
+      "id": "betterlife-x-api-credentials",
+      "label": "betterlife x api credentials",
+      "type": "concept",
+      "group": "concepts"
+    },
+    {
+      "id": "github-department",
+      "label": "github department",
+      "type": "concept",
+      "group": "concepts"
+    },
+    {
+      "id": "hermes-agent-transition-architecture",
+      "label": "hermes agent transition architecture",
+      "type": "concept",
+      "group": "concepts"
+    },
+    {
+      "id": "human-in-the-loop",
+      "label": "human in the loop",
+      "type": "concept",
+      "group": "concepts"
+    },
+    {
+      "id": "infrastructure-credentials",
+      "label": "infrastructure credentials",
+      "type": "concept",
+      "group": "concepts"
+    },
+    {
+      "id": "premortem-skill",
+      "label": "premortem skill",
+      "type": "concept",
+      "group": "concepts"
+    },
+    {
+      "id": "skill-foundry-unbounded-growth-policy",
+      "label": "skill foundry unbounded growth policy",
+      "type": "concept",
+      "group": "concepts"
+    },
+    {
+      "id": "zero-rag",
+      "label": "zero rag",
+      "type": "concept",
+      "group": "concepts"
+    },
+    {
+      "id": "contradictions",
+      "label": "contradictions",
+      "type": "other",
+      "group": "root"
+    },
+    {
+      "id": "andrej-karpathy",
+      "label": "andrej karpathy",
+      "type": "entity",
+      "group": "entities"
+    },
+    {
+      "id": "betterlife-care-infrastructure",
+      "label": "betterlife care infrastructure",
+      "type": "entity",
+      "group": "entities"
+    },
+    {
+      "id": "claude-code",
+      "label": "claude code",
+      "type": "entity",
+      "group": "entities"
+    },
+    {
+      "id": "marvin",
+      "label": "marvin",
+      "type": "entity",
+      "group": "entities"
+    },
+    {
+      "id": "vannevar-bush",
+      "label": "vannevar bush",
+      "type": "entity",
+      "group": "entities"
+    },
+    {
+      "id": "log",
+      "label": "log",
+      "type": "other",
+      "group": "root"
+    },
+    {
+      "id": "helix",
+      "label": "helix",
+      "type": "project",
+      "group": "projects"
+    },
+    {
+      "id": "semantica-analysis",
+      "label": "semantica analysis",
+      "type": "other",
+      "group": "root"
+    },
+    {
+      "id": "ai-agents-overview",
+      "label": "ai agents overview",
+      "type": "source",
+      "group": "sources"
+    },
+    {
+      "id": "awesome-generative-ai-apps",
+      "label": "awesome generative ai apps",
+      "type": "source",
+      "group": "sources"
+    },
+    {
+      "id": "karpathy-llm-wiki-gist",
+      "label": "karpathy llm wiki gist",
+      "type": "source",
+      "group": "sources"
+    },
+    {
+      "id": "memex-history",
+      "label": "memex history",
+      "type": "source",
+      "group": "sources"
+    },
+    {
+      "id": "agent-marketplace-solana-feasibility",
+      "label": "agent marketplace solana feasibility",
+      "type": "synthesis",
+      "group": "synthesis"
+    },
+    {
+      "id": "awesome-generative-ai-apps-analysis",
+      "label": "awesome generative ai apps analysis",
+      "type": "synthesis",
+      "group": "synthesis"
+    },
+    {
+      "id": "betterlife-competitive-analysis",
+      "label": "betterlife competitive analysis",
+      "type": "synthesis",
+      "group": "synthesis"
+    },
+    {
+      "id": "betterlife-competitive-differentiators-v2",
+      "label": "betterlife competitive differentiators v2",
+      "type": "synthesis",
+      "group": "synthesis"
+    },
+    {
+      "id": "betterlife-social-launch-2026-06-25",
+      "label": "betterlife social launch 2026 06 25",
+      "type": "synthesis",
+      "group": "synthesis"
+    },
+    {
+      "id": "betterlife-social-launch",
+      "label": "betterlife social launch",
+      "type": "synthesis",
+      "group": "synthesis"
+    },
+    {
+      "id": "betterlife-social-media-research",
+      "label": "betterlife social media research",
+      "type": "synthesis",
+      "group": "synthesis"
+    },
+    {
+      "id": "bitesaver-prd-prompt",
+      "label": "bitesaver prd prompt",
+      "type": "synthesis",
+      "group": "synthesis"
+    },
+    {
+      "id": "bitesaver-prd",
+      "label": "bitesaver prd",
+      "type": "synthesis",
+      "group": "synthesis"
+    },
+    {
+      "id": "marketing-cost-analysis",
+      "label": "marketing cost analysis",
+      "type": "synthesis",
+      "group": "synthesis"
+    },
+    {
+      "id": "memex-to-llm-wiki",
+      "label": "memex to llm wiki",
+      "type": "synthesis",
+      "group": "synthesis"
+    },
+    {
+      "id": "run-004-2026-06-25",
+      "label": "run 004 2026 06 25",
+      "type": "synthesis",
+      "group": "synthesis"
+    },
+    {
+      "id": "run-report-2026-06-30",
+      "label": "run report 2026 06 30",
+      "type": "synthesis",
+      "group": "synthesis"
+    },
+    {
+      "id": "skill-foundry-run-003",
+      "label": "skill foundry run 003",
+      "type": "synthesis",
+      "group": "synthesis"
+    }
   ],
   "edges": [
-
+    {
+      "from": "index",
+      "to": "departments/index"
+    },
+    {
+      "from": "index",
+      "to": "projects/index"
+    },
+    {
+      "from": "board-directives",
+      "to": "decisions"
+    },
+    {
+      "from": "board-directives",
+      "to": "north-star"
+    },
+    {
+      "from": "architecture-philosophy",
+      "to": "north-star"
+    },
+    {
+      "from": "architecture-philosophy",
+      "to": "board-directives"
+    },
+    {
+      "from": "decisions",
+      "to": "board-directives"
+    },
+    {
+      "from": "decisions",
+      "to": "north-star"
+    },
+    {
+      "from": "entities",
+      "to": "board-directives"
+    },
+    {
+      "from": "entities",
+      "to": "north-star"
+    },
+    {
+      "from": "joerg-profile",
+      "to": "board-directives"
+    },
+    {
+      "from": "joerg-profile",
+      "to": "north-star"
+    },
+    {
+      "from": "joerg-profile",
+      "to": "entities"
+    },
+    {
+      "from": "learning-loop",
+      "to": "lessons-learned"
+    },
+    {
+      "from": "learning-loop",
+      "to": "decisions"
+    },
+    {
+      "from": "learning-loop",
+      "to": "board-directives"
+    },
+    {
+      "from": "lessons-learned",
+      "to": "learning-loop"
+    },
+    {
+      "from": "lessons-learned",
+      "to": "board-directives"
+    },
+    {
+      "from": "lessons-learned",
+      "to": "decisions"
+    },
+    {
+      "from": "marketing-image-review-protocol",
+      "to": "prime-directive-failure-autoresolution"
+    },
+    {
+      "from": "marketing-image-review-protocol",
+      "to": "betterlife-social-posting-procedure"
+    },
+    {
+      "from": "north-star",
+      "to": "board-directives"
+    },
+    {
+      "from": "north-star",
+      "to": "decisions"
+    },
+    {
+      "from": "operations",
+      "to": "departments/index"
+    },
+    {
+      "from": "operations",
+      "to": "board-directives"
+    },
+    {
+      "from": "prime-directive-failure-autoresolution",
+      "to": "marketing-image-review-protocol"
+    },
+    {
+      "from": "prime-directive-failure-autoresolution",
+      "to": "memory-architecture"
+    },
+    {
+      "from": "research",
+      "to": "projects/index"
+    },
+    {
+      "from": "research",
+      "to": "infrastructure/index"
+    },
+    {
+      "from": "associative-trails",
+      "to": "vannevar-bush"
+    },
+    {
+      "from": "associative-trails",
+      "to": "Wikilinks"
+    },
+    {
+      "from": "associative-trails",
+      "to": "zero-rag"
+    },
+    {
+      "from": "associative-trails",
+      "to": "andrej-karpathy"
+    },
+    {
+      "from": "human-in-the-loop",
+      "to": "claude-code"
+    },
+    {
+      "from": "human-in-the-loop",
+      "to": "zero-rag"
+    },
+    {
+      "from": "zero-rag",
+      "to": "andrej-karpathy"
+    },
+    {
+      "from": "zero-rag",
+      "to": "associative-trails"
+    },
+    {
+      "from": "andrej-karpathy",
+      "to": "zero-rag"
+    },
+    {
+      "from": "andrej-karpathy",
+      "to": "vannevar-bush"
+    },
+    {
+      "from": "claude-code",
+      "to": "human-in-the-loop"
+    },
+    {
+      "from": "claude-code",
+      "to": "andrej-karpathy"
+    },
+    {
+      "from": "vannevar-bush",
+      "to": "associative-trails"
+    },
+    {
+      "from": "vannevar-bush",
+      "to": "andrej-karpathy"
+    },
+    {
+      "from": "helix",
+      "to": "concepts/nextjs-build-env-vars"
+    },
+    {
+      "from": "helix",
+      "to": "agentforge/projects/counter-project-blueprint"
+    },
+    {
+      "from": "ai-agents-overview",
+      "to": "claude-code"
+    },
+    {
+      "from": "ai-agents-overview",
+      "to": "human-in-the-loop"
+    },
+    {
+      "from": "karpathy-llm-wiki-gist",
+      "to": "andrej-karpathy"
+    },
+    {
+      "from": "karpathy-llm-wiki-gist",
+      "to": "zero-rag"
+    },
+    {
+      "from": "karpathy-llm-wiki-gist",
+      "to": "vannevar-bush"
+    },
+    {
+      "from": "memex-history",
+      "to": "associative-trails"
+    },
+    {
+      "from": "memex-history",
+      "to": "vannevar-bush"
+    },
+    {
+      "from": "memex-history",
+      "to": "andrej-karpathy"
+    },
+    {
+      "from": "memex-to-llm-wiki",
+      "to": "vannevar-bush"
+    },
+    {
+      "from": "memex-to-llm-wiki",
+      "to": "andrej-karpathy"
+    },
+    {
+      "from": "memex-to-llm-wiki",
+      "to": "associative-trails"
+    },
+    {
+      "from": "memex-to-llm-wiki",
+      "to": "zero-rag"
+    },
+    {
+      "from": "memex-to-llm-wiki",
+      "to": "human-in-the-loop"
+    }
   ]
 }
