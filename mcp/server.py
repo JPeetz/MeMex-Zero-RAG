@@ -226,6 +226,23 @@ class MemexServer:
                                 "type": "boolean",
                                 "description": "Overwrite if page already exists (default false)",
                                 "default": False
+                            },
+                            "status": {
+                                "type": "string",
+                                "description": "Lifecycle status of this page. One of draft, active, stale, quarantine. Defaults to active.",
+                                "enum": ["draft", "active", "stale", "quarantine"],
+                                "default": "active"
+                            },
+                            "source_reliability_index": {
+                                "type": "number",
+                                "description": "Optional Source Reliability Index in [0.0, 1.0] describing how trustworthy this page's underlying sources are.",
+                                "minimum": 0.0,
+                                "maximum": 1.0
+                            },
+                            "is_immutable": {
+                                "type": "boolean",
+                                "description": "If true, this page represents a locked/immutable fact and downstream tools should refuse to mutate it.",
+                                "default": False
                             }
                         },
                         "required": ["type", "slug", "title", "content"]
@@ -274,7 +291,10 @@ class MemexServer:
                         content=arguments.get("content", ""),
                         tags=arguments.get("tags", []),
                         agent=arguments.get("agent", "unknown"),
-                        overwrite=arguments.get("overwrite", False)
+                        overwrite=arguments.get("overwrite", False),
+                        status=arguments.get("status", "active"),
+                        source_reliability_index=arguments.get("source_reliability_index"),
+                        is_immutable=arguments.get("is_immutable", False),
                     )
                 else:
                     result = f"Unknown tool: {name}"
@@ -688,7 +708,10 @@ Run `wiki_lint` for detailed health check.
 
     
     async def _write(self, page_type: str, slug: str, title: str, content: str,
-                       tags: list = None, agent: str = "unknown", overwrite: bool = False) -> str:
+                       tags: list = None, agent: str = "unknown", overwrite: bool = False,
+                       status: str = "active",
+                       source_reliability_index: Optional[float] = None,
+                       is_immutable: bool = False) -> str:
         """Write a new wiki page and git commit with agent attribution."""
         import re as _re
         import subprocess
@@ -718,7 +741,7 @@ Run `wiki_lint` for detailed health check.
         EXEMPT_PAGES = {"index", "log", "contradictions"}
         EXEMPT_TYPES = {"sources"}
         if slug not in EXEMPT_PAGES and page_type not in EXEMPT_TYPES:
-            if "[Source:" not in content_str:
+            if "[Source:" not in content:
                 return "❌ Rejected: page has no [Source: ...] citation. Every wiki page must cite at least one source (e.g., [Source: raw/article.md])."
 
         # Bug fix: use explicit type map instead of naive trailing-s strip
@@ -732,12 +755,43 @@ Run `wiki_lint` for detailed health check.
 
         tags_yaml = json.dumps(tags or [])
         today = date.today().isoformat()
+
+        # Lifecycle fields (plugin-compat vocabulary).
+        # `status` always emitted; `source_reliability_index` and
+        # `is_immutable` are only emitted when non-default so we don't
+        # bloat frontmatter on legacy pages.
+        allowed_status = {"draft", "active", "stale", "quarantine"}
+        if status not in allowed_status:
+            return (
+                f"Error: invalid status '{status}'. Must be one of "
+                f"{sorted(allowed_status)}."
+            )
+
+        lifecycle_lines = [f"status: {status}"]
+        if source_reliability_index is not None:
+            try:
+                sri_val = float(source_reliability_index)
+            except (TypeError, ValueError):
+                return (
+                    "Error: source_reliability_index must be a number in "
+                    "[0.0, 1.0]."
+                )
+            if not (0.0 <= sri_val <= 1.0):
+                return (
+                    "Error: source_reliability_index must be in [0.0, 1.0]."
+                )
+            lifecycle_lines.append(f"source_reliability_index: {sri_val}")
+        if is_immutable:
+            lifecycle_lines.append("is_immutable: true")
+        lifecycle_block = "\n".join(lifecycle_lines)
+
         frontmatter = f"""---
 title: {title}
 type: {type_singular}
 tags: {tags_yaml}
 created: {today}
 author: {agent}
+{lifecycle_block}
 ---
 """
         dest.write_text(frontmatter + "\n" + content, encoding="utf-8")

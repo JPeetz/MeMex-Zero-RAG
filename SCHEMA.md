@@ -397,3 +397,51 @@ mcp/graph_builder.py   — Python graph builder (replaces scripts/build-graph.sh
 graph/graph.html        — vis-network interactive visualization (dark theme)
 graph/data.json         — generated node/edge data
 ```
+
+---
+
+## Lifecycle Mapping (plugin ↔ backend)
+
+MeMex acts as a persistence backend for higher-level agent plugins (e.g.
+the `memex-hermes-plugin`). Those plugins model each piece of knowledge
+as a `Fact` with a small lifecycle vocabulary. To let plugins round-trip
+their state through MeMex without lossy translation, `wiki_write`
+accepts three optional lifecycle fields that are persisted verbatim in
+the page frontmatter.
+
+### Fields
+
+| Frontmatter key             | Type        | Range / Values                                  | Default   |
+| --------------------------- | ----------- | ----------------------------------------------- | --------- |
+| `status`                    | string      | `draft` \| `active` \| `stale` \| `quarantine`  | `active`  |
+| `source_reliability_index`  | float       | `[0.0, 1.0]`                                    | *omitted* |
+| `is_immutable`              | bool        | `true` \| `false`                               | *omitted* |
+
+- `status` is always emitted (defaults to `active` when the caller
+  passes nothing). Legacy pages written before this schema simply lack
+  the key and readers should treat that as equivalent to `active`.
+- `source_reliability_index` (SRI) and `is_immutable` are only emitted
+  when supplied so we don't pollute frontmatter on the long tail of
+  existing pages.
+
+### Plugin ↔ Backend status vocabulary
+
+The plugin and the backend deliberately share the same four-value
+vocabulary — there is no translation layer, only pass-through.
+
+| Plugin `Fact.status` | Backend `status` frontmatter | Meaning                                                                 |
+| -------------------- | ---------------------------- | ----------------------------------------------------------------------- |
+| `draft`              | `draft`                      | Captured but not yet vetted; excluded from confident retrieval.         |
+| `active`             | `active`                     | Live knowledge; participates in search, graph, and synthesis.           |
+| `stale`              | `stale`                      | Known to be outdated; kept for provenance, dimmed in retrieval.         |
+| `quarantine`         | `quarantine`                 | Contradicted or under review; must not surface without explicit opt-in. |
+
+`is_immutable=true` signals downstream agents (including the plugin's
+`wiki_flag` / edit tools once shipped) that they MUST refuse to mutate
+the page. This is the backend-side lock corresponding to the plugin's
+locked-fact semantics.
+
+`source_reliability_index` is a plugin-computed score (rough
+"trustworthiness of the underlying sources") that the backend persists
+as-is. The backend does not interpret it; consumers such as the
+plugin's retrieval-ranker read it back out of frontmatter.
