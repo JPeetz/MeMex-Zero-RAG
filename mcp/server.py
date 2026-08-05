@@ -47,6 +47,21 @@ class InvalidStateError(Exception):
     quarantine)."""
 
 
+class AmbiguousSlugError(Exception):
+    """Raised by wiki_read_by_slug when a bare slug matches pages in more
+    than one type directory (e.g. both concepts/marvin and
+    entities/marvin exist). Callers must disambiguate using wiki_read
+    with a full type-prefixed path instead."""
+
+    def __init__(self, slug: str, candidates: list):
+        self.slug = slug
+        self.candidates = candidates
+        super().__init__(
+            f"Ambiguous slug '{slug}': matches multiple pages: "
+            f"{', '.join(candidates)}. Use wiki_read with a full path instead."
+        )
+
+
 class MemexServer:
     """MCP server for Memex wiki operations."""
     
@@ -96,6 +111,20 @@ class MemexServer:
                             }
                         },
                         "required": ["path"]
+                    }
+                ),
+                Tool(
+                    name="wiki_read_by_slug",
+                    description="Read a wiki page by bare slug (no type prefix), searching entities/concepts/sources/synthesis for a match. Returns found=false if missing, or an error listing candidates if the slug is ambiguous across type dirs.",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "slug": {
+                                "type": "string",
+                                "description": "URL-safe page slug without type prefix or .md extension (e.g. 'zero-rag')"
+                            }
+                        },
+                        "required": ["slug"]
                     }
                 ),
                 Tool(
@@ -325,6 +354,12 @@ class MemexServer:
                     result = await self._search(arguments.get("query", ""), arguments.get("limit", 10))
                 elif name == "wiki_read":
                     result = await self._read(arguments.get("path", ""))
+                elif name == "wiki_read_by_slug":
+                    lookup = await self._read_by_slug(arguments.get("slug", ""))
+                    if lookup["found"]:
+                        result = lookup["content"]
+                    else:
+                        result = json.dumps({"found": False})
                 elif name == "wiki_list":
                     result = await self._list(arguments.get("type", "all"))
                 elif name == "wiki_query":
@@ -484,6 +519,49 @@ class MemexServer:
             return f"Page not found: {path}\n\nUse wiki_list to see available pages."
         
         return file_path.read_text(encoding="utf-8")
+
+    async def _read_by_slug(self, slug: str) -> dict:
+        """Find a page by bare slug across all type dirs and delegate to _read().
+
+        Returns a dict:
+          - {"found": False} when no page matches the slug
+          - {"found": True, "path": "<type>/<slug>", "content": "<full page text>"}
+            when exactly one page matches
+
+        Raises:
+          ValueError: if ``slug`` is empty or contains a '/' (i.e. is not a
+            bare slug — callers with a full path should use wiki_read instead).
+          AmbiguousSlugError: if the slug matches pages in more than one type
+            directory. The error carries ``candidates`` (list of "type/slug"
+            paths) for the caller to disambiguate with.
+        """
+        slug = slug.strip().strip("/")
+        if slug.endswith(".md"):
+            slug = slug[: -len(".md")]
+
+        if not slug:
+            raise ValueError("slug must not be empty")
+        if "/" in slug:
+            raise ValueError(
+                f"'{slug}' is not a bare slug (contains '/'); "
+                "use wiki_read with a full path instead"
+            )
+
+        candidates = []
+        for type_dir in ("entities", "concepts", "sources", "synthesis"):
+            candidate_path = self.wiki_path / type_dir / f"{slug}.md"
+            if candidate_path.exists():
+                candidates.append(f"{type_dir}/{slug}")
+
+        if not candidates:
+            return {"found": False}
+
+        if len(candidates) > 1:
+            raise AmbiguousSlugError(slug, candidates)
+
+        path = candidates[0]
+        content = await self._read(path)
+        return {"found": True, "path": path, "content": content}
     
     async def _list(self, page_type: str = "all") -> str:
         """List wiki pages."""
