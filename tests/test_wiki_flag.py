@@ -91,6 +91,32 @@ async def test_wiki_flag_requires_reason(tmp_path, memex_server_module):
 
 
 @pytest.mark.asyncio
+async def test_wiki_flag_refuses_immutable_page(tmp_path, memex_server_module):
+    """SCHEMA.md §Lifecycle Mapping: is_immutable=true pages MUST NOT be
+    mutated by wiki_flag (or any edit tool). flag() must refuse instead of
+    silently quarantining a locked fact."""
+    server = memex_server_module.MemexServer(wiki_path=str(tmp_path))
+    (tmp_path / "concepts").mkdir()
+    await server._write(
+        page_type="concepts",
+        slug="locked-fact",
+        title="Locked Fact",
+        content="body [Source: raw/test.md]",
+        agent="test",
+        is_immutable=True,
+    )
+    with pytest.raises(PermissionError):
+        await server._flag(page="concepts/locked-fact", reason="attempted override")
+
+    # The page must be left untouched — still active, no flag fields set.
+    page_text = (tmp_path / "concepts" / "locked-fact.md").read_text()
+    parsed = _frontmatter(page_text)
+    assert parsed["status"] == "active"
+    assert "flagged_reason" not in parsed
+    assert "flagged_at" not in parsed
+
+
+@pytest.mark.asyncio
 async def test_wiki_flag_via_dispatcher(tmp_path, memex_server_module, monkeypatch):
     """Exercise the wiki_flag entry through the MCP call_tool dispatcher."""
     server = memex_server_module.MemexServer(wiki_path=str(tmp_path))
