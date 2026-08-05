@@ -249,6 +249,24 @@ class MemexServer:
                     }
                 ),
                 Tool(
+                    name="wiki_flag",
+                    description="Mark a wiki page for revalidation. Sets status: quarantine and records a reason and timestamp.",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "page": {
+                                "type": "string",
+                                "description": "Page path relative to wiki/ without .md extension (e.g. 'concepts/foo')"
+                            },
+                            "reason": {
+                                "type": "string",
+                                "description": "Why the page needs revalidation"
+                            }
+                        },
+                        "required": ["page", "reason"]
+                    }
+                ),
+                Tool(
                     name="wiki_graph",
                     description="Build and return path to the interactive knowledge graph visualization (graph/graph.html). Requires --enable-graph.",
                     inputSchema={
@@ -295,6 +313,11 @@ class MemexServer:
                         status=arguments.get("status", "active"),
                         source_reliability_index=arguments.get("source_reliability_index"),
                         is_immutable=arguments.get("is_immutable", False),
+                    )
+                elif name == "wiki_flag":
+                    result = await self._flag(
+                        page=arguments.get("page", ""),
+                        reason=arguments.get("reason", ""),
                     )
                 else:
                     result = f"Unknown tool: {name}"
@@ -849,6 +872,66 @@ Run `wiki_lint` for detailed health check.
                 return f"⚠️ Written to disk but git commit failed: {result.stderr.strip()}. Run 'git commit' manually."
         except Exception as e:
             return f"✅ Written: {page_type}/{slug}.md (git error: {e})"
+
+    async def _flag(self, page: str, reason: str) -> str:
+        """Mark a wiki page for revalidation: status -> quarantine, with reason + timestamp.
+
+        Frontmatter is read with yaml.safe_load, mutated as a dict, and
+        rewritten with yaml.safe_dump — never via string/regex surgery —
+        so we can't corrupt or become vulnerable to injection through
+        existing frontmatter values (mirrors the _write() hardening).
+        """
+        import re as _re
+        import subprocess
+        import yaml as _yaml
+        from datetime import datetime, timezone
+
+        if not page:
+            raise ValueError("page is required")
+        if not reason:
+            raise ValueError("reason is required")
+
+        page = page.strip("/")
+        if page.endswith(".md"):
+            page = page[:-3]
+        page_path = self.wiki_path / f"{page}.md"
+
+        if not page_path.exists():
+            raise FileNotFoundError(f"Page not found: {page}")
+
+        raw = page_path.read_text(encoding="utf-8")
+        fm_match = _re.match(r"^---\n(.*?)\n---\n(.*)$", raw, _re.DOTALL)
+        if not fm_match:
+            raise ValueError(f"Page {page} has no valid YAML frontmatter block")
+
+        frontmatter_dict = _yaml.safe_load(fm_match.group(1)) or {}
+        body = fm_match.group(2)
+
+        frontmatter_dict["status"] = "quarantine"
+        frontmatter_dict["flagged_reason"] = reason
+        frontmatter_dict["flagged_at"] = (
+            datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+        )
+
+        frontmatter_yaml = _yaml.safe_dump(
+            frontmatter_dict, default_flow_style=False, sort_keys=False
+        )
+        page_path.write_text(f"---\n{frontmatter_yaml}---\n{body}", encoding="utf-8")
+
+        # Git commit — best-effort, mirrors _write()'s non-fatal handling.
+        try:
+            subprocess.run(
+                ["git", "add", str(page_path)],
+                cwd=str(self.wiki_path.parent), check=True, capture_output=True,
+            )
+            subprocess.run(
+                ["git", "commit", "-m", f"flag: {page} ({reason})"],
+                cwd=str(self.wiki_path.parent), capture_output=True, text=True,
+            )
+        except Exception:
+            pass  # non-fatal; page is already written to disk
+
+        return json.dumps({"page": page, "status": "quarantine", "reason": reason})
 
     async def run(self, transport: str = "stdio", port: int = 3001):
         """Start the MCP server."""
