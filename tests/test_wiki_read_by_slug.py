@@ -193,8 +193,9 @@ async def test_wiki_read_by_slug_via_dispatcher_missing_returns_json_not_found(
 async def test_wiki_read_by_slug_via_dispatcher_ambiguous_surfaces_candidates(
     tmp_path, memex_server_module
 ):
-    """An ambiguous slug must surface an actionable error naming candidates,
-    not a silent/blank result."""
+    """An ambiguous slug must surface a structured JSON payload naming
+    candidates, not the generic str(exception) error-string fallback."""
+    import json
     import sys
 
     CallToolRequest = sys.modules["mcp.types"].CallToolRequest
@@ -219,5 +220,11 @@ async def test_wiki_read_by_slug_via_dispatcher_ambiguous_surfaces_candidates(
     )
     result = await call_handler(req)
     text = result.root.content[0].text
-    assert "concepts/marvin" in text
-    assert "entities/marvin" in text
+
+    # Must NOT fall through to the generic "Error: <str(exception)>" handler.
+    assert not text.startswith("Error:")
+
+    payload = json.loads(text)
+    assert payload["found"] is False
+    assert payload["ambiguous"] is True
+    assert set(payload["candidates"]) == {"concepts/marvin", "entities/marvin"}

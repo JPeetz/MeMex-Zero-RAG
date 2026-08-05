@@ -355,11 +355,19 @@ class MemexServer:
                 elif name == "wiki_read":
                     result = await self._read(arguments.get("path", ""))
                 elif name == "wiki_read_by_slug":
-                    lookup = await self._read_by_slug(arguments.get("slug", ""))
-                    if lookup["found"]:
-                        result = lookup["content"]
+                    try:
+                        lookup = await self._read_by_slug(arguments.get("slug", ""))
+                    except AmbiguousSlugError as e:
+                        result = json.dumps({
+                            "found": False,
+                            "ambiguous": True,
+                            "candidates": e.candidates,
+                        })
                     else:
-                        result = json.dumps({"found": False})
+                        if lookup["found"]:
+                            result = lookup["content"]
+                        else:
+                            result = json.dumps({"found": False})
                 elif name == "wiki_list":
                     result = await self._list(arguments.get("type", "all"))
                 elif name == "wiki_query":
