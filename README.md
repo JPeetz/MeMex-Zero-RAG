@@ -198,13 +198,38 @@ When running `python mcp/server.py`, your agent gets these tools:
 |------|-------------|
 | `wiki_search` | BM25 + semantic hybrid search across all pages |
 | `wiki_read` | Read a specific page |
+| `wiki_read_by_slug` | Read a page by bare slug (no type prefix); scans entities/concepts/sources/synthesis for a match |
 | `wiki_list` | List pages by type (entities/concepts/sources/synthesis) |
 | `wiki_query` | Natural language query with source attribution |
-| `wiki_write` | Write a new page with git attribution (returns commit SHA) |
+| `wiki_write` | Write a new page with git attribution (returns commit SHA); accepts optional lifecycle fields (`status`, `source_reliability_index`, `is_immutable`) |
+| `wiki_flag` | Mark a page for revalidation — sets `status: quarantine` and records a reason/timestamp |
+| `wiki_revalidate` | Close a revalidation cycle for a quarantined page: `confirm` (→ active), `update` (→ active with new content), or `retire` (→ stale) |
 | `wiki_ingest` | Ingest a raw source into the wiki |
 | `wiki_lint` | Run health checks on the wiki |
 | `wiki_graph` | Generate wikilink relationship graph |
 | `wiki_stats` | Summary statistics |
+
+### Lifecycle management (`wiki_flag` / `wiki_revalidate` / `wiki_read_by_slug`)
+
+MeMex pages carry a `status` field (`draft` \| `active` \| `stale` \| `quarantine`) so
+agents and plugins (e.g. `memex-hermes-plugin`) can round-trip knowledge lifecycle
+state without a translation layer. See [`SCHEMA.md`](SCHEMA.md#lifecycle-mapping-plugin--backend)
+for the full field reference.
+
+- **`wiki_flag(page, reason)`** — quarantines a page (`status: quarantine`), stamping
+  the reason and a UTC timestamp into frontmatter. Refuses to flag a page written with
+  `is_immutable: true`.
+- **`wiki_revalidate(page, outcome, new_body?, new_sources?, rationale?)`** — resolves a
+  quarantined page:
+  - `outcome: confirm` — clears quarantine, sets `status: active`, keeps existing content.
+  - `outcome: update` — replaces the body with `new_body` (required) and optionally
+    appends `new_sources` citations, then sets `status: active`.
+  - `outcome: retire` — sets `status: stale` and clears flag metadata (reason/timestamp).
+- **`wiki_read_by_slug(slug)`** — looks up a page by bare slug across all four type
+  directories (`entities/`, `concepts/`, `sources/`, `synthesis/`) so callers don't need
+  to know a page's type prefix ahead of time. Returns `{"found": false}` when missing,
+  or `{"found": false, "ambiguous": true, "candidates": [...]}` when the slug matches
+  more than one type directory.
 
 ### Claude Code config (`~/.claude/mcp.json`)
 
