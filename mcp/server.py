@@ -753,7 +753,6 @@ Run `wiki_lint` for detailed health check.
         }
         type_singular = TYPE_SINGULAR.get(page_type, page_type)
 
-        tags_yaml = json.dumps(tags or [])
         today = date.today().isoformat()
 
         # Lifecycle fields (plugin-compat vocabulary).
@@ -767,7 +766,7 @@ Run `wiki_lint` for detailed health check.
                 f"{sorted(allowed_status)}."
             )
 
-        lifecycle_lines = [f"status: {status}"]
+        sri_val = None
         if source_reliability_index is not None:
             try:
                 sri_val = float(source_reliability_index)
@@ -780,20 +779,32 @@ Run `wiki_lint` for detailed health check.
                 return (
                     "Error: source_reliability_index must be in [0.0, 1.0]."
                 )
-            lifecycle_lines.append(f"source_reliability_index: {sri_val}")
-        if is_immutable:
-            lifecycle_lines.append("is_immutable: true")
-        lifecycle_block = "\n".join(lifecycle_lines)
 
-        frontmatter = f"""---
-title: {title}
-type: {type_singular}
-tags: {tags_yaml}
-created: {today}
-author: {agent}
-{lifecycle_block}
----
-"""
+        # Build frontmatter as a dict and serialize with yaml.safe_dump()
+        # rather than f-string interpolation. `title` and `agent` are
+        # user-supplied strings and could otherwise inject arbitrary
+        # frontmatter keys (e.g. an embedded newline forging
+        # "is_immutable: true"). safe_dump correctly quotes/escapes any
+        # value containing YAML-significant characters.
+        import yaml as _yaml
+
+        frontmatter_dict = {
+            "title": title,
+            "type": type_singular,
+            "tags": tags or [],
+            "created": today,
+            "author": agent,
+            "status": status,
+        }
+        if sri_val is not None:
+            frontmatter_dict["source_reliability_index"] = sri_val
+        if is_immutable:
+            frontmatter_dict["is_immutable"] = True
+
+        frontmatter_yaml = _yaml.safe_dump(
+            frontmatter_dict, default_flow_style=False, sort_keys=False
+        )
+        frontmatter = f"---\n{frontmatter_yaml}---\n"
         dest.write_text(frontmatter + "\n" + content, encoding="utf-8")
 
         # Git commit — parse SHA from 'git rev-parse HEAD' for reliability
