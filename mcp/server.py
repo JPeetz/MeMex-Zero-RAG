@@ -907,6 +907,15 @@ Run `wiki_lint` for detailed health check.
         frontmatter_dict = _yaml.safe_load(fm_match.group(1)) or {}
         body = fm_match.group(2)
 
+        # SCHEMA.md §Lifecycle Mapping: is_immutable=true pages are the
+        # backend-side lock corresponding to the plugin's locked-fact
+        # semantics; wiki_flag (and any other edit tool) MUST refuse to
+        # mutate them rather than silently quarantining a locked fact.
+        if frontmatter_dict.get("is_immutable") is True:
+            raise PermissionError(
+                f"Page {page} is immutable (is_immutable: true); refusing to flag it."
+            )
+
         frontmatter_dict["status"] = "quarantine"
         frontmatter_dict["flagged_reason"] = reason
         frontmatter_dict["flagged_at"] = (
