@@ -1070,8 +1070,20 @@ Run `wiki_lint` for detailed health check.
                 datetime.now(timezone.utc).replace(microsecond=0).isoformat()
             )
             frontmatter_dict["retire_rationale"] = rationale
+            # A3.5 fix: retire must clear the flag lifecycle fields too,
+            # for consistency with confirm/update — the flag has been
+            # resolved (by retirement) either way.
+            frontmatter_dict.pop("flagged_reason", None)
+            frontmatter_dict.pop("flagged_at", None)
         else:
             raise ValueError(f"unknown outcome: {outcome!r}; must be one of confirm, update, retire")
+
+        # A3.5 fix: new_sources was accepted but never wired up — append
+        # the citations as a new [Source: ...] line on the body so they
+        # actually land on disk (mirrors _write()'s citation format).
+        if new_sources:
+            citation_line = f"\n\n[Source: {', '.join(new_sources)}]"
+            body_str = f"{body_str}{citation_line}"
 
         frontmatter_yaml = _yaml.safe_dump(
             frontmatter_dict, default_flow_style=False, sort_keys=False
