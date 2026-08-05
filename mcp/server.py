@@ -40,6 +40,13 @@ except ImportError:
     exit(1)
 
 
+class InvalidStateError(Exception):
+    """Raised when a lifecycle-transition tool is called against a page
+    whose current ``status`` doesn't permit that transition (e.g.
+    wiki_revalidate against a page that was never wiki_flag'd into
+    quarantine)."""
+
+
 class MemexServer:
     """MCP server for Memex wiki operations."""
     
@@ -267,6 +274,40 @@ class MemexServer:
                     }
                 ),
                 Tool(
+                    name="wiki_revalidate",
+                    description="Complete a revalidation cycle for a quarantined page. Outcome: confirm (-> active), update (-> active with new content), or retire (-> stale).",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "page": {
+                                "type": "string",
+                                "description": "Page path relative to wiki/ without .md extension (e.g. 'concepts/foo')"
+                            },
+                            "outcome": {
+                                "type": "string",
+                                "description": "Revalidation outcome",
+                                "enum": ["confirm", "update", "retire"]
+                            },
+                            "new_body": {
+                                "type": "string",
+                                "description": "Replacement markdown body. Required when outcome=update."
+                            },
+                            "new_sources": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                                "description": "Optional list of new/updated [Source: ...] citations",
+                                "default": []
+                            },
+                            "rationale": {
+                                "type": "string",
+                                "description": "Why this outcome was chosen",
+                                "default": ""
+                            }
+                        },
+                        "required": ["page", "outcome"]
+                    }
+                ),
+                Tool(
                     name="wiki_graph",
                     description="Build and return path to the interactive knowledge graph visualization (graph/graph.html). Requires --enable-graph.",
                     inputSchema={
@@ -318,6 +359,14 @@ class MemexServer:
                     result = await self._flag(
                         page=arguments.get("page", ""),
                         reason=arguments.get("reason", ""),
+                    )
+                elif name == "wiki_revalidate":
+                    result = await self._revalidate(
+                        page=arguments.get("page", ""),
+                        outcome=arguments.get("outcome", ""),
+                        new_body=arguments.get("new_body"),
+                        new_sources=arguments.get("new_sources", []),
+                        rationale=arguments.get("rationale", ""),
                     )
                 else:
                     result = f"Unknown tool: {name}"
@@ -941,6 +990,108 @@ Run `wiki_lint` for detailed health check.
             pass  # non-fatal; page is already written to disk
 
         return json.dumps({"page": page, "status": "quarantine", "reason": reason})
+
+    async def _revalidate(
+        self,
+        page: str,
+        outcome: str,
+        new_body: Optional[str] = None,
+        new_sources: Optional[list] = None,
+        rationale: str = "",
+    ) -> str:
+        """Complete a revalidation cycle for a quarantined page.
+
+        outcome=confirm: status -> active, flag fields cleared.
+        outcome=update:  body replaced with new_body, status -> active,
+                          flag fields cleared.
+        outcome=retire:  status -> stale, retired_at + retire_rationale
+                          recorded.
+
+        Frontmatter is read with yaml.safe_load, mutated as a dict, and
+        rewritten with yaml.safe_dump — never via string/regex surgery —
+        mirroring _write() and _flag()'s injection-hardening.
+        """
+        import re as _re
+        import subprocess
+        import yaml as _yaml
+        from datetime import datetime, timezone
+
+        if not page:
+            raise ValueError("page is required")
+        if not outcome:
+            raise ValueError("outcome is required")
+
+        page = page.strip("/")
+        if page.endswith(".md"):
+            page = page[:-3]
+        page_path = self.wiki_path / f"{page}.md"
+
+        if not page_path.exists():
+            raise FileNotFoundError(f"Page not found: {page}")
+
+        raw_text = page_path.read_text(encoding="utf-8")
+        fm_match = _re.match(r"^---\n(.*?)\n---\n(.*)$", raw_text, _re.DOTALL)
+        if not fm_match:
+            raise ValueError(f"Page {page} has no valid YAML frontmatter block")
+
+        frontmatter_dict = _yaml.safe_load(fm_match.group(1)) or {}
+        body_str = fm_match.group(2)
+
+        # SCHEMA.md §Lifecycle Mapping: is_immutable=true pages MUST NOT be
+        # mutated by wiki_revalidate. Checked before the quarantine-state
+        # guard so a locked fact can never be confirmed/updated/retired
+        # even if it somehow ended up with status: quarantine.
+        if frontmatter_dict.get("is_immutable") is True:
+            raise PermissionError(
+                f"Page {page} is immutable (is_immutable: true); refusing to revalidate it."
+            )
+
+        current_status = frontmatter_dict.get("status")
+        if current_status != "quarantine":
+            raise InvalidStateError(
+                f"Page {page} has status={current_status!r}; can only "
+                f"revalidate pages with status='quarantine' (flag it first)."
+            )
+
+        if outcome == "confirm":
+            frontmatter_dict["status"] = "active"
+            frontmatter_dict.pop("flagged_reason", None)
+            frontmatter_dict.pop("flagged_at", None)
+        elif outcome == "update":
+            if not new_body:
+                raise ValueError("outcome='update' requires new_body")
+            body_str = f"\n{new_body}"
+            frontmatter_dict["status"] = "active"
+            frontmatter_dict.pop("flagged_reason", None)
+            frontmatter_dict.pop("flagged_at", None)
+        elif outcome == "retire":
+            frontmatter_dict["status"] = "stale"
+            frontmatter_dict["retired_at"] = (
+                datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+            )
+            frontmatter_dict["retire_rationale"] = rationale
+        else:
+            raise ValueError(f"unknown outcome: {outcome!r}; must be one of confirm, update, retire")
+
+        frontmatter_yaml = _yaml.safe_dump(
+            frontmatter_dict, default_flow_style=False, sort_keys=False
+        )
+        page_path.write_text(f"---\n{frontmatter_yaml}---\n{body_str.lstrip(chr(10)) if outcome == 'update' else body_str}", encoding="utf-8")
+
+        # Git commit — best-effort, mirrors _write()/_flag()'s non-fatal handling.
+        try:
+            subprocess.run(
+                ["git", "add", str(page_path)],
+                cwd=str(self.wiki_path.parent), check=True, capture_output=True,
+            )
+            subprocess.run(
+                ["git", "commit", "-m", f"revalidate({outcome}): {page}"],
+                cwd=str(self.wiki_path.parent), capture_output=True, text=True,
+            )
+        except Exception:
+            pass  # non-fatal; page is already written to disk
+
+        return json.dumps({"page": page, "outcome": outcome, "rationale": rationale})
 
     async def run(self, transport: str = "stdio", port: int = 3001):
         """Start the MCP server."""
