@@ -241,3 +241,99 @@ async def test_revalidate_via_dispatcher(tmp_path, memex_server_module):
     result = await server._revalidate(page="concepts/foo", outcome="confirm", rationale="via dispatcher check")
     assert "confirm" in result
     assert "via dispatcher check" in result
+
+
+# -- A3.5: fix new_sources dead param + retire flag-field cleanup ----------
+
+
+@pytest.mark.asyncio
+async def test_revalidate_confirm_appends_new_sources_to_body(tmp_path, memex_server_module):
+    """new_sources must not be silently dropped — confirm should append a
+    citation line to the body when new_sources is provided."""
+    server = memex_server_module.MemexServer(wiki_path=str(tmp_path))
+    (tmp_path / "concepts").mkdir()
+    await server._write(
+        page_type="concepts",
+        slug="foo",
+        title="Foo",
+        content="body [Source: raw/test.md]",
+        agent="test",
+    )
+    await server._flag(page="concepts/foo", reason="check")
+    await server._revalidate(
+        page="concepts/foo",
+        outcome="confirm",
+        new_sources=["raw/new-evidence.md"],
+        rationale="verified against new evidence",
+    )
+    page_text = (tmp_path / "concepts" / "foo.md").read_text()
+    assert "[Source: raw/new-evidence.md]" in page_text
+
+
+@pytest.mark.asyncio
+async def test_revalidate_update_appends_new_sources_to_body(tmp_path, memex_server_module):
+    """update: new_sources citations must be appended to the replacement body,
+    not silently dropped."""
+    server = memex_server_module.MemexServer(wiki_path=str(tmp_path))
+    (tmp_path / "concepts").mkdir()
+    await server._write(
+        page_type="concepts",
+        slug="foo",
+        title="Foo",
+        content="old body [Source: raw/test.md]",
+        agent="test",
+    )
+    await server._flag(page="concepts/foo", reason="wrong")
+    await server._revalidate(
+        page="concepts/foo",
+        outcome="update",
+        new_body="corrected body",
+        new_sources=["raw/corrected-source.md", "raw/second-source.md"],
+        rationale="fixed based on new sources",
+    )
+    page_text = (tmp_path / "concepts" / "foo.md").read_text()
+    assert "corrected body" in page_text
+    assert "[Source: raw/corrected-source.md, raw/second-source.md]" in page_text
+
+
+@pytest.mark.asyncio
+async def test_revalidate_without_new_sources_does_not_append_citation_line(tmp_path, memex_server_module):
+    """Sanity check: when new_sources is omitted, no spurious [Source: ...]
+    line is appended."""
+    server = memex_server_module.MemexServer(wiki_path=str(tmp_path))
+    (tmp_path / "concepts").mkdir()
+    await server._write(
+        page_type="concepts",
+        slug="foo",
+        title="Foo",
+        content="body [Source: raw/test.md]",
+        agent="test",
+    )
+    await server._flag(page="concepts/foo", reason="check")
+    await server._revalidate(page="concepts/foo", outcome="confirm", rationale="verified")
+    page_text = (tmp_path / "concepts" / "foo.md").read_text()
+    assert page_text.count("[Source:") == 1
+
+
+@pytest.mark.asyncio
+async def test_revalidate_retire_clears_flagged_reason_and_flagged_at(tmp_path, memex_server_module):
+    """retire must clear flagged_reason / flagged_at from frontmatter, same
+    as confirm and update do — for consistency across all three outcomes."""
+    server = memex_server_module.MemexServer(wiki_path=str(tmp_path))
+    (tmp_path / "concepts").mkdir()
+    await server._write(
+        page_type="concepts",
+        slug="foo",
+        title="Foo",
+        content="body [Source: raw/test.md]",
+        agent="test",
+    )
+    await server._flag(page="concepts/foo", reason="outdated")
+    await server._revalidate(page="concepts/foo", outcome="retire", rationale="superseded")
+    page_text = (tmp_path / "concepts" / "foo.md").read_text()
+    parsed = _frontmatter(page_text)
+    assert "flagged_reason" not in parsed
+    assert "flagged_at" not in parsed
+    # Retire-specific fields must still be present.
+    assert parsed["status"] == "stale"
+    assert parsed["retire_rationale"] == "superseded"
