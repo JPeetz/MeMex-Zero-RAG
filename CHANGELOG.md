@@ -10,8 +10,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **`wiki_flag` MCP tool** — quarantines a page (`status: quarantine`) with a caller-supplied reason and UTC timestamp. Refuses to flag pages written with `is_immutable: true`.
+- **`wiki_revalidate` MCP tool** — closes a revalidation cycle for a quarantined page with three outcomes: `confirm` (→ `active`, content unchanged), `update` (→ `active`, replaces body with `new_body` and optionally appends `new_sources` citations), `retire` (→ `stale`, clears flag metadata).
+- **`wiki_read_by_slug` MCP tool** — resolves a bare slug (no type prefix) by scanning `entities/`, `concepts/`, `sources/`, `synthesis/`. Returns `{"found": false}` when missing, or an `AmbiguousSlugError`-backed `{"ambiguous": true, "candidates": [...]}` payload when the slug exists in more than one type directory.
+- **Lifecycle fields on `wiki_write`** — `status` (`draft`\|`active`\|`stale`\|`quarantine`, defaults `active`), `source_reliability_index` (float `0.0`–`1.0`), and `is_immutable` (bool) are now accepted and persisted verbatim in frontmatter, giving plugins (e.g. `memex-hermes-plugin`) lossless round-tripping of `Fact` lifecycle state. Documented in `SCHEMA.md` under "Lifecycle Mapping (plugin ↔ backend)".
 - **`KNOWLEDGE-DECAY.md`** — restored schema-design draft for knowledge decay & permanence tier (originally landed via #6; lost from `main` during the `docs/superpowers/` credential-scrub history rewrite in `45fcc13` / `61b5046`).
 - **Cascade-clear worker spec** — new section in `KNOWLEDGE-DECAY.md` defining an orphaned-taint sweep. Closes #7. Covers tombstone check on `taint_origin_id`, auto-clear on retired/deleted parents, structured audit log, telemetry hook (`orphan_taints_cleared_last_run`), idempotency, and depth-1 scope inheritance.
+
+### Fixed
+
+- **`wiki_write` frontmatter serialization** — now uses `yaml.safe_dump` instead of manual f-string interpolation, closing an injection vector where untrusted `title`/`content` values could break out of frontmatter or inject arbitrary YAML keys.
+- **`wiki_flag` immutability guard** — added per `SCHEMA.md`'s `is_immutable` contract; flagging a locked page now raises instead of silently mutating it.
 
 ---
 

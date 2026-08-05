@@ -41,3 +41,10 @@ beautifulsoup4>=4.12.0
 lxml>=5.0.0
 # Or for better extraction:
 # trafilatura>=1.6.0
+
+# YAML frontmatter serialization (wiki_write)
+pyyaml>=6.0
+
+# Test dependencies
+pytest>=7.4.0
+pytest-asyncio>=0.23.0

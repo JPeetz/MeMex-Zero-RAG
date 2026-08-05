@@ -40,6 +40,28 @@ except ImportError:
     exit(1)
 
 
+class InvalidStateError(Exception):
+    """Raised when a lifecycle-transition tool is called against a page
+    whose current ``status`` doesn't permit that transition (e.g.
+    wiki_revalidate against a page that was never wiki_flag'd into
+    quarantine)."""
+
+
+class AmbiguousSlugError(Exception):
+    """Raised by wiki_read_by_slug when a bare slug matches pages in more
+    than one type directory (e.g. both concepts/marvin and
+    entities/marvin exist). Callers must disambiguate using wiki_read
+    with a full type-prefixed path instead."""
+
+    def __init__(self, slug: str, candidates: list):
+        self.slug = slug
+        self.candidates = candidates
+        super().__init__(
+            f"Ambiguous slug '{slug}': matches multiple pages: "
+            f"{', '.join(candidates)}. Use wiki_read with a full path instead."
+        )
+
+
 class MemexServer:
     """MCP server for Memex wiki operations."""
     
@@ -89,6 +111,20 @@ class MemexServer:
                             }
                         },
                         "required": ["path"]
+                    }
+                ),
+                Tool(
+                    name="wiki_read_by_slug",
+                    description="Read a wiki page by bare slug (no type prefix), searching entities/concepts/sources/synthesis for a match. Returns found=false if missing, or an error listing candidates if the slug is ambiguous across type dirs.",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "slug": {
+                                "type": "string",
+                                "description": "URL-safe page slug without type prefix or .md extension (e.g. 'zero-rag')"
+                            }
+                        },
+                        "required": ["slug"]
                     }
                 ),
                 Tool(
@@ -226,9 +262,78 @@ class MemexServer:
                                 "type": "boolean",
                                 "description": "Overwrite if page already exists (default false)",
                                 "default": False
+                            },
+                            "status": {
+                                "type": "string",
+                                "description": "Lifecycle status of this page. One of draft, active, stale, quarantine. Defaults to active.",
+                                "enum": ["draft", "active", "stale", "quarantine"],
+                                "default": "active"
+                            },
+                            "source_reliability_index": {
+                                "type": "number",
+                                "description": "Optional Source Reliability Index in [0.0, 1.0] describing how trustworthy this page's underlying sources are.",
+                                "minimum": 0.0,
+                                "maximum": 1.0
+                            },
+                            "is_immutable": {
+                                "type": "boolean",
+                                "description": "If true, this page represents a locked/immutable fact and downstream tools should refuse to mutate it.",
+                                "default": False
                             }
                         },
                         "required": ["type", "slug", "title", "content"]
+                    }
+                ),
+                Tool(
+                    name="wiki_flag",
+                    description="Mark a wiki page for revalidation. Sets status: quarantine and records a reason and timestamp.",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "page": {
+                                "type": "string",
+                                "description": "Page path relative to wiki/ without .md extension (e.g. 'concepts/foo')"
+                            },
+                            "reason": {
+                                "type": "string",
+                                "description": "Why the page needs revalidation"
+                            }
+                        },
+                        "required": ["page", "reason"]
+                    }
+                ),
+                Tool(
+                    name="wiki_revalidate",
+                    description="Complete a revalidation cycle for a quarantined page. Outcome: confirm (-> active), update (-> active with new content), or retire (-> stale).",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "page": {
+                                "type": "string",
+                                "description": "Page path relative to wiki/ without .md extension (e.g. 'concepts/foo')"
+                            },
+                            "outcome": {
+                                "type": "string",
+                                "description": "Revalidation outcome",
+                                "enum": ["confirm", "update", "retire"]
+                            },
+                            "new_body": {
+                                "type": "string",
+                                "description": "Replacement markdown body. Required when outcome=update."
+                            },
+                            "new_sources": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                                "description": "Optional list of new/updated [Source: ...] citations",
+                                "default": []
+                            },
+                            "rationale": {
+                                "type": "string",
+                                "description": "Why this outcome was chosen",
+                                "default": ""
+                            }
+                        },
+                        "required": ["page", "outcome"]
                     }
                 ),
                 Tool(
@@ -249,6 +354,20 @@ class MemexServer:
                     result = await self._search(arguments.get("query", ""), arguments.get("limit", 10))
                 elif name == "wiki_read":
                     result = await self._read(arguments.get("path", ""))
+                elif name == "wiki_read_by_slug":
+                    try:
+                        lookup = await self._read_by_slug(arguments.get("slug", ""))
+                    except AmbiguousSlugError as e:
+                        result = json.dumps({
+                            "found": False,
+                            "ambiguous": True,
+                            "candidates": e.candidates,
+                        })
+                    else:
+                        if lookup["found"]:
+                            result = lookup["content"]
+                        else:
+                            result = json.dumps({"found": False})
                 elif name == "wiki_list":
                     result = await self._list(arguments.get("type", "all"))
                 elif name == "wiki_query":
@@ -274,7 +393,23 @@ class MemexServer:
                         content=arguments.get("content", ""),
                         tags=arguments.get("tags", []),
                         agent=arguments.get("agent", "unknown"),
-                        overwrite=arguments.get("overwrite", False)
+                        overwrite=arguments.get("overwrite", False),
+                        status=arguments.get("status", "active"),
+                        source_reliability_index=arguments.get("source_reliability_index"),
+                        is_immutable=arguments.get("is_immutable", False),
+                    )
+                elif name == "wiki_flag":
+                    result = await self._flag(
+                        page=arguments.get("page", ""),
+                        reason=arguments.get("reason", ""),
+                    )
+                elif name == "wiki_revalidate":
+                    result = await self._revalidate(
+                        page=arguments.get("page", ""),
+                        outcome=arguments.get("outcome", ""),
+                        new_body=arguments.get("new_body"),
+                        new_sources=arguments.get("new_sources", []),
+                        rationale=arguments.get("rationale", ""),
                     )
                 else:
                     result = f"Unknown tool: {name}"
@@ -392,6 +527,49 @@ class MemexServer:
             return f"Page not found: {path}\n\nUse wiki_list to see available pages."
         
         return file_path.read_text(encoding="utf-8")
+
+    async def _read_by_slug(self, slug: str) -> dict:
+        """Find a page by bare slug across all type dirs and delegate to _read().
+
+        Returns a dict:
+          - {"found": False} when no page matches the slug
+          - {"found": True, "path": "<type>/<slug>", "content": "<full page text>"}
+            when exactly one page matches
+
+        Raises:
+          ValueError: if ``slug`` is empty or contains a '/' (i.e. is not a
+            bare slug — callers with a full path should use wiki_read instead).
+          AmbiguousSlugError: if the slug matches pages in more than one type
+            directory. The error carries ``candidates`` (list of "type/slug"
+            paths) for the caller to disambiguate with.
+        """
+        slug = slug.strip().strip("/")
+        if slug.endswith(".md"):
+            slug = slug[: -len(".md")]
+
+        if not slug:
+            raise ValueError("slug must not be empty")
+        if "/" in slug:
+            raise ValueError(
+                f"'{slug}' is not a bare slug (contains '/'); "
+                "use wiki_read with a full path instead"
+            )
+
+        candidates = []
+        for type_dir in ("entities", "concepts", "sources", "synthesis"):
+            candidate_path = self.wiki_path / type_dir / f"{slug}.md"
+            if candidate_path.exists():
+                candidates.append(f"{type_dir}/{slug}")
+
+        if not candidates:
+            return {"found": False}
+
+        if len(candidates) > 1:
+            raise AmbiguousSlugError(slug, candidates)
+
+        path = candidates[0]
+        content = await self._read(path)
+        return {"found": True, "path": path, "content": content}
     
     async def _list(self, page_type: str = "all") -> str:
         """List wiki pages."""
@@ -688,7 +866,10 @@ Run `wiki_lint` for detailed health check.
 
     
     async def _write(self, page_type: str, slug: str, title: str, content: str,
-                       tags: list = None, agent: str = "unknown", overwrite: bool = False) -> str:
+                       tags: list = None, agent: str = "unknown", overwrite: bool = False,
+                       status: str = "active",
+                       source_reliability_index: Optional[float] = None,
+                       is_immutable: bool = False) -> str:
         """Write a new wiki page and git commit with agent attribution."""
         import re as _re
         import subprocess
@@ -718,7 +899,7 @@ Run `wiki_lint` for detailed health check.
         EXEMPT_PAGES = {"index", "log", "contradictions"}
         EXEMPT_TYPES = {"sources"}
         if slug not in EXEMPT_PAGES and page_type not in EXEMPT_TYPES:
-            if "[Source:" not in content_str:
+            if "[Source:" not in content:
                 return "❌ Rejected: page has no [Source: ...] citation. Every wiki page must cite at least one source (e.g., [Source: raw/article.md])."
 
         # Bug fix: use explicit type map instead of naive trailing-s strip
@@ -730,16 +911,58 @@ Run `wiki_lint` for detailed health check.
         }
         type_singular = TYPE_SINGULAR.get(page_type, page_type)
 
-        tags_yaml = json.dumps(tags or [])
         today = date.today().isoformat()
-        frontmatter = f"""---
-title: {title}
-type: {type_singular}
-tags: {tags_yaml}
-created: {today}
-author: {agent}
----
-"""
+
+        # Lifecycle fields (plugin-compat vocabulary).
+        # `status` always emitted; `source_reliability_index` and
+        # `is_immutable` are only emitted when non-default so we don't
+        # bloat frontmatter on legacy pages.
+        allowed_status = {"draft", "active", "stale", "quarantine"}
+        if status not in allowed_status:
+            return (
+                f"Error: invalid status '{status}'. Must be one of "
+                f"{sorted(allowed_status)}."
+            )
+
+        sri_val = None
+        if source_reliability_index is not None:
+            try:
+                sri_val = float(source_reliability_index)
+            except (TypeError, ValueError):
+                return (
+                    "Error: source_reliability_index must be a number in "
+                    "[0.0, 1.0]."
+                )
+            if not (0.0 <= sri_val <= 1.0):
+                return (
+                    "Error: source_reliability_index must be in [0.0, 1.0]."
+                )
+
+        # Build frontmatter as a dict and serialize with yaml.safe_dump()
+        # rather than f-string interpolation. `title` and `agent` are
+        # user-supplied strings and could otherwise inject arbitrary
+        # frontmatter keys (e.g. an embedded newline forging
+        # "is_immutable: true"). safe_dump correctly quotes/escapes any
+        # value containing YAML-significant characters.
+        import yaml as _yaml
+
+        frontmatter_dict = {
+            "title": title,
+            "type": type_singular,
+            "tags": tags or [],
+            "created": today,
+            "author": agent,
+            "status": status,
+        }
+        if sri_val is not None:
+            frontmatter_dict["source_reliability_index"] = sri_val
+        if is_immutable:
+            frontmatter_dict["is_immutable"] = True
+
+        frontmatter_yaml = _yaml.safe_dump(
+            frontmatter_dict, default_flow_style=False, sort_keys=False
+        )
+        frontmatter = f"---\n{frontmatter_yaml}---\n"
         dest.write_text(frontmatter + "\n" + content, encoding="utf-8")
 
         # Git commit — parse SHA from 'git rev-parse HEAD' for reliability
@@ -784,6 +1007,189 @@ author: {agent}
                 return f"⚠️ Written to disk but git commit failed: {result.stderr.strip()}. Run 'git commit' manually."
         except Exception as e:
             return f"✅ Written: {page_type}/{slug}.md (git error: {e})"
+
+    async def _flag(self, page: str, reason: str) -> str:
+        """Mark a wiki page for revalidation: status -> quarantine, with reason + timestamp.
+
+        Frontmatter is read with yaml.safe_load, mutated as a dict, and
+        rewritten with yaml.safe_dump — never via string/regex surgery —
+        so we can't corrupt or become vulnerable to injection through
+        existing frontmatter values (mirrors the _write() hardening).
+        """
+        import re as _re
+        import subprocess
+        import yaml as _yaml
+        from datetime import datetime, timezone
+
+        if not page:
+            raise ValueError("page is required")
+        if not reason:
+            raise ValueError("reason is required")
+
+        page = page.strip("/")
+        if page.endswith(".md"):
+            page = page[:-3]
+        page_path = self.wiki_path / f"{page}.md"
+
+        if not page_path.exists():
+            raise FileNotFoundError(f"Page not found: {page}")
+
+        raw = page_path.read_text(encoding="utf-8")
+        fm_match = _re.match(r"^---\n(.*?)\n---\n(.*)$", raw, _re.DOTALL)
+        if not fm_match:
+            raise ValueError(f"Page {page} has no valid YAML frontmatter block")
+
+        frontmatter_dict = _yaml.safe_load(fm_match.group(1)) or {}
+        body = fm_match.group(2)
+
+        # SCHEMA.md §Lifecycle Mapping: is_immutable=true pages are the
+        # backend-side lock corresponding to the plugin's locked-fact
+        # semantics; wiki_flag (and any other edit tool) MUST refuse to
+        # mutate them rather than silently quarantining a locked fact.
+        if frontmatter_dict.get("is_immutable") is True:
+            raise PermissionError(
+                f"Page {page} is immutable (is_immutable: true); refusing to flag it."
+            )
+
+        frontmatter_dict["status"] = "quarantine"
+        frontmatter_dict["flagged_reason"] = reason
+        frontmatter_dict["flagged_at"] = (
+            datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+        )
+
+        frontmatter_yaml = _yaml.safe_dump(
+            frontmatter_dict, default_flow_style=False, sort_keys=False
+        )
+        page_path.write_text(f"---\n{frontmatter_yaml}---\n{body}", encoding="utf-8")
+
+        # Git commit — best-effort, mirrors _write()'s non-fatal handling.
+        try:
+            subprocess.run(
+                ["git", "add", str(page_path)],
+                cwd=str(self.wiki_path.parent), check=True, capture_output=True,
+            )
+            subprocess.run(
+                ["git", "commit", "-m", f"flag: {page} ({reason})"],
+                cwd=str(self.wiki_path.parent), capture_output=True, text=True,
+            )
+        except Exception:
+            pass  # non-fatal; page is already written to disk
+
+        return json.dumps({"page": page, "status": "quarantine", "reason": reason})
+
+    async def _revalidate(
+        self,
+        page: str,
+        outcome: str,
+        new_body: Optional[str] = None,
+        new_sources: Optional[list] = None,
+        rationale: str = "",
+    ) -> str:
+        """Complete a revalidation cycle for a quarantined page.
+
+        outcome=confirm: status -> active, flag fields cleared.
+        outcome=update:  body replaced with new_body, status -> active,
+                          flag fields cleared.
+        outcome=retire:  status -> stale, retired_at + retire_rationale
+                          recorded.
+
+        Frontmatter is read with yaml.safe_load, mutated as a dict, and
+        rewritten with yaml.safe_dump — never via string/regex surgery —
+        mirroring _write() and _flag()'s injection-hardening.
+        """
+        import re as _re
+        import subprocess
+        import yaml as _yaml
+        from datetime import datetime, timezone
+
+        if not page:
+            raise ValueError("page is required")
+        if not outcome:
+            raise ValueError("outcome is required")
+
+        page = page.strip("/")
+        if page.endswith(".md"):
+            page = page[:-3]
+        page_path = self.wiki_path / f"{page}.md"
+
+        if not page_path.exists():
+            raise FileNotFoundError(f"Page not found: {page}")
+
+        raw_text = page_path.read_text(encoding="utf-8")
+        fm_match = _re.match(r"^---\n(.*?)\n---\n(.*)$", raw_text, _re.DOTALL)
+        if not fm_match:
+            raise ValueError(f"Page {page} has no valid YAML frontmatter block")
+
+        frontmatter_dict = _yaml.safe_load(fm_match.group(1)) or {}
+        body_str = fm_match.group(2)
+
+        # SCHEMA.md §Lifecycle Mapping: is_immutable=true pages MUST NOT be
+        # mutated by wiki_revalidate. Checked before the quarantine-state
+        # guard so a locked fact can never be confirmed/updated/retired
+        # even if it somehow ended up with status: quarantine.
+        if frontmatter_dict.get("is_immutable") is True:
+            raise PermissionError(
+                f"Page {page} is immutable (is_immutable: true); refusing to revalidate it."
+            )
+
+        current_status = frontmatter_dict.get("status")
+        if current_status != "quarantine":
+            raise InvalidStateError(
+                f"Page {page} has status={current_status!r}; can only "
+                f"revalidate pages with status='quarantine' (flag it first)."
+            )
+
+        if outcome == "confirm":
+            frontmatter_dict["status"] = "active"
+            frontmatter_dict.pop("flagged_reason", None)
+            frontmatter_dict.pop("flagged_at", None)
+        elif outcome == "update":
+            if not new_body:
+                raise ValueError("outcome='update' requires new_body")
+            body_str = f"\n{new_body}"
+            frontmatter_dict["status"] = "active"
+            frontmatter_dict.pop("flagged_reason", None)
+            frontmatter_dict.pop("flagged_at", None)
+        elif outcome == "retire":
+            frontmatter_dict["status"] = "stale"
+            frontmatter_dict["retired_at"] = (
+                datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+            )
+            frontmatter_dict["retire_rationale"] = rationale
+            # A3.5 fix: retire must clear the flag lifecycle fields too,
+            # for consistency with confirm/update — the flag has been
+            # resolved (by retirement) either way.
+            frontmatter_dict.pop("flagged_reason", None)
+            frontmatter_dict.pop("flagged_at", None)
+        else:
+            raise ValueError(f"unknown outcome: {outcome!r}; must be one of confirm, update, retire")
+
+        # A3.5 fix: new_sources was accepted but never wired up — append
+        # the citations as a new [Source: ...] line on the body so they
+        # actually land on disk (mirrors _write()'s citation format).
+        if new_sources:
+            citation_line = f"\n\n[Source: {', '.join(new_sources)}]"
+            body_str = f"{body_str}{citation_line}"
+
+        frontmatter_yaml = _yaml.safe_dump(
+            frontmatter_dict, default_flow_style=False, sort_keys=False
+        )
+        page_path.write_text(f"---\n{frontmatter_yaml}---\n{body_str.lstrip(chr(10)) if outcome == 'update' else body_str}", encoding="utf-8")
+
+        # Git commit — best-effort, mirrors _write()/_flag()'s non-fatal handling.
+        try:
+            subprocess.run(
+                ["git", "add", str(page_path)],
+                cwd=str(self.wiki_path.parent), check=True, capture_output=True,
+            )
+            subprocess.run(
+                ["git", "commit", "-m", f"revalidate({outcome}): {page}"],
+                cwd=str(self.wiki_path.parent), capture_output=True, text=True,
+            )
+        except Exception:
+            pass  # non-fatal; page is already written to disk
+
+        return json.dumps({"page": page, "outcome": outcome, "rationale": rationale})
 
     async def run(self, transport: str = "stdio", port: int = 3001):
         """Start the MCP server."""
