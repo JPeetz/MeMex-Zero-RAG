@@ -9,3 +9,4 @@ __pycache__/
 # L1 private context (users copy .example to .md)
 L1/*.md
 !L1/*.example
+.ua/
