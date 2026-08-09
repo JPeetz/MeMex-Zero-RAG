@@ -1,3 +1,11 @@
 # Local build artifacts
 .memex/search.db
 graph/data.json
+
+# Python cache
+__pycache__/
+*.pyc
+
+# L1 private context (users copy .example to .md)
+L1/*.md
+!L1/*.example

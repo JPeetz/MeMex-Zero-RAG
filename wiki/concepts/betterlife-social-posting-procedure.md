@@ -69,6 +69,12 @@ OAuth 1.0a required. Upload media to `upload.twitter.com/1.1/media/upload.json`,
 
 Reference implementation: `scripts/x-post.py`
 
+**Blog-announcement mode (nightly pipeline):** use `scripts/bl_blog_tweet.py` — posts a
+wellness-toned announcement tweet (title + link + #BetterLife #Wellness) on @BetterLifeatjl,
+attaching the watermarked blog header image (unified watermark composited first, per Board
+mandate). Runs via OAuth 1.0a / tweepy (4.16 on /usr/local/bin/python3). Interpreter note: the
+hermes venv has a broken PIL — run with `env -u PYTHONPATH /usr/local/bin/python3`.
+
 ## Platform Accounts
 
 | Platform | ID | Username |

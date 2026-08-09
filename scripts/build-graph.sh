@@ -46,11 +46,11 @@ while IFS= read -r -d '' file; do
     # Add node
     node_lines+=("    { \"id\": \"$base_name\", \"label\": \"$label\", \"type\": \"$node_type\" }")
     
-    # Extract wikilinks and create edges
+    # Extract wikilinks and create edges (BSD grep has no -P; use -oE)
     while IFS= read -r link; do
         [ -z "$link" ] && continue
         edge_lines+=("    { \"from\": \"$base_name\", \"to\": \"$link\" }")
-    done < <(grep -oP '\[\[\K[^\]|]+' "$file" 2>/dev/null | sort -u)
+    done < <(grep -oE '\[\[[^]|]+' "$file" 2>/dev/null | sed -E 's/^\[\[//' | sort -u)
     
 done < <(find "$WIKI_DIR" -name "*.md" -type f -print0 2>/dev/null | sort -z)
 
