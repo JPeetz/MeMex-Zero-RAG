@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Memory Type Taxonomy** — optional `memory_type` frontmatter field (`episodic` / `semantic` / `procedural`) plus a dedicated `SCHEMA.md` section and `examples/wiki/synthesis/memory-type-example.md`. Forward-only, non-destructive: existing pages are never retro-edited or down-ranked; retrieval guarantees untagged content stays fully queryable and equally weighted.
 - **`wiki_flag` MCP tool** — quarantines a page (`status: quarantine`) with a caller-supplied reason and UTC timestamp. Refuses to flag pages written with `is_immutable: true`.
 - **`wiki_revalidate` MCP tool** — closes a revalidation cycle for a quarantined page with three outcomes: `confirm` (→ `active`, content unchanged), `update` (→ `active`, replaces body with `new_body` and optionally appends `new_sources` citations), `retire` (→ `stale`, clears flag metadata).
 - **`wiki_read_by_slug` MCP tool** — resolves a bare slug (no type prefix) by scanning `entities/`, `concepts/`, `sources/`, `synthesis/`. Returns `{"found": false}` when missing, or an `AmbiguousSlugError`-backed `{"ambiguous": true, "candidates": [...]}` payload when the slug exists in more than one type directory.

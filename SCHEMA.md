@@ -60,6 +60,7 @@ Every wiki page starts with YAML frontmatter:
 ---
 title: Page Title
 type: source | entity | concept | synthesis
+memory_type: episodic | semantic | procedural   # OPTIONAL memory taxonomy (see below)
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 status: draft | active | stale | quarantine
@@ -97,6 +98,50 @@ The [[redis]] caching layer connects to [[project-alpha]].
 ```
 
 Page names should be lowercase-kebab-case: `my-concept-name.md`
+
+---
+
+## Memory Type Taxonomy (`memory_type`)
+
+Wiki pages may be tagged with a **memory type** so the structure clearly separates *what happened*, *what is known*, and *how to do things*. This is an **optional, forward-looking** label — applying it to new pages does NOT restructure or downgrade existing content.
+
+### The three memory types
+
+| `memory_type` | Meaning | Best for | Example pages |
+|---|---|---|---|
+| `episodic` | **What happened**, when, why | Events, outcomes, incidents, decisions, logs | `posts-2026-08-11.md`, `mastodon-appeal-2026-08-15.md` |
+| `semantic` | **What is known** — concepts, entities, relations | General knowledge, entities, relationships | `concepts/*`, `entities/*`, a concept page |
+| `procedural` | **How to do it** — playbooks, workflows, heuristics | Methods, SOPs, protocols, skills | `review-protocol.md`, a workflow/playbook page |
+
+### How to classify a page
+
+- **Episodic** — it records a specific event or outcome with a time ("the migration happened in Q1", "Tip Tuesday was published on 2026-08-11").
+- **Semantic** — it states durable facts/concepts true over time ("Redis is used for session caching").
+- **Procedural** — it describes a repeatable method ("To ingest a source: …", "Follow this review protocol").
+
+When a page could fit more than one, pick the **dominant** one and note the overlap in `tags`.
+
+### Use in frontmatter
+
+```yaml
+---
+title: BetterLife Posts — 2026-08-11
+type: synthesis
+memory_type: episodic
+created: 2026-08-11
+---
+```
+
+### Retrieval guard (IMPORTANT — never forget older, untagged memory)
+
+`memory_type` is a **helpful label, not a filter**. Existing pages that predate the taxonomy and lack a `memory_type` tag remain **fully queryable and equally weighted**. Rules:
+
+1. **Never exclude or down-rank a page because it lacks `memory_type`.**
+2. `memory_type` is used for **categorization and selection**, never to privilege newer tagged entries over older untagged ones.
+3. When no `memory_type` is set, classify on the fly from content — but do not re-write the file to "add" the tag unless explicitly asked.
+4. Applying `memory_type` to a page is **optional** and should be done at creation time; retro-fitting is allowed but never required.
+
+This keeps the taxonomy a **clarity aid** and guarantees adopting it forward-only cannot cause older memories to be forgotten or deprioritized.
 
 ---
 

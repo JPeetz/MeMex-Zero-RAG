@@ -73,6 +73,7 @@ flowchart LR
 | **Git-native** | Full version history, branching, rollback. Multi-agent via worktrees |
 | **Zero hallucination** | Every claim cites a source. Unsourced = error. Lint enforces this on every PR |
 | **Human-in-the-loop** | Conflicting sources get flagged and paused — you decide truth, not the LLM |
+| **Memory taxonomy** | Optional `memory_type` labels (episodic/semantic/procedural) clarify how knowledge is used. Forward-only, never retro-downgrades. See [SCHEMA.md](SCHEMA.md#memory-type-taxonomy-memory_type) |
 
 ## Quick Start
 
