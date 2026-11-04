@@ -5,7 +5,7 @@ Search-backend abstraction for Memex.
 Markdown + git remain the single source of truth for every wiki page. The
 search layer is a selectable SQL engine built by indexing that markdown:
   - "sqlite"   -> SQLite FTS5 + BLOB embeddings (local, memex_mcp/search.py)
-  - "postgres" -> PostgreSQL + pgvector (enterprise, mcp/pg_backend.py)
+  - "postgres" -> PostgreSQL + pgvector (enterprise, memex_mcp/pg_backend.py)
 
 This lets the CLI `--search-backend` flag actually select an engine and keeps
 the zero-RAG wiki workflow unchanged — SQL accelerates search, it never owns

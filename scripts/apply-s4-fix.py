@@ -97,7 +97,7 @@ with open(server_path, "w") as f:
 # ============================================================
 # 2. SEARCH.PY — Add graceful ImportError for sentence-transformers
 # ============================================================
-search_path = "mcp/search.py"
+search_path = "memex_mcp/search.py"
 with open(search_path) as f:
     search_content = f.read()
 

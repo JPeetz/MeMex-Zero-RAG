@@ -269,7 +269,7 @@ Markdown + git **remain the single source of truth**. The search layer is a sele
 | Backend | Engine | When to use |
 |---------|--------|-------------|
 | `sqlite` (**default**) | SQLite FTS5 + BLOB embeddings (local) | Single machine, zero setup — `.memex/search.db` |
-| `postgres` | PostgreSQL + pgvector (`memex_mcp/pg_backend.py`) | Enterprise / multi-agent, relational + vector queries |
+| `postgres` | PostgreSQL + pgvector (`memex_memex_mcp/pg_backend.py`) | Enterprise / multi-agent, relational + vector queries |
 | `supabase` | Supabase (Postgres under the hood) | Managed cloud Postgres |
 
 ### SQLite (default, zero config)
@@ -288,7 +288,7 @@ python memex_mcp/server.py --wiki wiki/ --search-backend postgres \
   --pg-dsn "postgresql://user:pass@host:5432/memex"
 ```
 
-Schema (auto-created by `memex_mcp/pg_backend.py`): a `mcp_pages` table with a
+Schema (auto-created by `memex_memex_mcp/pg_backend.py`): a `mcp_pages` table with a
 tsvector column (keyword rank) + a `vector` embedding column with an HNSW index
 (semantic). Hybrid score = `bm25_weight × keyword + semantic_weight × cosine`.
 
