@@ -98,6 +98,22 @@ Agent B (reader) ──┘
 Agent C (reader) ──┘
 ```
 
+## Open Knowledge Format (OKF) export
+
+MeMex ships an **OKF v0.2 exporter** so any OKF-aware agent or tool can read your
+knowledge — interop without migrating your canonical store (which stays markdown
++ git, independent).
+
+```bash
+python memex_mcp/okf_export.py --wiki wiki --out /tmp/okf-bundle
+```
+
+- Emits a conformant OKF bundle: every page has frontmatter + a non-empty `type`,
+  `[Source: X]` citations become OKF `sources`, `status: active` → `verified`,
+  §8 grouped `index.md` + §9 `log.md`, and the root index declares `okf_version: "0.2"`.
+- **Private content is excluded by default** (`agentforge/`, `L1/`, `raw/`, etc.) —
+  an OKF bundle contains only clean, shareable knowledge. Override with `--exclude`.
+
 ## Search Backends
 
 Markdown + git remain the single source of truth for every wiki page. The search
