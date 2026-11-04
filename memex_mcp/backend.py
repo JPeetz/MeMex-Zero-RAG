@@ -4,7 +4,7 @@ Search-backend abstraction for Memex.
 
 Markdown + git remain the single source of truth for every wiki page. The
 search layer is a selectable SQL engine built by indexing that markdown:
-  - "sqlite"   -> SQLite FTS5 + BLOB embeddings (local, mcp/search.py)
+  - "sqlite"   -> SQLite FTS5 + BLOB embeddings (local, memex_mcp/search.py)
   - "postgres" -> PostgreSQL + pgvector (enterprise, mcp/pg_backend.py)
 
 This lets the CLI `--search-backend` flag actually select an engine and keeps
@@ -54,7 +54,7 @@ def get_backend(name: str, wiki_path: str,
     warning string so the server can log the degradation instead of dying.
     """
     if name == "sqlite":
-        from mcp.search import HybridSearch
+        from memex_mcp.search import HybridSearch
         return HybridSearch(wiki_path=wiki_path), None
 
     if name in ("postgres", "supabase"):
@@ -66,7 +66,7 @@ def get_backend(name: str, wiki_path: str,
                 f"installed; fell back to sqlite. Install: pip install "
                 f"'psycopg[binary]' ({exc})"
             )
-        from mcp.pg_backend import PostgresSearchEngine
+        from memex_mcp.pg_backend import PostgresSearchEngine
         dsn = kwargs.get("pg_dsn") or kwargs.get("supabase_url")
         if not dsn:
             return _sqlite_fallback(wiki_path), (
@@ -90,5 +90,5 @@ def get_backend(name: str, wiki_path: str,
 
 
 def _sqlite_fallback(wiki_path: str) -> SearchEngine:
-    from mcp.search import HybridSearch
+    from memex_mcp.search import HybridSearch
     return HybridSearch(wiki_path=wiki_path)

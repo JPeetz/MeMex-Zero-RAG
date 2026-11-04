@@ -107,25 +107,25 @@ search fast and queryable, it never owns the knowledge.
 | Backend | Engine | When to use |
 |---------|--------|-------------|
 | `sqlite` (default) | SQLite FTS5 + BLOB embeddings (local) | Single machine, zero setup — `.memex/search.db` |
-| `postgres` | PostgreSQL + pgvector (`mcp/pg_backend.py`) | Enterprise / multi-agent, relational + vector queries |
+| `postgres` | PostgreSQL + pgvector (`memex_mcp/pg_backend.py`) | Enterprise / multi-agent, relational + vector queries |
 | `supabase` | Supabase (Postgres under the hood) | Managed cloud Postgres |
 
 ```bash
 # Local (default)
-python mcp/server.py --wiki wiki/ --search-backend sqlite
+python memex_mcp/server.py --wiki wiki/ --search-backend sqlite
 
 # Enterprise (needs Postgres + pgvector)
 pip install 'psycopg[binary]'
-python mcp/server.py --wiki wiki/ --search-backend postgres --pg-dsn "postgresql://user:pass@host:5432/memex"
+python memex_mcp/server.py --wiki wiki/ --search-backend postgres --pg-dsn "postgresql://user:pass@host:5432/memex"
 
 # Supabase (managed)
-python mcp/server.py --wiki wiki/ --search-backend supabase --supabase-url "postgresql://..." --supabase-key "..."
+python memex_mcp/server.py --wiki wiki/ --search-backend supabase --supabase-url "postgresql://..." --supabase-key "..."
 ```
 
 If a requested backend's dependency (e.g. `psycopg`) is missing or unreachable,
 the server degrades gracefully to the SQLite engine and logs a warning — it
-never crashes. Build/refresh the index with `python mcp/search.py -i` (SQLite)
-or `python mcp/pg_backend.py -i -d "<dsn>"` (Postgres), or let the server build
+never crashes. Build/refresh the index with `python memex_memex_mcp/search.py -i` (SQLite)
+or `python memex_memex_mcp/pg_backend.py -i -d "<dsn>"` (Postgres), or let the server build
 it lazily on first search.
 
 ## Available Tools

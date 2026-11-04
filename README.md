@@ -137,16 +137,16 @@ source .venv/bin/activate            # Windows: .venv\Scripts\activate
 pip install 'mcp>=0.9.0,<2.0'        # MCP SDK (version-pinned — v2 removed APIs this server uses)
 
 # Start in stdio mode (for Claude Code / local agents)
-python mcp/server.py --wiki wiki/
+python memex_mcp/server.py --wiki wiki/
 
 # SSE mode (for remote / multi-agent access)
 pip install uvicorn starlette sse-starlette
-python mcp/server.py --transport sse --port 3001 --wiki wiki/
+python memex_mcp/server.py --transport sse --port 3001 --wiki wiki/
 ```
 
 **First search autobuilds the SQLite index** (`.memex/search.db`) — no manual migration. Or pre-build it:
 ```bash
-python mcp/search.py -i --wiki wiki/
+python memex_mcp/search.py -i --wiki wiki/
 ```
 
 ---
@@ -230,7 +230,7 @@ When sources contradict each other:
 
 ## MCP Tools
 
-When running `python mcp/server.py`, your agent gets these tools:
+When running `python memex_mcp/server.py`, your agent gets these tools:
 
 | Tool | Description |
 |------|-------------|
@@ -269,33 +269,33 @@ Markdown + git **remain the single source of truth**. The search layer is a sele
 | Backend | Engine | When to use |
 |---------|--------|-------------|
 | `sqlite` (**default**) | SQLite FTS5 + BLOB embeddings (local) | Single machine, zero setup — `.memex/search.db` |
-| `postgres` | PostgreSQL + pgvector (`mcp/pg_backend.py`) | Enterprise / multi-agent, relational + vector queries |
+| `postgres` | PostgreSQL + pgvector (`memex_mcp/pg_backend.py`) | Enterprise / multi-agent, relational + vector queries |
 | `supabase` | Supabase (Postgres under the hood) | Managed cloud Postgres |
 
 ### SQLite (default, zero config)
 
 ```bash
-python mcp/server.py --wiki wiki/ --search-backend sqlite
+python memex_mcp/server.py --wiki wiki/ --search-backend sqlite
 # first search auto-builds .memex/search.db; or pre-build:
-python mcp/search.py -i --wiki wiki/
+python memex_mcp/search.py -i --wiki wiki/
 ```
 
 ### Postgres + pgvector (enterprise)
 
 ```bash
 pip install 'psycopg[binary]'     # optional dependency
-python mcp/server.py --wiki wiki/ --search-backend postgres \
+python memex_mcp/server.py --wiki wiki/ --search-backend postgres \
   --pg-dsn "postgresql://user:pass@host:5432/memex"
 ```
 
-Schema (auto-created by `mcp/pg_backend.py`): a `mcp_pages` table with a
+Schema (auto-created by `memex_mcp/pg_backend.py`): a `mcp_pages` table with a
 tsvector column (keyword rank) + a `vector` embedding column with an HNSW index
 (semantic). Hybrid score = `bm25_weight × keyword + semantic_weight × cosine`.
 
 ### Supabase (managed Postgres)
 
 ```bash
-python mcp/server.py --wiki wiki/ --search-backend supabase \
+python memex_mcp/server.py --wiki wiki/ --search-backend supabase \
   --supabase-url "postgresql://..." --supabase-key "..."
 ```
 
@@ -303,7 +303,7 @@ python mcp/server.py --wiki wiki/ --search-backend supabase \
 
 - `--search-backend` selects the engine; `--pg-dsn` / `--supabase-url` / `--supabase-key` configure it.
 - If a requested backend's dependency is missing (`psycopg`) or unreachable, the server **degrades gracefully to SQLite** and logs a warning — it never crashes.
-- Pre-build/refresh the Postgres index: `python mcp/pg_backend.py -i -d "<dsn>" --wiki wiki/`.
+- Pre-build/refresh the Postgres index: `python memex_memex_mcp/pg_backend.py -i -d "<dsn>" --wiki wiki/`.
 
 > **Design note.** This is the same schema pattern used by the OpenText AgentOps *Learning Engineer* platform (`learning-store.sql`): one SQL knowledge-store pattern, portable across projects.
 
@@ -327,7 +327,7 @@ python mcp/server.py --wiki wiki/ --search-backend supabase \
 
 Or via CLI:
 ```bash
-claude mcp add --scope project memex -- python3 mcp/server.py --wiki wiki/
+claude mcp add --scope project memex -- python3 memex_mcp/server.py --wiki wiki/
 ```
 
 ### OpenClaw
@@ -336,7 +336,7 @@ claude mcp add --scope project memex -- python3 mcp/server.py --wiki wiki/
 {
   "plugins": {
     "mcp": {
-      "servers": [{ "name": "memex", "transport": "stdio", "command": "python3 mcp/server.py --wiki wiki/" }]
+      "servers": [{ "name": "memex", "transport": "stdio", "command": "python3 memex_mcp/server.py --wiki wiki/" }]
     }
   }
 }
@@ -359,7 +359,7 @@ claude mcp add --scope project memex -- python3 mcp/server.py --wiki wiki/
 Optional interactive force-directed graph of every [[wikilink]]:
 
 ```bash
-python3 mcp/server.py --enable-graph --wiki wiki/
+python3 memex_mcp/server.py --enable-graph --wiki wiki/
 ```
 
 - `wiki_graph` MCP tool builds `graph/graph.html` — open in any browser (dark theme, vis-network).
@@ -441,7 +441,7 @@ resolution, frontmatter injection, SQL backend factory, and MCP tool registratio
 | [Obsidian](https://obsidian.md) | Graph view, backlinks, visual navigation | From day one |
 | [qmd](https://github.com/tobi/qmd) | Local hybrid search | 100+ pages |
 | [Marp](https://marp.app) | Slide decks from wiki content | When presenting |
-| [Batch API](mcp/batch.py) | ~50% cost reduction for bulk ingests | Large ingest sessions |
+| [Batch API](memex_mcp/batch.py) | ~50% cost reduction for bulk ingests | Large ingest sessions |
 
 ---
 
@@ -457,7 +457,7 @@ resolution, frontmatter injection, SQL backend factory, and MCP tool registratio
 | LLM isn't citing sources | Reinforce: "every factual claim MUST have [Source: path]. No exceptions." |
 | Pages not cross-referenced | Ask explicitly to add [[wikilinks]] both directions |
 | L1 accidentally committed | `git filter-branch` to purge, then rotate any keys that were in it (see GUIDE.md) |
-| `import mcp` inside repo root is ambiguous | The local `mcp/` dir shadows the installed SDK only when *you* `import mcp` from repo root. Run the server as `python mcp/server.py` (works) or from a neutral cwd |
+| `import mcp` inside repo root is ambiguous | The local `mcp/` dir shadows the installed SDK only when *you* `import mcp` from repo root. Run the server as `python memex_mcp/server.py` (works) or from a neutral cwd |
 | Wiki search returns substring-only | Dense embeddings need `sentence-transformers`/`fastembed`; without them it's FTS5/keyword (still works) |
 
 ---

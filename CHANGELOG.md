@@ -68,21 +68,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-- **Hybrid Search** (`mcp/search.py`)
+- **Hybrid Search** (`memex_mcp/search.py`)
   - BM25 keyword search via SQLite FTS5
   - Semantic search via sentence-transformers or fastembed
   - Configurable weighting (default: 40% BM25, 60% semantic)
   - Incremental indexing (only re-index changed files)
-  - CLI: `python mcp/search.py --index && python mcp/search.py "query"`
+  - CLI: `python memex_mcp/search.py --index && python memex_mcp/search.py "query"`
 
-- **Confidence Scoring** (`mcp/confidence.py`)
+- **Confidence Scoring** (`memex_mcp/confidence.py`)
   - Track claim certainty (high/medium/low/uncertain)
   - Source count analysis
   - Contradiction detection across pages
   - Staleness tracking (pages not verified in 90+ days)
-  - Generate confidence reports: `python mcp/confidence.py --report`
+  - Generate confidence reports: `python memex_mcp/confidence.py --report`
 
-- **Batch API** (`mcp/batch.py`)
+- **Batch API** (`memex_mcp/batch.py`)
   - 50% cost reduction via Anthropic/OpenAI batch APIs
   - Bulk source ingestion
   - Queue, submit, poll, and retrieve results
@@ -133,7 +133,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-- **MCP Server** (`mcp/server.py`)
+- **MCP Server** (`memex_mcp/server.py`)
   - 8 tools: search, read, list, query, ingest, lint, graph, stats
   - stdio transport for Claude Code integration
   - Full wiki operations via MCP protocol
@@ -158,11 +158,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-- **SSE Transport** (`mcp/server.py`)
+- **SSE Transport** (`memex_mcp/server.py`)
   - Implements `SseServerTransport` from the MCP Python SDK
   - Starlette + uvicorn server, SSE endpoint at `/sse`, POST handler at `/messages/`
   - Lazy imports: uvicorn/starlette only loaded when `--transport sse` is used; stdio users unaffected
-  - Deploy: `python mcp/server.py --transport sse --port 3001`
+  - Deploy: `python memex_mcp/server.py --transport sse --port 3001`
   - Expose via Tailscale Funnel or ngrok for cross-machine access
   - Enables **multi-agent shared wiki**: multiple AI agents (Hermes, OpenClaw, Claude Code) can connect to one hosted wiki instance
   - New deps: `uvicorn>=0.27.0`, `starlette>=0.36.0`, `sse-starlette>=1.8.0`

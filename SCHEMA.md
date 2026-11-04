@@ -416,7 +416,7 @@ in wiki pages. The graph is built as a standalone HTML file that opens in any br
 ### Enabling
 
 ```bash
-python3 mcp/server.py --enable-graph
+python3 memex_mcp/server.py --enable-graph
 ```
 
 The `wiki_graph` MCP tool is registered only when `--enable-graph` is passed.

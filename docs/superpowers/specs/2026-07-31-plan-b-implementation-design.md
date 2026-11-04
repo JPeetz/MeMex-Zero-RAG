@@ -8,7 +8,7 @@
 
 The [Agent Memory Atlas](https://neoneye.github.io/agent-memory-atlas/systems/memex-zero-rag/) reviewed MeMex Zero-RAG at commit `e2a1ec7`. Key finding: "Every gap is the same gap — an invariant expressed as a sentence to a model rather than a check in a code path."
 
-Three of four advertised features had no code enforcement. Search was unranked substring matching that degrades as the wiki grows. A hybrid BM25+dense searcher existed in `mcp/search.py` (505 lines, complete) but was never imported by `mcp/server.py`.
+Three of four advertised features had no code enforcement. Search was unranked substring matching that degrades as the wiki grows. A hybrid BM25+dense searcher existed in `memex_mcp/search.py` (505 lines, complete) but was never imported by `memex_mcp/server.py`.
 
 ## Section 1: L1/ Credentials Security Fix
 
@@ -66,7 +66,7 @@ return f"⚠️ Written to disk but git commit failed: {result.stderr.strip()}. 
 ### Problem
 `_search` in `server.py` is 15 lines of unranked substring matching. Results arrive in `Path.rglob` order, with an early break at `limit`. As the wiki grows, recall degrades — the opposite of "knowledge compounds."
 
-`mcp/search.py` (505 lines) contains a complete hybrid BM25 + dense embedding searcher with cosine similarity over BAAI/bge-small-en-v1.5. It is documented, working, and never imported.
+`memex_mcp/search.py` (505 lines) contains a complete hybrid BM25 + dense embedding searcher with cosine similarity over BAAI/bge-small-en-v1.5. It is documented, working, and never imported.
 
 ### Design
 
@@ -86,7 +86,7 @@ Tier 2 (substring): Current _search implementation
 
 **Changes:**
 - `server.py:_search`: lazy import `HybridSearcher`, two-tier dispatch, ~15 lines
-- `mcp/search.py`: graceful ImportError on missing `sentence-transformers`, accept `wiki_dir` param, ~5 lines
+- `memex_mcp/search.py`: graceful ImportError on missing `sentence-transformers`, accept `wiki_dir` param, ~5 lines
 
 ### Impact
 ~20 lines total. Search goes from "first 10 hits in directory order" to "BM25 + semantic ranked" when embeddings are available.

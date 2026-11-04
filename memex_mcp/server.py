@@ -30,13 +30,28 @@ import sys
 from pathlib import Path
 from typing import Optional
 
+# ── Path bootstrap: make this package importable regardless of how it's run. ──
+# - `python memex_mcp/server.py`  → script dir (memex_mcp/) on path, repo root NOT.
+# - `python -m memex_mcp.server`   → repo root on path.
+# We need BOTH repo root (for `memex_mcp.backend`) AND site-packages (for the
+# SDK `mcp.*`). Because the repo's package is named `memex_mcp` (NOT `mcp`), it
+# can never shadow the official `mcp` SDK package — this is what makes the server
+# work in any environment / cwd. Ensure repo root is first, then the SDK resolves.
+_THIS = Path(__file__).resolve()
+_REPO_ROOT = _THIS.parent.parent
+_THIS_DIR = _THIS.parent
+# Always ensure repo root (parent of memex_mcp/) is importable in-place.
+for _p in (str(_REPO_ROOT), str(_THIS_DIR)):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
 try:
     from mcp.server import Server
     from mcp.server.stdio import stdio_server
     from mcp.server.sse import SseServerTransport
     from mcp.types import Tool, TextContent
 except ImportError:
-    print("MCP package not installed. Run: pip install mcp")
+    print("MCP package not installed. Run: pip install 'mcp>=0.9.0,<2.0'")
     exit(1)
 
 
@@ -432,7 +447,7 @@ class MemexServer:
         # Tier 1: Try the configured SQL search backend (markdown stays the source
         # of truth; the backend is a queryable index). Degrades to substring below.
         if not hasattr(self, '_search_backend_engine'):
-            from mcp.backend import get_backend
+            from memex_mcp.backend import get_backend
             engine, warn = get_backend(
                 self.search_backend, str(self.wiki_path),
                 pg_dsn=getattr(self, 'pg_dsn', ''),
@@ -474,8 +489,10 @@ class MemexServer:
                             if page_conf < min_conf_val:
                                 continue
                         snippet = content_raw[:300] + ("..." if len(content_raw) > 300 else "")
-                        results.append(
-                            f"## {path}\n**Score:** {score:.3f}\n\n{snippet}\n")
+                        results.append({
+                            "path": path,
+                            "snippet": f"[score: {score:.3f}] {snippet}",
+                        })
                     except Exception:
                         continue
                 results = results[:limit]
@@ -830,7 +847,7 @@ Run `wiki_lint` for detailed health check.
     async def _confidence(self, page: str = None) -> str:
         """Analyze wiki confidence: distribution, stale pages, contradictions."""
         try:
-            from mcp.confidence import ConfidenceTracker
+            from memex_mcp.confidence import ConfidenceTracker
             tracker = ConfidenceTracker(str(self.wiki_path))
             stats = tracker.get_stats()
 

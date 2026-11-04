@@ -53,7 +53,7 @@ confidence_method = '''
     async def _confidence(self, page: str = None) -> str:
         """Analyze wiki confidence: distribution, stale pages, contradictions."""
         try:
-            from mcp.confidence import ConfidenceAnalyzer
+            from memex_mcp.confidence import ConfidenceAnalyzer
             analyzer = ConfidenceAnalyzer(str(self.wiki_path))
             stats = analyzer.analyze()
 

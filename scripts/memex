@@ -157,14 +157,14 @@ def cmd_search(args):
 def cmd_lint(args):
     """Check wiki health."""
     # Import and run lint from MCP server
-    mcp_path = SCRIPTS_DIR.parent / "mcp" / "server.py"
+    mcp_path = SCRIPTS_DIR.parent / "memex_mcp" / "server.py"
     if not mcp_path.exists():
         print("❌ MCP server not found")
         sys.exit(1)
     
     # Quick inline implementation
     import asyncio
-    sys.path.insert(0, str(SCRIPTS_DIR.parent / "mcp"))
+    sys.path.insert(0, str(SCRIPTS_DIR.parent / "memex_mcp"))
     from server import MemexServer
     
     server = MemexServer()
@@ -185,7 +185,7 @@ def cmd_serve(args):
     if args.port:
         extra.extend(["--port", str(args.port)])
     
-    subprocess.run([sys.executable, str(SCRIPTS_DIR.parent / "mcp" / "server.py")] + extra)
+    subprocess.run([sys.executable, str(SCRIPTS_DIR.parent / "memex_mcp" / "server.py")] + extra)
 
 
 def cmd_setup(args):
@@ -206,10 +206,10 @@ def cmd_setup(args):
     print("   pip install uvicorn starlette sse-starlette")
     print()
     print("5. Start the MCP server:")
-    print("   python mcp/server.py --wiki wiki/")
+    print("   python memex_mcp/server.py --wiki wiki/")
     print()
     print("6. Or use the Claude Code config (commit-safe, project-scoped):")
-    print("   claude mcp add --scope project memex -- python3 mcp/server.py --wiki wiki/")
+    print("   claude mcp add --scope project memex -- python3 memex_mcp/server.py --wiki wiki/")
 
 
 def main():
