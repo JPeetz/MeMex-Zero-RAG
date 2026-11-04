@@ -60,6 +60,11 @@ class SearchResult:
     combined_score: float
     page_type: str
 
+    @property
+    def score(self) -> float:
+        """Uniform alias so the server/backend layer can read .score on either engine."""
+        return self.combined_score
+
 
 class HybridSearch:
     """

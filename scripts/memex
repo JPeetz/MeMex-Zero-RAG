@@ -188,6 +188,30 @@ def cmd_serve(args):
     subprocess.run([sys.executable, str(SCRIPTS_DIR.parent / "mcp" / "server.py")] + extra)
 
 
+def cmd_setup(args):
+    """Print setup instructions."""
+    print("=== Memex Setup ===")
+    print()
+    print("1. Create a virtual environment:")
+    print("   python3 -m venv .venv")
+    print("   source .venv/bin/activate")
+    print()
+    print("2. Install core dependencies:")
+    print("   pip install 'mcp>=0.9.0,<2.0' pyyaml httpx")
+    print()
+    print("3. Install test dependencies (optional):")
+    print("   pip install -r requirements-test.txt")
+    print()
+    print("4. For SSE transport (remote access):")
+    print("   pip install uvicorn starlette sse-starlette")
+    print()
+    print("5. Start the MCP server:")
+    print("   python mcp/server.py --wiki wiki/")
+    print()
+    print("6. Or use the Claude Code config (commit-safe, project-scoped):")
+    print("   claude mcp add --scope project memex -- python3 mcp/server.py --wiki wiki/")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Memex - Zero-RAG personal knowledge base",
@@ -238,7 +262,11 @@ def main():
     p_serve.add_argument("--transport", choices=["stdio", "sse"], default="stdio")
     p_serve.add_argument("--port", type=int, default=3001)
     p_serve.set_defaults(func=cmd_serve)
-    
+
+    # setup
+    p_setup = subparsers.add_parser("setup", help="Print setup instructions")
+    p_setup.set_defaults(func=cmd_setup)
+
     args = parser.parse_args()
     args.func(args)
 

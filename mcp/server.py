@@ -65,12 +65,17 @@ class AmbiguousSlugError(Exception):
 class MemexServer:
     """MCP server for Memex wiki operations."""
     
-    def __init__(self, wiki_path: str = "wiki", enable_graph: bool = False, search_backend: str = "sqlite"):
+    def __init__(self, wiki_path: str = "wiki", enable_graph: bool = False,
+                 search_backend: str = "sqlite", pg_dsn: str = "",
+                 supabase_url: str = "", supabase_key: str = ""):
         self.wiki_path = Path(wiki_path)
         self.raw_path = Path("raw")
         self.db_path = Path(".memex/search.db")
         self.enable_graph = enable_graph
         self.search_backend = search_backend
+        self.pg_dsn = pg_dsn
+        self.supabase_url = supabase_url
+        self.supabase_key = supabase_key
         self.server = Server("memex")
         self._setup_tools()
     
@@ -424,45 +429,58 @@ class MemexServer:
         query_lower = query.lower()
         hybrid_available = False
 
-        # Tier 1: Try hybrid BM25 + dense embedding search
-        if not hasattr(self, '_hybrid_searcher'):
+        # Tier 1: Try the configured SQL search backend (markdown stays the source
+        # of truth; the backend is a queryable index). Degrades to substring below.
+        if not hasattr(self, '_search_backend_engine'):
+            from mcp.backend import get_backend
+            engine, warn = get_backend(
+                self.search_backend, str(self.wiki_path),
+                pg_dsn=getattr(self, 'pg_dsn', ''),
+                supabase_url=getattr(self, 'supabase_url', ''),
+            )
+            self._search_backend_engine = engine
+            self._search_backend_warn = warn
+            if warn:
+                import logging
+                logging.getLogger(__name__).warning("memex search backend: %s", warn)
+            # Build/refresh the index (idempotent; skips unchanged pages).
             try:
-                from mcp.search import HybridSearch
-                self._hybrid_searcher = HybridSearch(wiki_path=str(self.wiki_path))
-                self._hybrid_available = True
-            except (ImportError, Exception):
-                self._hybrid_available = False
+                engine.index()
+            except Exception as exc:
+                import logging
+                logging.getLogger(__name__).warning(
+                    "memex search index build failed: %s", exc)
 
-        if getattr(self, '_hybrid_available', False):
-            try:
-                hybrid_results = self._hybrid_searcher.search(query, limit=limit * 2)
-                if hybrid_results:
-                    hybrid_available = True
-                    for result in hybrid_results[:limit * 2]:
-                        try:
-                            path = result.path
-                            score = result.score
-                            full_path = self.wiki_path / path
-                            if not full_path.exists():
-                                continue
-                            content_raw = full_path.read_text(encoding="utf-8")
-                            # Confidence filter
-                            if min_confidence and min_confidence != "none":
-                                conf_match = __import__('re').search(
-                                    r'\[confidence:\s*(high|medium|low|uncertain)\]', content_raw)
-                                conf_levels = {"high": 4, "medium": 3, "low": 2, "uncertain": 1}
-                                page_conf = conf_levels.get(conf_match.group(1) if conf_match else "medium", 3)
-                                min_conf_val = conf_levels.get(min_confidence, 2)
-                                if page_conf < min_conf_val:
-                                    continue
-                            snippet = content_raw[:300] + ("..." if len(content_raw) > 300 else "")
-                            results.append(
-                                f"## {path}\n**Score:** {score:.3f}\n\n{snippet}\n")
-                        except Exception:
+        engine = self._search_backend_engine
+        try:
+            hybrid_results = engine.search(query, limit=limit * 2)
+            if hybrid_results:
+                hybrid_available = True
+                for result in hybrid_results[:limit * 2]:
+                    try:
+                        path = result.path
+                        score = result.score
+                        full_path = self.wiki_path / path
+                        if not full_path.exists():
                             continue
-                    results = results[:limit]
-            except Exception:
-                pass  # fall through to substring
+                        content_raw = full_path.read_text(encoding="utf-8")
+                        # Confidence filter
+                        if min_confidence and min_confidence != "none":
+                            conf_match = __import__('re').search(
+                                r'\[confidence:\s*(high|medium|low|uncertain)\]', content_raw)
+                            conf_levels = {"high": 4, "medium": 3, "low": 2, "uncertain": 1}
+                            page_conf = conf_levels.get(conf_match.group(1) if conf_match else "medium", 3)
+                            min_conf_val = conf_levels.get(min_confidence, 2)
+                            if page_conf < min_conf_val:
+                                continue
+                        snippet = content_raw[:300] + ("..." if len(content_raw) > 300 else "")
+                        results.append(
+                            f"## {path}\n**Score:** {score:.3f}\n\n{snippet}\n")
+                    except Exception:
+                        continue
+                results = results[:limit]
+        except Exception:
+            pass  # fall through to substring
 
         # Tier 2: Substring search (always available as fallback)
         if not hybrid_available:
@@ -1241,10 +1259,14 @@ def main():
                         help="Supabase project URL (required when --search-backend supabase)")
     parser.add_argument("--supabase-key", type=str, default="",
                         help="Supabase service role key (required when --search-backend supabase)")
+    parser.add_argument("--pg-dsn", type=str, default="",
+                        help="Postgres/pgvector connection string (for --search-backend postgres)")
     args = parser.parse_args()
     
     server = MemexServer(wiki_path=args.wiki, enable_graph=args.enable_graph,
-                         search_backend=args.search_backend)
+                         search_backend=args.search_backend,
+                         pg_dsn=args.pg_dsn, supabase_url=args.supabase_url,
+                         supabase_key=args.supabase_key)
     asyncio.run(server.run(transport=args.transport, port=args.port))
 
 

@@ -1,12 +1,34 @@
-# Local build artifacts
+# Virtual environment (.venv/ is the standard location)
+.venv/
+venv/
+
+# Local build artifacts (SQLite FTS5 search index)
 .memex/search.db
+
+# Knowledge graph output
+graph/
 graph/data.json
+
+# Package build artifacts
+*.egg-info/
+dist/
+build/
+
+# Test cache
+.pytest_cache/
 
 # Python cache
 __pycache__/
 *.pyc
+.DS_Store
 
 # L1 private context (users copy .example to .md)
 L1/*.md
 !L1/*.example
+
+# Live knowledge base (private operational content) — this repo is a PUBLIC
+# framework; the agent's working wiki lives elsewhere (MeMex-LIVE). Never commit
+# these here, and never `git add -A` without honoring these ignores.
+wiki/agentforge/
+wiki/x-growth-monitor-accounts.md
 .ua/

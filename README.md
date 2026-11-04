@@ -118,12 +118,19 @@ Cite which wiki pages informed your answer.
 Expose your wiki to Claude Code, OpenClaw, or any MCP-compatible agent:
 
 ```bash
-pip install mcp
+# Create and activate a virtual environment (recommended)
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install the MCP SDK
+pip install 'mcp>=0.9.0,<2.0'
+
+# Start the server in stdio mode (default, for Claude Code)
 python mcp/server.py --wiki wiki/
 
 # SSE for remote/multi-agent access
 pip install uvicorn starlette sse-starlette
-python mcp/server.py --transport sse --port 3001
+python mcp/server.py --transport sse --port 3001 --wiki wiki/
 ```
 
 That's it. No setup scripts. No API keys. No database migrations.
@@ -232,17 +239,26 @@ for the full field reference.
   or `{"found": false, "ambiguous": true, "candidates": [...]}` when the slug matches
   more than one type directory.
 
-### Claude Code config (`~/.claude/mcp.json`)
+### Claude Code config (`.mcp.json`, project-scoped)
+
+Checked into version control so everyone on your team gets the same tools:
 
 ```json
 {
   "mcpServers": {
     "memex": {
-      "command": "python",
-      "args": ["mcp/server.py", "--wiki", "wiki/"]
+      "command": "python3",
+      "args": ["mcp/server.py", "--wiki", "wiki/"],
+      "cwd": "."
     }
   }
 }
+```
+
+Or use the CLI to add it:
+
+```bash
+claude mcp add --scope project memex -- python3 mcp/server.py --wiki wiki/
 ```
 
 ### OpenClaw config
@@ -303,12 +319,14 @@ Git handles authorship, history, and conflict detection natively. See [GUIDE.md]
 # Add to PATH
 export PATH="$PATH:/path/to/memex/scripts"
 
+memex setup                      # Print setup & install instructions
 memex ingest paper.pdf           # PDF with academic metadata
 memex ingest https://example.com # Web page
 memex search "machine learning"  # BM25 + semantic search
 memex lint --fix                 # Check wiki health
 memex graph                      # Generate wikilink graph
 memex serve                      # Start MCP server
+memex --help                     # Show all commands
 ```
 
 ## Requirements
@@ -317,6 +335,19 @@ memex serve                      # Start MCP server
 - **Git** for version control
 - **Python 3.9+** for MCP server (optional)
 - **That's it** — no databases, no APIs, no infrastructure
+
+## Testing
+
+```bash
+# Install test dependencies
+pip install -r requirements-test.txt
+
+# Run the test suite
+pytest tests/
+```
+
+Tests cover lifecycle management (`wiki_flag`, `wiki_revalidate`), slug
+resolution, frontmatter injection, and MCP tool registration.
 
 ## Optional Enhancements
 
