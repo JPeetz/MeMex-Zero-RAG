@@ -38,21 +38,58 @@ Expose the port via Tailscale Funnel or ngrok, then connect any agent to:
 
 ## Configuration
 
-### Claude Code (stdio)
+### Claude Code (stdio) — verified wiring
 
-Add to `~/.claude/mcp.json`:
+The server lives at `memex_mcp/server.py` (renamed from `mcp/` in v0.9.0 so the local
+package can never shadow the installed `mcp` SDK). Use the repo venv's python — a
+bare `python3` may miss deps. Add to `~/.claude.json` (global, all projects) or a project `.mcp.json`:
 
 ```json
 {
   "mcpServers": {
     "memex": {
-      "command": "python",
-      "args": ["/path/to/memex/mcp/server.py"],
-      "cwd": "/path/to/your/memex-wiki"
+      "type": "stdio",
+      "command": "/Users/joergpeetz/workspace/MeMex-Zero-RAG/.venv/bin/python",
+      "args": [
+        "/Users/joergpeetz/workspace/MeMex-Zero-RAG/memex_mcp/server.py",
+        "--wiki", "/Users/joergpeetz/workspace/MeMex-Zero-RAG/wiki/"
+      ],
+      "env": {}
     }
   }
 }
 ```
+
+### Hermes Agent (config.yaml)
+
+```yaml
+mcp_servers:
+  memex:
+    command: /Users/joergpeetz/workspace/MeMex-Zero-RAG/.venv/bin/python
+    args:
+      - /Users/joergpeetz/workspace/MeMex-Zero-RAG/memex_mcp/server.py
+      - --wiki
+      - /Users/joergpeetz/workspace/MeMex-Zero-RAG/wiki/
+    tools:
+      include:
+        - wiki_search
+        - wiki_read
+        - wiki_read_by_slug
+        - wiki_list
+        - wiki_query
+        - wiki_ingest
+        - wiki_write
+        - wiki_flag
+        - wiki_revalidate
+        - wiki_lint
+        - wiki_graph
+        - wiki_stats
+```
+
+> **Pitfall (cost us a debug cycle):** do NOT point at `MeMex-LIVE/mcp/server.py` or
+> `MeMex-Zero-RAG/mcp/server.py` — those paths are pre-rename and stale. The live
+> entry point is `memex_mcp/server.py`, launched with the repo's `.venv/bin/python`.
+> Restart the Hermes gateway after editing the MCP server block (`hermes gateway restart` from a shell outside the gateway).
 
 ### Remote SSE client (OpenClaw, Hermes, or any MCP client)
 
