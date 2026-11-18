@@ -191,7 +191,7 @@ def export(wiki_dir: Path, out_dir: Path, excludes: Optional[list[str]] = None,
 def main() -> int:
     ap = argparse.ArgumentParser(description="Export a MeMex wiki as an OKF v0.2 bundle")
     ap.add_argument("--wiki", type=str, default="wiki", help="Path to the wiki dir")
-    ap.add_argument("--out", type=str, default="/tmp/okf-bundle", help="Output bundle dir")
+    ap.add_argument("--out", type=str, default="./okf-bundle", help="Output bundle dir")
     ap.add_argument("--exclude", action="append", default=[], help="Extra path prefix to exclude")
     args = ap.parse_args()
 
