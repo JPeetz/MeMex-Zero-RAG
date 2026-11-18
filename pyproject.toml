@@ -78,3 +78,13 @@ asyncio_default_fixture_loop_scope = "function"
 # parameters. If a new query interpolates anything other than a validated identifier,
 # that is a review failure, not a scanner failure.
 skips = ["B608"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+# Error-class rules only for now: syntax errors, undefined names, broken f-strings,
+# comparison mistakes. Style is deliberately not gated yet — a 149-finding style diff
+# buried in a security fix is how security fixes get reverted.
+select = ["E9", "F63", "F7", "F82"]

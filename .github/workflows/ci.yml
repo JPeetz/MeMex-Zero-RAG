@@ -58,12 +58,6 @@ jobs:
         run: pip-audit -r requirements.txt || pip-audit
       # Baseline records findings that were reviewed and accepted (currently two documented
       # DSN placeholders in the READMEs). Anything NEW fails the build.
-      - name: Secret scan
-        run: |
-          detect-secrets scan --baseline .secrets.baseline --force-use-all-plugins > .secrets.new.json || true
-          python -c "
-          import json,sys
-          d=json.load(open('.secrets.new.json')).get('results',{})
-          if d:
-              print('NEW potential secrets:', {k:[i['line_number'] for i in v] for k,v in d.items()}); sys.exit(1)
-          print('secret scan: no new findings')"
+      - name: Secret scan (new findings only)
+        run: python tools/secret_delta.py
+
