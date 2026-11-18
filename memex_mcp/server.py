@@ -55,6 +55,31 @@ except ImportError:
     exit(1)
 
 
+
+_TYPE_RE = re.compile(r"\A[a-z][a-z0-9_-]{0,31}\Z")
+
+
+def _contained(root: Path, *parts: str) -> Path:
+    """Join parts under ``root`` and prove the result stays inside it.
+
+    A wiki page name is client-supplied, so path traversal is not hypothetical: without this,
+    ``wiki_read(path="../../id_rsa")`` reads outside the wiki and a bad ``type`` writes
+    outside it. Resolution happens before the check so symlinks and ``..`` cannot slip past.
+    """
+    root_r = root.resolve()
+    candidate = root_r.joinpath(*parts).resolve()
+    if candidate != root_r and root_r not in candidate.parents:
+        raise ValueError(f"path escapes the wiki root: {candidate}")
+    return candidate
+
+
+def _safe_type(page_type: str) -> str:
+    """Wiki page types are a closed namespace, not free text."""
+    if not isinstance(page_type, str) or not _TYPE_RE.match(page_type):
+        raise ValueError(f"invalid page type: {page_type!r}")
+    return page_type
+
+
 class InvalidStateError(Exception):
     """Raised when a lifecycle-transition tool is called against a page
     whose current ``status`` doesn't permit that transition (e.g.
@@ -287,12 +312,15 @@ class MemexServer:
         """Read a wiki page."""
         # Normalize path
         path = path.strip("/").replace(".md", "")
-        file_path = self.wiki_path / f"{path}.md"
+        try:
+            file_path = _contained(self.wiki_path, f"{path}.md")
+        except ValueError:
+            return f"Error: invalid path {path!r} — it resolves outside the wiki"
         
         if not file_path.exists():
             # Try searching in subdirectories
             for subdir in ["sources", "entities", "concepts", "synthesis"]:
-                alt_path = self.wiki_path / subdir / f"{path}.md"
+                alt_path = _contained(self.wiki_path, subdir, f"{path}.md")
                 if alt_path.exists():
                     file_path = alt_path
                     break
@@ -659,7 +687,10 @@ Run `wiki_lint` for detailed health check.
         if not slug:
             return "Error: slug contains no valid characters"
 
-        type_dir = self.wiki_path / page_type
+        try:
+            type_dir = _contained(self.wiki_path, _safe_type(page_type))
+        except ValueError as exc:
+            return f"Error: {exc}"
         type_dir.mkdir(parents=True, exist_ok=True)
         dest = type_dir / f"{slug}.md"
 

@@ -108,6 +108,16 @@ TOOL_PATTERNS = [
 
 ONE_OFF = re.compile(r"^(apply-|patch-|fix-|migrate-)")
 
+# rglob walks into installed dependencies. A numpy test file satisfied the "path traversal
+# test" requirement locally while CI — where no .venv exists — correctly failed. Never let a
+# scan of the repo be satisfied by a scan of its dependencies.
+VENDOR_DIRS = {".venv", "venv", "node_modules", ".git", "site-packages", "__pycache__",
+               ".pytest_cache", ".mypy_cache", ".ruff_cache"}
+
+
+def _is_vendor(path) -> bool:
+    return any(part in VENDOR_DIRS for part in path.parts)
+
 
 def find_tools(root: Path) -> dict[str, Path]:
     found: dict[str, Path] = {}
