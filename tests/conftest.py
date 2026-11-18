@@ -37,3 +37,24 @@ def _load_memex_server_module():
 def memex_server_module():
     """Return the loaded ``memex_mcp/server.py`` module (as ``memex_server``)."""
     return _load_memex_server_module()
+
+
+@pytest.fixture(scope="session")
+def memex_pg_backend_module():
+    """Load ``memex_mcp/pg_backend.py`` standalone.
+
+    Imports are lazy inside the module (psycopg / numpy are optional), so this fixture does
+    not require the postgres extras to be installed.
+    """
+    name = "memex_pg_backend"
+    if name in sys.modules:
+        return sys.modules[name]
+    spec = importlib.util.spec_from_file_location(
+        name, str(REPO_ROOT / "memex_mcp" / "pg_backend.py")
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError("Could not load spec for pg_backend.py")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module

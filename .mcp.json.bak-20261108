@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "memex": {
+      "command": "python3",
+      "args": ["memex_mcp/server.py", "--wiki", "wiki/"],
+      "cwd": "."
+    }
+  }
+}

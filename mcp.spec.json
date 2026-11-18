@@ -1,0 +1,179 @@
+{
+  "_comment": "Purpose and resource declaration for the Memex MCP server. The gate enforces the profiles declared here; changing a tool's side_effect or an inputSchema is a security-relevant diff.",
+  "name": "memex-mcp",
+  "purpose": "Read and maintain a personal markdown knowledge base: search, read, write, ingest, lint, and score confidence across wiki pages.",
+  "protocol": "2025-11-25",
+  "protocol_note": "Bound to what the mcp SDK 1.30.0 advertises (LATEST_PROTOCOL_VERSION = 2025-11-25). Moving to 2026-07-28 requires an SDK upgrade to a 2.x line.",
+  "transport": [
+    "stdio",
+    "http",
+    "sse"
+  ],
+  "transport_note": "stdio is the default. 'http' is Streamable HTTP at /mcp with the SDK's DNS-rebinding protection (allowed_hosts/allowed_origins). 'sse' is deprecated but retained. Network modes bind 127.0.0.1 and refuse any non-loopback bind without a bearer token (--token or MEMEX_MCP_TOKEN).",
+  "auth": {
+    "model": "none-over-stdio",
+    "network": "bearer-token",
+    "detail": "stdio inherits the calling user's filesystem authority (per MCP spec, stdio servers take credentials from the environment). The network transport requires Authorization: Bearer <token>."
+  },
+  "tenancy": "single",
+  "data_classification": "internal",
+  "resources": {
+    "files": [
+      {
+        "root": "wiki",
+        "writable": true,
+        "max_bytes": 1048576,
+        "follow_symlinks": false,
+        "scope_note": "All page reads and writes resolve under the wiki root passed via --wiki."
+      }
+    ],
+    "injected": [
+      {
+        "source": "wiki",
+        "trust": "untrusted",
+        "screening": "length-cap",
+        "max_chars": 8000,
+        "detail": "Page bodies are returned to the model as tool results. Content is authored by the user, but may include ingested third-party material, so it is treated as untrusted context."
+      }
+    ],
+    "sql": [
+      {
+        "engine": "sqlite",
+        "mode": "read-write",
+        "objects": [
+          "FTS5 index"
+        ],
+        "limits": {
+          "max_rows": 50,
+          "timeout_s": 10
+        },
+        "detail": "Local SQLite FTS5 index. Reads are parameterised SELECTs; writes are index maintenance only (INSERT OR REPLACE / DELETE on the pages table, driven by a file path), never user-authored SQL."
+      }
+    ]
+  },
+  "tools": [
+    {
+      "name": "wiki_search",
+      "side_effect": "none",
+      "approval": "not-required",
+      "resources": [
+        "sql",
+        "files"
+      ]
+    },
+    {
+      "name": "wiki_read",
+      "side_effect": "none",
+      "approval": "not-required",
+      "resources": [
+        "files",
+        "injected"
+      ]
+    },
+    {
+      "name": "wiki_read_by_slug",
+      "side_effect": "none",
+      "approval": "not-required",
+      "resources": [
+        "files",
+        "injected"
+      ]
+    },
+    {
+      "name": "wiki_list",
+      "side_effect": "none",
+      "approval": "not-required",
+      "resources": [
+        "files"
+      ]
+    },
+    {
+      "name": "wiki_query",
+      "side_effect": "none",
+      "approval": "not-required",
+      "resources": [
+        "sql",
+        "injected"
+      ]
+    },
+    {
+      "name": "wiki_stats",
+      "side_effect": "none",
+      "approval": "not-required",
+      "resources": [
+        "files"
+      ]
+    },
+    {
+      "name": "wiki_confidence",
+      "side_effect": "none",
+      "approval": "not-required",
+      "resources": [
+        "files"
+      ]
+    },
+    {
+      "name": "wiki_lint",
+      "side_effect": "none",
+      "approval": "not-required",
+      "resources": [
+        "files"
+      ]
+    },
+    {
+      "name": "wiki_graph",
+      "side_effect": "none",
+      "approval": "not-required",
+      "resources": [
+        "files"
+      ]
+    },
+    {
+      "name": "wiki_write",
+      "side_effect": "write",
+      "approval": "not-required",
+      "resources": [
+        "files"
+      ]
+    },
+    {
+      "name": "wiki_ingest",
+      "side_effect": "write",
+      "approval": "not-required",
+      "resources": [
+        "files"
+      ]
+    },
+    {
+      "name": "wiki_flag",
+      "side_effect": "write",
+      "approval": "not-required",
+      "resources": [
+        "files"
+      ]
+    },
+    {
+      "name": "wiki_revalidate",
+      "side_effect": "write",
+      "approval": "not-required",
+      "resources": [
+        "files"
+      ]
+    }
+  ],
+  "acceptance": {
+    "adversarial": [
+      "frontmatter injection through title and agent fields",
+      "path traversal through every page_type/slug argument",
+      "unknown page type refused",
+      "immutable page cannot be overwritten",
+      "retired page state transitions refused",
+      "network transport without token refuses to start"
+    ],
+    "contract": [
+      "all 13 tool inputSchemas validate",
+      "tools/list ordering is stable",
+      "results use content blocks plus isError"
+    ]
+  }
+}

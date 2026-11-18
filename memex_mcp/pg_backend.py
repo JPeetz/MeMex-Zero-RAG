@@ -16,6 +16,22 @@ from __future__ import annotations
 import os
 import re
 from dataclasses import dataclass
+
+# \Z, not $ — "$" also matches before a trailing newline, which would let
+# "pages\n" through as a valid identifier.
+_IDENT_RE = re.compile(r"\A[A-Za-z_][A-Za-z0-9_]{0,62}\Z")
+
+
+def _safe_ident(value: str) -> str:
+    """Validate a SQL identifier before it is interpolated.
+
+    Table names cannot be bound as parameters, so they must be interpolated — which makes
+    validation the only defence. Reject anything that is not a plain identifier.
+    """
+    if not isinstance(value, str) or not _IDENT_RE.match(value):
+        raise ValueError(f"unsafe SQL identifier: {value!r}")
+    return value
+
 from datetime import datetime
 from pathlib import Path
 from typing import List, Optional, Tuple
@@ -61,7 +77,7 @@ class PostgresSearchEngine:
         self.wiki_path = Path(wiki_path)
         self.dsn = dsn
         self.model_name = model_name
-        self.table = table
+        self.table = _safe_ident(table)
         self.bm25_weight = bm25_weight
         self.semantic_weight = semantic_weight
         self.embed_dim = embed_dim

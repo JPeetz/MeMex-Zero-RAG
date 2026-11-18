@@ -1,9 +1,13 @@
 {
   "mcpServers": {
     "memex": {
-      "command": "python3",
-      "args": ["memex_mcp/server.py", "--wiki", "wiki/"],
-      "cwd": "."
+      "type": "stdio",
+      "command": "/Users/joergpeetz/workspace/MeMex-Zero-RAG/.venv/bin/python",
+      "args": [
+        "/Users/joergpeetz/workspace/MeMex-Zero-RAG/memex_mcp/server.py",
+        "--wiki", "/Users/joergpeetz/workspace/MeMex-LIVE/wiki/"
+      ],
+      "env": {}
     }
   }
 }

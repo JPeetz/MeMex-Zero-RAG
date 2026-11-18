@@ -95,276 +95,15 @@ class MemexServer:
         self._setup_tools()
     
     def _setup_tools(self):
-        """Register all MCP tools."""
+        """Register all MCP tools (schemas live in tool_schemas.py)."""
+        try:
+            from .tool_schemas import build_tools
+        except ImportError:  # loaded standalone (test fixtures, direct run)
+            from memex_mcp.tool_schemas import build_tools
         
         @self.server.list_tools()
         async def list_tools():
-            tools = [
-                Tool(
-                    name="wiki_search",
-                    description="Search the Memex wiki using keywords. Returns matching pages with snippets.",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "query": {
-                                "type": "string",
-                                "description": "Search query (keywords or phrase)"
-                            },
-                            "limit": {
-                                "type": "integer",
-                                "description": "Max results (default 10)",
-                                "default": 10
-                            }
-                        },
-                        "required": ["query"]
-                    }
-                ),
-                Tool(
-                    name="wiki_read",
-                    description="Read a wiki page by path (e.g., 'concepts/zero-rag' or 'entities/karpathy').",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "path": {
-                                "type": "string",
-                                "description": "Page path relative to wiki/ (without .md extension)"
-                            }
-                        },
-                        "required": ["path"]
-                    }
-                ),
-                Tool(
-                    name="wiki_read_by_slug",
-                    description="Read a wiki page by bare slug (no type prefix), searching entities/concepts/sources/synthesis for a match. Returns found=false if missing, or an error listing candidates if the slug is ambiguous across type dirs.",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "slug": {
-                                "type": "string",
-                                "description": "URL-safe page slug without type prefix or .md extension (e.g. 'zero-rag')"
-                            }
-                        },
-                        "required": ["slug"]
-                    }
-                ),
-                Tool(
-                    name="wiki_list",
-                    description="List all pages in the wiki, optionally filtered by type (sources, entities, concepts, synthesis).",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "type": {
-                                "type": "string",
-                                "description": "Filter by page type: sources, entities, concepts, synthesis, or 'all'",
-                                "enum": ["all", "sources", "entities", "concepts", "synthesis"]
-                            }
-                        }
-                    }
-                ),
-                Tool(
-                    name="wiki_query",
-                    description="Ask a natural language question. Searches wiki and synthesizes an answer with citations.",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "question": {
-                                "type": "string",
-                                "description": "Natural language question about the wiki contents"
-                            }
-                        },
-                        "required": ["question"]
-                    }
-                ),
-                Tool(
-                    name="wiki_ingest",
-                    description="Ingest a new source document into the wiki. Creates summary and updates relevant pages.",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "source_path": {
-                                "type": "string",
-                                "description": "Path to source file in raw/ directory"
-                            },
-                            "dry_run": {
-                                "type": "boolean",
-                                "description": "Preview changes without writing (default false)",
-                                "default": False
-                            }
-                        },
-                        "required": ["source_path"]
-                    }
-                ),
-                Tool(
-                    name="wiki_lint",
-                    description="Check wiki health: broken links, missing citations, orphan pages, contradictions.",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "fix": {
-                                "type": "boolean",
-                                "description": "Auto-fix simple issues (default false)",
-                                "default": False
-                            }
-                        }
-                    }
-                ),
-                Tool(
-                    name="wiki_graph",
-                    description="Get the wiki knowledge graph as nodes and edges for visualization.",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "format": {
-                                "type": "string",
-                                "description": "Output format: json, mermaid, or dot",
-                                "enum": ["json", "mermaid", "dot"],
-                                "default": "json"
-                            }
-                        }
-                    }
-                ),
-                Tool(
-                    name="wiki_stats",
-                    description="Get wiki statistics: page counts, link density, health metrics.",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {}
-                    }
-                ),
-                Tool(
-                    name="wiki_confidence",
-                    description="Analyze wiki confidence: distribution, stale pages, contradictions.",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "page": {
-                                "type": "string",
-                                "description": "Optional: specific page slug to analyze"
-                            }
-                        }
-                    }
-                ),
-                Tool(
-                    name="wiki_write",
-                    description="Write a new wiki page (or overwrite existing). Creates file at wiki/{type}/{slug}.md and commits with agent attribution.",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "type": {
-                                "type": "string",
-                                "description": "Page type: entities, concepts, sources, or synthesis",
-                                "enum": ["entities", "concepts", "sources", "synthesis"]
-                            },
-                            "slug": {
-                                "type": "string",
-                                "description": "URL-safe filename without .md (e.g. 'marvin' or 'zero-rag-design')"
-                            },
-                            "title": {
-                                "type": "string",
-                                "description": "Human-readable page title"
-                            },
-                            "content": {
-                                "type": "string",
-                                "description": "Full markdown body (excluding frontmatter)"
-                            },
-                            "tags": {
-                                "type": "array",
-                                "items": {"type": "string"},
-                                "description": "List of tags",
-                                "default": []
-                            },
-                            "agent": {
-                                "type": "string",
-                                "description": "Agent name for commit attribution (e.g. 'marvin', 'molty', 'coconut')",
-                                "default": "unknown"
-                            },
-                            "overwrite": {
-                                "type": "boolean",
-                                "description": "Overwrite if page already exists (default false)",
-                                "default": False
-                            },
-                            "status": {
-                                "type": "string",
-                                "description": "Lifecycle status of this page. One of draft, active, stale, quarantine. Defaults to active.",
-                                "enum": ["draft", "active", "stale", "quarantine"],
-                                "default": "active"
-                            },
-                            "source_reliability_index": {
-                                "type": "number",
-                                "description": "Optional Source Reliability Index in [0.0, 1.0] describing how trustworthy this page's underlying sources are.",
-                                "minimum": 0.0,
-                                "maximum": 1.0
-                            },
-                            "is_immutable": {
-                                "type": "boolean",
-                                "description": "If true, this page represents a locked/immutable fact and downstream tools should refuse to mutate it.",
-                                "default": False
-                            }
-                        },
-                        "required": ["type", "slug", "title", "content"]
-                    }
-                ),
-                Tool(
-                    name="wiki_flag",
-                    description="Mark a wiki page for revalidation. Sets status: quarantine and records a reason and timestamp.",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "page": {
-                                "type": "string",
-                                "description": "Page path relative to wiki/ without .md extension (e.g. 'concepts/foo')"
-                            },
-                            "reason": {
-                                "type": "string",
-                                "description": "Why the page needs revalidation"
-                            }
-                        },
-                        "required": ["page", "reason"]
-                    }
-                ),
-                Tool(
-                    name="wiki_revalidate",
-                    description="Complete a revalidation cycle for a quarantined page. Outcome: confirm (-> active), update (-> active with new content), or retire (-> stale).",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {
-                            "page": {
-                                "type": "string",
-                                "description": "Page path relative to wiki/ without .md extension (e.g. 'concepts/foo')"
-                            },
-                            "outcome": {
-                                "type": "string",
-                                "description": "Revalidation outcome",
-                                "enum": ["confirm", "update", "retire"]
-                            },
-                            "new_body": {
-                                "type": "string",
-                                "description": "Replacement markdown body. Required when outcome=update."
-                            },
-                            "new_sources": {
-                                "type": "array",
-                                "items": {"type": "string"},
-                                "description": "Optional list of new/updated [Source: ...] citations",
-                                "default": []
-                            },
-                            "rationale": {
-                                "type": "string",
-                                "description": "Why this outcome was chosen",
-                                "default": ""
-                            }
-                        },
-                        "required": ["page", "outcome"]
-                    }
-                ),
-                Tool(
-                    name="wiki_graph",
-                    description="Build and return path to the interactive knowledge graph visualization (graph/graph.html). Requires --enable-graph.",
-                    inputSchema={
-                        "type": "object",
-                        "properties": {}
-                    }
-                ) if self.enable_graph else None
-            ]
+            tools = build_tools(self.enable_graph)
             return [t for t in tools if t is not None]
         
         @self.server.call_tool()
@@ -1226,8 +965,13 @@ Run `wiki_lint` for detailed health check.
 
         return json.dumps({"page": page, "outcome": outcome, "rationale": rationale})
 
-    async def run(self, transport: str = "stdio", port: int = 3001):
-        """Start the MCP server."""
+    async def run(self, transport: str = "stdio", port: int = 3001,
+                  host: str = "127.0.0.1", token: str = ""):
+        """Start the MCP server.
+
+        Network transport is loopback-only unless an explicit token is supplied: the SSE
+        transport has no authentication of its own, and wiki_write can rewrite the wiki.
+        """
         if transport == "stdio":
             async with stdio_server() as (read_stream, write_stream):
                 await self.server.run(read_stream, write_stream, self.server.create_initialization_options())
@@ -1241,6 +985,14 @@ Run `wiki_lint` for detailed health check.
             except ImportError:
                 raise ImportError("SSE transport requires: pip install uvicorn starlette sse-starlette")
 
+            loopback = host in ("127.0.0.1", "localhost", "::1")
+            if not loopback and not token:
+                raise RuntimeError(
+                    f"refusing to bind {host} without a token — the network transport is "
+                    "unauthenticated and this server can read and write the wiki. "
+                    "Pass --host 127.0.0.1, or --token <secret> to expose it deliberately."
+                )
+
             sse_transport = SseServerTransport("/messages/")
 
             async def handle_sse(request: Request) -> Response:
@@ -1253,20 +1005,77 @@ Run `wiki_lint` for detailed health check.
                     )
                 return Response()
 
-            starlette_app = Starlette(routes=[
-                Route("/sse", endpoint=handle_sse, methods=["GET"]),
-                Mount("/messages/", app=sse_transport.handle_post_message),
-            ])
+            middleware = []
+            if token:
+                import hmac
+                from starlette.middleware import Middleware
+                from starlette.middleware.base import BaseHTTPMiddleware
 
-            print(f"Starting Memex MCP SSE server on port {port}")
-            print(f"Connect via: http://localhost:{port}/sse")
-            uvicorn.run(starlette_app, host="0.0.0.0", port=port)
+                class BearerAuth(BaseHTTPMiddleware):
+                    async def dispatch(self, request, call_next):
+                        presented = request.headers.get("authorization", "")
+                        if not hmac.compare_digest(presented, f"Bearer {token}"):
+                            return Response("unauthorized", status_code=401)
+                        return await call_next(request)
+
+                middleware = [Middleware(BearerAuth)]
+
+            # --- Streamable HTTP (current transport) -------------------------------
+            if transport in ("http", "streamable-http"):
+                from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
+                from mcp.server.transport_security import TransportSecuritySettings
+
+                local = [f"127.0.0.1:{port}", f"localhost:{port}", f"[::1]:{port}"]
+                if not loopback:
+                    local.append(f"{host}:{port}")
+                origins = [f"{s}://{h}" for h in local for s in ("http", "https")]
+
+                manager = StreamableHTTPSessionManager(
+                    app=self.server,
+                    security_settings=TransportSecuritySettings(
+                        enable_dns_rebinding_protection=True,   # SDK default, kept explicit
+                        allowed_hosts=local,
+                        allowed_origins=origins,
+                    ),
+                )
+                http_app = Starlette(
+                    routes=[Mount("/mcp", app=manager.handle_request)],
+                    middleware=middleware,
+                )
+                print(f"Starting Memex MCP (Streamable HTTP) on {host}:{port}"
+                      f" (auth: {'bearer token' if token else 'none — loopback only'})")
+                print(f"Connect via: http://{host}:{port}/mcp")
+                config = uvicorn.Config(http_app, host=host, port=port, log_level="info")
+                server = uvicorn.Server(config)
+                async with manager.run():
+                    await server.serve()
+                return
+
+            # --- SSE (deprecated, kept for old clients) ----------------------------
+            print("note: the SSE transport is deprecated; use --transport http (Streamable HTTP)")
+            starlette_app = Starlette(
+                routes=[
+                    Route("/sse", endpoint=handle_sse, methods=["GET"]),
+                    Mount("/messages/", app=sse_transport.handle_post_message),
+                ],
+                middleware=middleware,
+            )
+
+            print(f"Starting Memex MCP SSE server on {host}:{port}"
+                  f" (auth: {'bearer token' if token else 'none — loopback only'})")
+            print(f"Connect via: http://{host}:{port}/sse")
+            uvicorn.run(starlette_app, host=host, port=port)
 
 
 def main():
     parser = argparse.ArgumentParser(description="Memex MCP Server")
-    parser.add_argument("--transport", choices=["stdio", "sse"], default="stdio")
+    parser.add_argument("--transport", choices=["stdio", "http", "sse"], default="stdio",
+                        help="stdio (local, default) · http (Streamable HTTP, use for remote) · sse (deprecated)")
     parser.add_argument("--port", type=int, default=3001)
+    parser.add_argument("--host", type=str, default="127.0.0.1",
+                        help="Bind address for --transport sse. Non-loopback requires --token (or MEMEX_MCP_TOKEN).")
+    parser.add_argument("--token", type=str, default=os.environ.get("MEMEX_MCP_TOKEN", ""),
+                        help="Bearer token required by the network transport. Also read from MEMEX_MCP_TOKEN.")
     parser.add_argument("--wiki", type=str, default="wiki", help="Path to wiki directory")
     parser.add_argument("--enable-graph", action="store_true", default=False,
                         help="Enable the wiki_graph MCP tool (builds knowledge graph from [[wikilinks]])")
@@ -1284,7 +1093,11 @@ def main():
                          search_backend=args.search_backend,
                          pg_dsn=args.pg_dsn, supabase_url=args.supabase_url,
                          supabase_key=args.supabase_key)
-    asyncio.run(server.run(transport=args.transport, port=args.port))
+    try:
+        asyncio.run(server.run(transport=args.transport, port=args.port,
+                               host=args.host, token=args.token))
+    except RuntimeError as e:
+        parser.error(str(e))
 
 
 if __name__ == "__main__":
