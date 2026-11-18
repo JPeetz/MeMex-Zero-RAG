@@ -271,7 +271,10 @@ class MemexServer:
 
                 import re as _re
                 content = md_file.read_text(encoding="utf-8")
-                if query_lower in content.lower():
+                # token-based, not phrase-based: a multi-word query is never a literal
+                # substring, so the old check silently matched nothing
+                _tokens = [w for w in __import__('re').findall(r'[A-Za-z0-9_]+', query_lower) if w]
+                if _tokens and all(w in content.lower() for w in _tokens):
                     # Confidence filter
                     if min_confidence and min_confidence != "none":
                         conf_match = _re.search(

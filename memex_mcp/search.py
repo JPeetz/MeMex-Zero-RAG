@@ -49,6 +49,19 @@ except ImportError:
 import numpy as np
 
 
+
+def build_fts_query(raw: str) -> str:
+    """Turn free text into a literal FTS5 expression.
+
+    FTS5 treats punctuation as syntax: a query for "subscriptions/listen" is parsed as a
+    column filter and raises, which the caller swallows into a substring fallback that then
+    finds nothing — so slash-bearing identifiers (tools/call, resources/read) silently return
+    zero results. Tokenising and quoting each word removes the syntax without changing intent.
+    """
+    words = re.findall(r"[A-Za-z0-9_]+", raw or "")
+    return " ".join(f'"{w}"' for w in words)   # space = implicit AND, as before
+
+
 @dataclass
 class SearchResult:
     """Single search result."""
@@ -308,7 +321,7 @@ class HybridSearch:
         """
         # BM25 search
         bm25_results = {}
-        fts_query = query.replace('"', '""')  # Escape quotes
+        fts_query = build_fts_query(query)
         
         rows = self.db.execute("""
             SELECT p.path, p.title, p.page_type, p.content, p.embedding,
